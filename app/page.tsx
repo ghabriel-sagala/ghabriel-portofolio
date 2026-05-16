@@ -47,27 +47,28 @@ export default function Home() {
   ];
 
   return (
-    <main className={`${poppins.className} relative min-h-screen bg-[#050505] text-zinc-300 selection:bg-red-900 selection:text-white`}>
+    <main className={`${poppins.className} relative min-h-screen bg-[#050505] selection:bg-red-900 selection:text-white`}>
       
-      {/* BACKGROUND IMAGE (Full Page Blend) */}
+      {/* Background Keseluruhan Web */}
       <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
         <Image
           src="/profile.jpg"
-          alt="Background"
+          alt="Ghabriel Theo Petra Sagala"
           fill
           className="object-cover object-top opacity-[0.15] mix-blend-luminosity scale-105"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-red-950/20 to-[#050505]"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-red-950/40 to-[#050505]"></div>
       </div>
 
-      {/* NAVBAR (Menu di Tengah) */}
+      {/* Header (Navbar) */}
       <nav className="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-xl border-b border-white/5">
         <div className="relative max-w-7xl mx-auto px-6 py-5 flex md:justify-center justify-between items-center">
-          <Link href="/" className="md:absolute md:left-6 font-extrabold text-2xl tracking-tighter text-white">
+          <Link href="/" className="md:absolute md:left-6 font-extrabold text-2xl tracking-tighter text-zinc-300">
             GHABRIEL<span className="text-red-600">.</span>
           </Link>
-          <div className="hidden md:flex justify-center space-x-10 text-sm font-medium">
+          <div className="hidden md:flex justify-center space-x-8 text-sm font-medium text-zinc-400">
             <a href="#hero" className="hover:text-red-500 transition-colors">Home</a>
             <a href="#karya" className="hover:text-red-500 transition-colors">Karya</a>
             <a href="#organisasi" className="hover:text-red-500 transition-colors">Organisasi</a>
@@ -76,59 +77,58 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* 1. HERO SECTION (Ukuran Font Teks Disesuaikan Agar Proporsional & Selaras) */}
-      <section id="hero" className="relative z-10 w-full min-h-screen flex items-center pt-20">
+      {/* Hero Section */}
+      <section id="hero" className="relative z-10 w-full h-screen flex items-center overflow-hidden pt-20">
         <div className="max-w-7xl mx-auto px-6 py-20 w-full">
           <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-12 md:gap-16">
             
-            {/* Sisi Kiri: Informasi Perkenalan Utama */}
-            <div className="flex flex-col space-y-6 max-w-4xl">
-              
-              {/* Nama (Ukuran diselaraskan menjadi maksimal 6xl agar tidak terlalu dominan) */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
-                Ghabriel Theo Petra Sagala
+            {/* Sisi Kiri */}
+            <div className="flex flex-col space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-200 leading-[1.1]">
+                Ghabriel Theo <br /> Petra Sagala
               </h1>
-
-              {/* Chips / Tag Pendidikan */}
-              <div className="flex flex-wrap items-center gap-4">
-                <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
-                  Mahasiswa D3 Teknologi Informasi
-                </span>
-                <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
-                  Universitas Brawijaya
-                </span>
-              </div>
-
-              {/* Headline (Ukuran diselaraskan menjadi maksimal 6xl dan jarak baris disesuaikan) */}
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight pt-2">
-                Fullstack Web Developer <br /> & Tech Enthusiast.
+              
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-300 pt-3">
+                Fullstack Web Developer <br className="hidden md:block"/> & Tech Enthusiast.
               </h2>
-
-              {/* Deskripsi */}
-              <p className="text-zinc-400 text-lg md:text-xl max-w-3xl leading-relaxed pt-2">
-                Memiliki dedikasi tinggi dalam mengeksplorasi teknologi web mulai dari Native hingga Framework Laravel. Tidak hanya berfokus pada baris kode yang rapi dan fungsional, tetapi juga aktif membangun relasi dan memimpin tim melalui berbagai pengalaman organisasi kampus.
+              
+              <p className="max-w-2xl text-base md:text-lg text-zinc-400 leading-relaxed pt-2">
+                Sangat menyukai kegiatan berorganisasi untuk menumbuhkan rasa kepemimpinan dan teamwork yang baik. Memiliki peminatan menjadi UI/UX Designer dan Web Developer (Front-end & Back-end).
               </p>
 
-              {/* Kontak & Sosmed Bar */}
-              <div className="flex flex-wrap items-center gap-6 pt-6">
-                <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-md border border-white/5 text-sm hover:bg-white/10 transition cursor-pointer text-zinc-300">
-                  📞 0822 1836 1690
+              <div className="pt-8 flex flex-col sm:flex-row items-start gap-6">
+                <div className="flex items-center gap-4">
+                  <a href="#karya" className="bg-red-700 hover:bg-red-600 text-white px-8 py-3.5 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] hover:scale-105">
+                    Lihat Karya
+                  </a>
+                  <a href="https://wa.me/6282218361690" target="_blank" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3.5 rounded-full font-semibold transition-all">
+                    Hubungi Saya
+                  </a>
                 </div>
-                <Link href="https://instagram.com/ghabrielsagala" target="_blank" className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-md border border-white/5 text-sm hover:text-pink-400 transition text-zinc-300">
-                  📸 @ghabrielsagala
-                </Link>
-                <Link href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b" target="_blank" className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-md border border-white/5 text-sm hover:text-blue-400 transition text-zinc-300">
-                  in Ghabriel Theo
-                </Link>
+
+                <div className="hidden sm:block w-px h-12 bg-white/10 mx-2"></div>
+
+                <div className="flex flex-col gap-3 justify-center">
+                  <Link href="https://instagram.com/ghabrielsagala" target="_blank" className="flex items-center gap-2 text-sm text-gray-400 hover:text-pink-400 transition-colors font-medium">
+                    📸 @ghabrielsagala
+                  </Link>
+                  <Link href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b" target="_blank" className="flex items-center gap-2 text-sm text-gray-400 hover:text-blue-400 transition-colors font-medium">
+                    in Ghabriel Theo
+                  </Link>
+                </div>
               </div>
             </div>
 
-            {/* Sisi Kanan: Blok Informasi Interaktif Terbuka */}
+            {/* Sisi Kanan: Blok Informasi */}
             <div className="flex flex-col gap-6 md:items-end w-full md:w-auto">
-              {/* Card IPK Terbuka dengan Efek Hover Glow Merah-Hijau */}
-              <div className="group relative w-fit md:w-auto">
-                <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-800 rounded-full blur opacity-40 group-hover:opacity-100 transition duration-500"></div>
-                <span className="relative bg-black border-2 border-red-900/50 text-green-400 group-hover:text-green-300 group-hover:border-green-400 group-hover:bg-green-950/30 transition-all duration-300 text-base md:text-lg lg:text-xl font-bold px-10 py-4 rounded-full inline-block group-hover:scale-105 shadow-[0_0_25px_rgba(220,38,38,0.3)]">
+              <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm">
+                <span className="bg-white/10 backdrop-blur-sm border border-white/10 text-zinc-300 px-5 py-2 rounded-full font-medium transition duration-300">
+                  Mahasiswa D3 Teknologi Informasi Vokasi
+                </span>
+                <span className="bg-white/10 backdrop-blur-sm border border-white/10 text-zinc-300 px-5 py-2 rounded-full font-medium transition duration-300">
+                  Universitas Brawijaya
+                </span>
+                <span className="bg-white/10 backdrop-blur-sm border border-white/10 text-green-400 px-5 py-2 rounded-full font-bold transition duration-300 hover:scale-105">
                   IPK: 3.83
                 </span>
               </div>
@@ -138,128 +138,171 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. KARYA & PROYEK */}
-      <section id="karya" className="relative z-10 py-32 px-6 bg-black/40 border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Karya & Proyek<span className="text-red-600">.</span></h2>
-          <p className="text-zinc-500 mb-16 max-w-2xl text-lg">Beberapa proyek web development dan UI/UX yang telah saya kerjakan selama masa perkuliahan.</p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {projects.map((p) => (
-              <div key={p.id} onClick={() => setSelectedProject(p)} className="group cursor-pointer">
-                <div className="relative h-64 w-full rounded-2xl overflow-hidden border border-zinc-800 transition-all group-hover:border-red-600 shadow-2xl">
-                  <Image src={p.image} alt={p.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
+      {/* Bagian Bawah Web */}
+      <section id="bawah" className="relative z-10">
+        
+        {/* Karya Section */}
+        <section id="karya" className="py-24 px-6 scroll-mt-10 border-t border-white/5">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-zinc-200 mb-4">Karya & Proyek<span className="text-red-600">.</span></h2>
+              <p className="text-zinc-400 max-w-2xl">Beberapa proyek web development dan UI/UX yang telah saya kerjakan selama masa perkuliahan.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project) => (
+                <div 
+                  key={project.id} 
+                  onClick={() => setSelectedProject(project)}
+                  className="bg-[#0d0d0f]/60 backdrop-blur-sm border-2 border-white/5 rounded-2xl overflow-hidden hover:border-red-600/50 transition-all duration-300 group cursor-pointer hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(220,38,38,0.2)]"
+                >
+                  <div className="relative h-56 bg-zinc-900 overflow-hidden">
+                    <Image src={project.image} alt={project.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0f] to-transparent opacity-80"></div>
+                  </div>
+                  <div className="p-8">
+                    <h3 className="text-2xl font-bold mb-3 text-zinc-200 group-hover:text-red-500 transition-colors leading-snug">{project.title}</h3>
+                    <p className="text-base text-zinc-400 mb-6 line-clamp-2">{project.shortDesc}</p>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      <span className="text-xs bg-red-950/30 text-red-400 border border-red-900/30 px-4 py-1.5 rounded-full font-semibold">{project.semester}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-6 space-y-2">
-                  <h3 className="text-2xl font-bold text-white group-hover:text-red-500 transition-colors">{p.title}</h3>
-                  <p className="text-zinc-500">{p.shortDesc}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Modal Karya */}
+        {selectedProject && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8 transition-opacity duration-300" onClick={() => setSelectedProject(null)}>
+            <div className="bg-[#0f0f11] border-2 border-white/10 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200" onClick={(e) => e.stopPropagation()}>
+              <div className="flex justify-between items-center p-6 md:p-8 border-b border-white/5">
+                <h3 className="text-2xl md:text-3xl font-bold text-white pr-8">{selectedProject.title}</h3>
+                <button onClick={() => setSelectedProject(null)} className="text-gray-400 hover:text-white bg-white/5 hover:bg-red-600 p-3 rounded-full transition-all">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+              </div>
+              <div className="p-6 md:p-8 overflow-y-auto max-h-[75vh]">
+                <div className="flex gap-2 mb-8 flex-wrap">
+                  {selectedProject.tech.map((t: string) => <span key={t} className="bg-white/5 text-sm px-4 py-1.5 rounded-full text-gray-300 border border-white/10 font-medium">{t}</span>)}
+                  <span className="bg-green-500/10 text-sm px-4 py-1.5 rounded-full text-green-400 border border-green-500/20 font-bold">{selectedProject.grade}</span>
+                </div>
+                <div className="bg-white/5 p-6 rounded-2xl border border-white/5 mb-8">
+                  <h4 className="text-red-500 font-bold text-sm mb-3 tracking-widest uppercase">Ringkasan Project</h4>
+                  <p className="text-zinc-300 text-base md:text-lg leading-relaxed">{selectedProject.fullDesc}</p>
+                </div>
+                <div className="relative h-64 md:h-[450px] w-full rounded-2xl overflow-hidden border border-white/10">
+                  <Image src={selectedProject.image} alt={selectedProject.title} fill className="object-cover" />
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Organisasi Section (Menonjolkan Posisi Badan Pengurus Inti) */}
+        <section id="organisasi" className="py-24 px-6 scroll-mt-10 border-t border-white/5 bg-[#0a0a0c]">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Pengalaman Organisasi<span className="text-red-600">.</span></h2>
+              <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">Melalui organisasi, saya membangun kepemimpinan dan teamwork yang kuat untuk mencapai tujuan bersama.</p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+              
+              {[
+                { 
+                  title: "Ketua Komisi Pengawas & Standarisasi", 
+                  org: "HMPSTI Universitas Brawijaya Kabinet INNOVARA", 
+                  year: "2026", 
+                  desc: "Bertanggung jawab penuh sebagai Badan Pengurus Inti (BPI) dalam mengawasi dan memastikan standarisasi setiap program kerja sejalan dengan visi organisasi.", 
+                  color: "bg-red-600",
+                  badge: "👑 Badan Pengurus Inti",
+                  isHighlighted: true
+                },
+                { 
+                  title: "Staff Magang PSDM", 
+                  org: "BEM Fakultas Vokasi Universitas Brawijaya", 
+                  year: "2024", 
+                  desc: "Aktif dalam program pengembangan sumber daya mahasiswa dan berhasil meraih penghargaan Best Internship Staff atas kinerja maksimal.", 
+                  color: "bg-red-800" 
+                },
+                { 
+                  title: "Ketua Divisi Acara PKKMB", 
+                  org: "Krida Mahasiswa Fakultas Vokasi UB", 
+                  year: "2025", 
+                  desc: "Memimpin penyusunan konsep dan eksekusi rangkaian acara penyambutan mahasiswa baru.", 
+                  color: "bg-red-800" 
+                },
+                { 
+                  title: "Wakil Ketua Divisi Acara", 
+                  org: "Program Abdi Desa UB", 
+                  year: "2025", 
+                  desc: "Membantu pengelolaan susunan acara untuk kegiatan pengabdian kepada masyarakat.", 
+                  color: "bg-red-800" 
+                },
+              ].map((item, idx) => (
+                <div 
+                  key={idx} 
+                  className={`group relative bg-[#0d0d0f]/60 backdrop-blur-sm p-8 rounded-3xl border-2 transition-all duration-300 overflow-hidden 
+                  ${item.isHighlighted 
+                    ? 'border-red-600/60 shadow-[0_0_30px_rgba(220,38,38,0.15)] hover:border-red-500 hover:shadow-[0_0_40px_rgba(220,38,38,0.3)]' 
+                    : 'border-white/5 hover:border-red-600/50'}`}
+                >
+                  <div className={`absolute top-0 left-0 w-1.5 h-full ${item.color}`}></div>
+                  <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3 mb-3">
+                    <h3 className="text-2xl md:text-3xl font-bold text-zinc-200 group-hover:text-red-500 transition-colors leading-snug">{item.title}</h3>
+                    {item.badge && (
+                      <span className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap w-fit">
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-red-400 font-semibold mb-4">{item.org} • {item.year}</p>
+                  <p className="text-zinc-400 text-lg leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+
+            </div>
+          </div>
+        </section>
+
+        {/* Sertifikat Section */}
+        <section id="sertifikat" className="py-24 px-6 scroll-mt-10 border-t border-white/5 bg-[#0a0a0c]">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Sertifikasi & Penghargaan<span className="text-red-600">.</span></h2>
+              <p className="text-zinc-400 max-w-2xl">Validasi keahlian melalui sertifikasi dari perusahaan teknologi terkemuka.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                { title: "Microsoft Office Desktop Application", org: "Microsoft Partner", date: "22 Agustus 2024", icon: "V", color: "text-green-400" },
+                { title: "Sertifikat Gemini", org: "Google Gemini", icon: "📄", color: "text-zinc-400" },
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center space-x-5 bg-white/5 p-6 rounded-2xl border border-white/10 hover:border-red-600 transition">
+                  <div className={`w-16 h-16 bg-white/10 ${item.color} rounded-lg flex items-center justify-center font-bold text-2xl`}>{item.icon}</div>
+                  <div>
+                    <h3 className="font-bold text-zinc-200">{item.title}</h3>
+                    <p className="text-sm text-zinc-400">{item.org} • {item.date}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer id="contact" className="py-20 bg-[#050505] border-t border-white/5 text-center relative z-10 scroll-mt-10">
+          <h2 className="text-3xl font-bold mb-8 text-zinc-200">Mari Berkolaborasi!</h2>
+          <div className="flex justify-center gap-6 mb-10 flex-wrap px-6 text-sm font-medium">
+            <a href="https://wa.me/6282218361690" target="_blank" className="text-zinc-400 hover:text-green-500 transition-colors">WhatsApp</a>
+            <a href="https://instagram.com/ghabrielsagala" target="_blank" className="text-zinc-400 hover:text-pink-500 transition-colors">Instagram</a>
+            <a href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b" target="_blank" className="text-zinc-400 hover:text-blue-500 transition-colors">LinkedIn</a>
+          </div>
+          <p className="text-zinc-600 text-sm">© {new Date().getFullYear()} Ghabriel Theo Petra Sagala. Dibuat dengan Poppins Font & Keseeren CSS.</p>
+        </footer>
       </section>
-
-      {/* MODAL DETAIL KARYA */}
-      {selectedProject && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-xl p-4 transition-all" onClick={() => setSelectedProject(null)}>
-          <div className="bg-[#0d0d0f] border border-zinc-800 w-full max-w-3xl rounded-3xl overflow-hidden animate-in zoom-in-95" onClick={e => e.stopPropagation()}>
-            <div className="p-8 space-y-6">
-              <div className="flex justify-between items-start">
-                <h3 className="text-3xl font-bold text-white">{selectedProject.title}</h3>
-                <button onClick={() => setSelectedProject(null)} className="text-zinc-400 hover:text-white bg-white/5 p-2 rounded-full">✕</button>
-              </div>
-              <div className="flex gap-2">
-                {selectedProject.tech.map((t: any) => <span key={t} className="text-xs bg-zinc-800 px-3 py-1 rounded text-zinc-400 border border-zinc-700">{t}</span>)}
-              </div>
-              <div className="bg-white/5 p-6 rounded-2xl border border-white/5">
-                <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-2">Ringkasan Project</p>
-                <p className="text-zinc-300 leading-relaxed">{selectedProject.fullDesc}</p>
-              </div>
-              <div className="relative h-64 w-full rounded-xl overflow-hidden border border-zinc-800">
-                <Image src={selectedProject.image} alt="Detail" fill className="object-cover" />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 3. PENGALAMAN ORGANISASI */}
-      <section id="organisasi" className="relative z-10 py-32 px-6 border-t border-white/5 bg-black/20">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Pengalaman Organisasi<span className="text-red-600">.</span></h2>
-          <p className="text-zinc-500 mb-16 text-lg">Rekam jejak kepemimpinan dan kepanitiaan selama di Universitas Brawijaya.</p>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="bg-[#0a0a0c] p-10 rounded-3xl border border-zinc-800 hover:border-red-600 transition-all shadow-xl">
-              <h3 className="text-3xl font-bold text-white mb-2 leading-tight">Ketua Komisi Pengawas & Standarisasi</h3>
-              <p className="text-red-600 font-bold mb-6">HMPSTI Universitas Brawijaya Kabinet INNOVARA • 2026</p>
-              <p className="text-zinc-400 leading-relaxed">Bertanggung jawab penuh dalam pengawasan dan standarisasi kinerja himpunan mahasiswa untuk memastikan setiap program kerja sejalan dengan visi dan tujuan organisasi.</p>
-            </div>
-
-            <div className="bg-[#0a0a0c] p-10 rounded-3xl border-2 border-yellow-600/30 hover:border-yellow-600 transition-all shadow-xl relative overflow-hidden">
-               <div className="flex justify-between items-start mb-2">
-                 <h3 className="text-3xl font-bold text-white leading-tight">Staff Magang PSDM</h3>
-                 <span className="bg-yellow-600 text-black text-[10px] font-black px-3 py-1 rounded-full flex items-center gap-1">⭐ Best Internship</span>
-               </div>
-              <p className="text-yellow-600 font-bold mb-6">BEM Fakultas Vokasi UB • 2024</p>
-              <p className="text-zinc-400 leading-relaxed">Aktif dalam program pengembangan sumber daya mahasiswa dan dinobatkan sebagai Best Internship Staff atas dedikasi serta kinerja yang maksimal selama magang.</p>
-            </div>
-
-            <div className="bg-[#0a0a0c] p-10 rounded-3xl border border-zinc-800 hover:border-red-600 transition-all">
-              <h3 className="text-3xl font-bold text-white mb-2 leading-tight text-zinc-300">Ketua Divisi Acara</h3>
-              <p className="text-red-600 font-bold mb-6">PKKMB, Krida Mahasiswa, Open House Vokasi UB • 2025</p>
-              <p className="text-zinc-400 leading-relaxed">Memimpin penyusunan konsep dan eksekusi rangkaian acara penyambutan mahasiswa baru yang melibatkan persiapan intensif selama 3 bulan.</p>
-            </div>
-
-            <div className="bg-[#0a0a0c] p-10 rounded-3xl border border-zinc-800 hover:border-red-600 transition-all">
-              <h3 className="text-3xl font-bold text-zinc-300 mb-2 leading-tight">Wakil Ketua Divisi Acara</h3>
-              <p className="text-red-600 font-bold mb-6">Program Abdi Desa • 2025</p>
-              <p className="text-zinc-400 leading-relaxed">Membantu pengelolaan susunan acara untuk kegiatan pengabdian kepada masyarakat dengan masa pengerjaan 1 bulan.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. SERTIFIKASI */}
-      <section id="sertifikat" className="relative z-10 py-32 px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Sertifikasi & Penghargaan<span className="text-red-600">.</span></h2>
-          <p className="text-zinc-500 mb-16 text-lg">Validasi keahlian melalui sertifikasi dari perusahaan teknologi terkemuka.</p>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="bg-[#0d0d0f] flex flex-col md:flex-row gap-8 p-8 rounded-3xl border border-zinc-800 group transition-all">
-              <div className="relative h-48 w-full md:w-56 flex-shrink-0 rounded-xl overflow-hidden border border-zinc-800">
-                <Image src="/sertifikatmicrosoft.jpeg" alt="MS" fill className="object-cover group-hover:scale-110 transition-transform" />
-              </div>
-              <div className="flex flex-col justify-center">
-                <span className="text-green-500 text-[10px] font-bold uppercase tracking-[2px] mb-2">Verified Credentials</span>
-                <h3 className="text-2xl font-bold text-white mb-1">Microsoft Office Desktop Application</h3>
-                <p className="text-yellow-500 text-sm font-medium mb-4">Trust Training Partners (Microsoft Partner)</p>
-                <p className="text-zinc-500 text-sm leading-relaxed italic">Sertifikasi kompetensi profesional berstandar tinggi (Terbit: 22 Agustus 2024).</p>
-              </div>
-            </div>
-
-            <div className="bg-[#0d0d0f] flex flex-col md:flex-row gap-8 p-8 rounded-3xl border border-zinc-800 group transition-all">
-              <div className="relative h-48 w-full md:w-56 flex-shrink-0 rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900">
-                <Image src="/sertifikatgemini.png" alt="Gemini" fill className="object-cover group-hover:scale-110 transition-transform" />
-              </div>
-              <div className="flex flex-col justify-center">
-                <span className="text-blue-500 text-[10px] font-bold uppercase tracking-[2px] mb-2">AI Program</span>
-                <h3 className="text-2xl font-bold text-white mb-1">Program Pelatihan Google Gemini</h3>
-                <p className="text-blue-400 text-sm font-medium mb-4">Diselenggarakan oleh Google (Gemini)</p>
-                <p className="text-zinc-500 text-sm leading-relaxed italic">Pelatihan khusus AI Generative untuk membekali mahasiswa dengan teknologi terbaru.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="relative z-10 py-16 bg-black text-center border-t border-white/5">
-        <p className="text-zinc-600 text-sm">© {new Date().getFullYear()} Ghabriel Theo Petra Sagala • Vokasi Universitas Brawijaya</p>
-      </footer>
     </main>
   );
 }
