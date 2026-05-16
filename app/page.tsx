@@ -12,6 +12,7 @@ const poppins = Poppins({
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedCert, setSelectedCert] = useState<any>(null);
 
   const projects = [
     {
@@ -43,6 +44,29 @@ export default function Home() {
       semester: "Semester 4",
       grade: "On-Going",
       fullDesc: "Website dashboard interaktif untuk memonitoring data dari perangkat IoT secara efisien. Masih dalam tahap pengembangan (on-going)."
+    }
+  ];
+
+  const certificates = [
+    {
+      id: 1,
+      title: "Microsoft Office Desktop Application",
+      org: "Trust Training Partners (Microsoft Partner)",
+      date: "22 Agustus 2024",
+      image: "/sertifikatmicrosoft.jpeg",
+      desc: "Sertifikasi kompetensi profesional berstandar tinggi yang memvalidasi keahlian dalam menggunakan aplikasi desktop Microsoft Office secara efektif dan profesional.",
+      badge: "Verified Credentials",
+      badgeColor: "text-green-400 bg-green-500/10 border-green-500/20"
+    },
+    {
+      id: 2,
+      title: "Program Pelatihan Google Gemini",
+      org: "Google (Gemini)",
+      date: "2024",
+      image: "/sertifikatgemini.png",
+      desc: "Pelatihan AI Generative intensif yang diselenggarakan langsung oleh Google, membekali pemahaman mendalam tentang prompt engineering dan teknologi AI terbaru.",
+      badge: "AI Program",
+      badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20"
     }
   ];
 
@@ -78,62 +102,60 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="relative z-10 w-full h-screen flex items-center overflow-hidden pt-20">
-        <div className="max-w-7xl mx-auto px-6 py-20 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-12 md:gap-16">
+      <section id="hero" className="relative z-10 w-full min-h-screen flex items-center overflow-hidden pt-24 pb-12">
+        <div className="max-w-7xl mx-auto px-6 w-full">
+          <div className="flex flex-col space-y-6 max-w-4xl">
             
-            {/* Sisi Kiri */}
-            <div className="flex flex-col space-y-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-200 leading-[1.1]">
-                Ghabriel Theo <br /> Petra Sagala
-              </h1>
-              
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-300 pt-3">
-                Fullstack Web Developer <br className="hidden md:block"/> & Tech Enthusiast.
-              </h2>
-              
-              <p className="max-w-2xl text-base md:text-lg text-zinc-400 leading-relaxed pt-2">
-                Sangat menyukai kegiatan berorganisasi untuk menumbuhkan rasa kepemimpinan dan teamwork yang baik. Memiliki peminatan menjadi UI/UX Designer dan Web Developer (Front-end & Back-end).
-              </p>
+            {/* Nama */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-200 leading-[1.1]">
+              Ghabriel Theo <br /> Petra Sagala
+            </h1>
 
-              <div className="pt-8 flex flex-col sm:flex-row items-start gap-6">
-                <div className="flex items-center gap-4">
-                  <a href="#karya" className="bg-red-700 hover:bg-red-600 text-white px-8 py-3.5 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] hover:scale-105">
-                    Lihat Karya
-                  </a>
-                  <a href="https://wa.me/6282218361690" target="_blank" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3.5 rounded-full font-semibold transition-all">
-                    Hubungi Saya
-                  </a>
-                </div>
+            {/* TAGS DIPINDAH KE SINI (Di bawah nama) */}
+            <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm py-1">
+              <span className="bg-white/10 backdrop-blur-sm border border-white/10 text-zinc-300 px-5 py-2 rounded-full font-medium transition duration-300 hover:bg-white/20">
+                Mahasiswa D3 Teknologi Informasi Vokasi
+              </span>
+              <span className="bg-white/10 backdrop-blur-sm border border-white/10 text-zinc-300 px-5 py-2 rounded-full font-medium transition duration-300 hover:bg-white/20">
+                Universitas Brawijaya
+              </span>
+              <span className="bg-white/10 backdrop-blur-sm border border-white/10 text-green-400 px-5 py-2 rounded-full font-bold transition duration-300 hover:scale-105 shadow-[0_0_15px_rgba(74,222,128,0.1)]">
+                IPK: 3.83
+              </span>
+            </div>
+            
+            {/* Headline */}
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-300 pt-2">
+              Fullstack Web Developer <br className="hidden md:block"/> & Tech Enthusiast.
+            </h2>
+            
+            {/* Deskripsi */}
+            <p className="max-w-2xl text-base md:text-lg text-zinc-400 leading-relaxed pt-2">
+              Sangat menyukai kegiatan berorganisasi untuk menumbuhkan rasa kepemimpinan dan teamwork yang baik. Memiliki peminatan menjadi UI/UX Designer dan Web Developer (Front-end & Back-end).
+            </p>
 
-                <div className="hidden sm:block w-px h-12 bg-white/10 mx-2"></div>
+            {/* Tombol & Sosmed */}
+            <div className="pt-8 flex flex-col sm:flex-row items-start gap-6">
+              <div className="flex items-center gap-4">
+                <a href="#karya" className="bg-red-700 hover:bg-red-600 text-white px-8 py-3.5 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] hover:scale-105">
+                  Lihat Karya
+                </a>
+                <a href="https://wa.me/6282218361690" target="_blank" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3.5 rounded-full font-semibold transition-all">
+                  Hubungi Saya
+                </a>
+              </div>
 
-                <div className="flex flex-col gap-3 justify-center">
-                  <Link href="https://instagram.com/ghabrielsagala" target="_blank" className="flex items-center gap-2 text-sm text-gray-400 hover:text-pink-400 transition-colors font-medium">
-                    📸 @ghabrielsagala
-                  </Link>
-                  <Link href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b" target="_blank" className="flex items-center gap-2 text-sm text-gray-400 hover:text-blue-400 transition-colors font-medium">
-                    in Ghabriel Theo
-                  </Link>
-                </div>
+              <div className="hidden sm:block w-px h-12 bg-white/10 mx-2"></div>
+
+              <div className="flex flex-col gap-3 justify-center">
+                <Link href="https://instagram.com/ghabrielsagala" target="_blank" className="flex items-center gap-2 text-sm text-gray-400 hover:text-pink-400 transition-colors font-medium">
+                  📸 @ghabrielsagala
+                </Link>
+                <Link href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b" target="_blank" className="flex items-center gap-2 text-sm text-gray-400 hover:text-blue-400 transition-colors font-medium">
+                  in Ghabriel Theo
+                </Link>
               </div>
             </div>
-
-            {/* Sisi Kanan: Blok Informasi */}
-            <div className="flex flex-col gap-6 md:items-end w-full md:w-auto">
-              <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm">
-                <span className="bg-white/10 backdrop-blur-sm border border-white/10 text-zinc-300 px-5 py-2 rounded-full font-medium transition duration-300">
-                  Mahasiswa D3 Teknologi Informasi Vokasi
-                </span>
-                <span className="bg-white/10 backdrop-blur-sm border border-white/10 text-zinc-300 px-5 py-2 rounded-full font-medium transition duration-300">
-                  Universitas Brawijaya
-                </span>
-                <span className="bg-white/10 backdrop-blur-sm border border-white/10 text-green-400 px-5 py-2 rounded-full font-bold transition duration-300 hover:scale-105">
-                  IPK: 3.83
-                </span>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -200,7 +222,7 @@ export default function Home() {
           </div>
         )}
 
-        {/* Organisasi Section (Menonjolkan Posisi Badan Pengurus Inti) */}
+        {/* Organisasi Section */}
         <section id="organisasi" className="py-24 px-6 scroll-mt-10 border-t border-white/5 bg-[#0a0a0c]">
           <div className="max-w-7xl mx-auto">
             <div className="mb-16">
@@ -209,7 +231,6 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-              
               {[
                 { 
                   title: "Ketua Komisi Pengawas & Standarisasi", 
@@ -262,35 +283,68 @@ export default function Home() {
                   <p className="text-zinc-400 text-lg leading-relaxed">{item.desc}</p>
                 </div>
               ))}
-
             </div>
           </div>
         </section>
 
-        {/* Sertifikat Section */}
+        {/* Sertifikat Section - DIKEMBALIKAN DENGAN GAMBAR & BISA DIKLIK */}
         <section id="sertifikat" className="py-24 px-6 scroll-mt-10 border-t border-white/5 bg-[#0a0a0c]">
           <div className="max-w-7xl mx-auto">
             <div className="mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Sertifikasi & Penghargaan<span className="text-red-600">.</span></h2>
-              <p className="text-zinc-400 max-w-2xl">Validasi keahlian melalui sertifikasi dari perusahaan teknologi terkemuka.</p>
+              <p className="text-zinc-400 max-w-2xl text-lg">Validasi keahlian melalui sertifikasi dari perusahaan teknologi terkemuka.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[
-                { title: "Microsoft Office Desktop Application", org: "Microsoft Partner", date: "22 Agustus 2024", icon: "V", color: "text-green-400" },
-                { title: "Sertifikat Gemini", org: "Google Gemini", icon: "📄", color: "text-zinc-400" },
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center space-x-5 bg-white/5 p-6 rounded-2xl border border-white/10 hover:border-red-600 transition">
-                  <div className={`w-16 h-16 bg-white/10 ${item.color} rounded-lg flex items-center justify-center font-bold text-2xl`}>{item.icon}</div>
-                  <div>
-                    <h3 className="font-bold text-zinc-200">{item.title}</h3>
-                    <p className="text-sm text-zinc-400">{item.org} • {item.date}</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {certificates.map((cert) => (
+                <div 
+                  key={cert.id} 
+                  onClick={() => setSelectedCert(cert)}
+                  className="bg-[#0d0d0f]/60 backdrop-blur-sm flex flex-col md:flex-row gap-6 p-6 rounded-3xl border-2 border-white/5 group transition-all duration-300 hover:border-red-600/50 hover:shadow-[0_0_30px_rgba(220,38,38,0.15)] cursor-pointer hover:-translate-y-1"
+                >
+                  <div className="relative h-48 w-full md:w-56 flex-shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-zinc-900">
+                    <Image src={cert.image} alt={cert.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <span className={`text-[10px] font-bold uppercase tracking-[2px] mb-3 px-3 py-1 rounded-full w-fit border ${cert.badgeColor}`}>
+                      {cert.badge}
+                    </span>
+                    <h3 className="text-2xl font-bold text-zinc-200 mb-2 group-hover:text-red-500 transition-colors">{cert.title}</h3>
+                    <p className="text-zinc-400 font-medium mb-3">{cert.org}</p>
+                    <p className="text-zinc-500 text-sm italic">Klik untuk melihat detail sertifikat.</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
+
+        {/* Modal Sertifikat */}
+        {selectedCert && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8 transition-opacity duration-300" onClick={() => setSelectedCert(null)}>
+            <div className="bg-[#0f0f11] border-2 border-white/10 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200" onClick={(e) => e.stopPropagation()}>
+              <div className="flex justify-between items-center p-6 md:p-8 border-b border-white/5">
+                <h3 className="text-2xl md:text-3xl font-bold text-white pr-8">{selectedCert.title}</h3>
+                <button onClick={() => setSelectedCert(null)} className="text-gray-400 hover:text-white bg-white/5 hover:bg-red-600 p-3 rounded-full transition-all">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+              </div>
+              <div className="p-6 md:p-8 overflow-y-auto max-h-[75vh]">
+                <div className="flex gap-3 mb-6 flex-wrap">
+                  <span className="bg-white/5 text-sm px-4 py-1.5 rounded-full text-zinc-300 border border-white/10 font-medium">{selectedCert.org}</span>
+                  <span className="bg-white/5 text-sm px-4 py-1.5 rounded-full text-zinc-400 border border-white/10">{selectedCert.date}</span>
+                </div>
+                <div className="bg-white/5 p-6 rounded-2xl border border-white/5 mb-8">
+                  <h4 className="text-red-500 font-bold text-sm mb-3 tracking-widest uppercase">Informasi Sertifikat</h4>
+                  <p className="text-zinc-300 text-base md:text-lg leading-relaxed">{selectedCert.desc}</p>
+                </div>
+                <div className="relative h-64 md:h-[500px] w-full rounded-2xl overflow-hidden border border-white/10 bg-zinc-900">
+                  <Image src={selectedCert.image} alt={selectedCert.title} fill className="object-contain" />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Footer */}
         <footer id="contact" className="py-20 bg-[#050505] border-t border-white/5 text-center relative z-10 scroll-mt-10">
