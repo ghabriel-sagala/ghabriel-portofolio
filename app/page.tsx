@@ -12,7 +12,6 @@ const poppins = Poppins({
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
-  // Tambahan State untuk Menu Mobile
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const projects = [
@@ -51,36 +50,34 @@ export default function Home() {
   return (
     <main className={`${poppins.className} relative min-h-screen bg-[#050505] text-white selection:bg-red-900 selection:text-white overflow-x-hidden`}>
       
-      {/* Background Image & Gradient */}
+      {/* Background Image & Gradient (DIUBAH AGAR LEBIH JELAS) */}
       <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
         <Image
           src="/profile.jpg"
           alt="Ghabriel Theo Petra Sagala"
           fill
-          className="object-cover object-top opacity-30 mix-blend-luminosity scale-105"
+          className="object-cover object-top opacity-60 scale-105 transition-all duration-500"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-red-950/40 to-[#050505]"></div>
+        {/* Gradien gelap disesuaikan agar teks kiri terbaca, tapi foto kanan tetap terang */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#050505]"></div>
       </div>
 
-      {/* Navbar - Support Desktop & Mobile */}
-      <nav className="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/5 transition-all">
+      {/* Navbar */}
+      <nav className="fixed top-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-white/5">
         <div className="relative max-w-7xl mx-auto px-6 py-5 flex md:justify-center justify-between items-center">
-          {/* Logo Kiri */}
           <Link href="/" className="md:absolute md:left-6 font-extrabold text-2xl tracking-tighter text-zinc-300">
             GHABRIEL<span className="text-red-600">.</span>
           </Link>
           
-          {/* Tautan Navigasi Tengah (Hanya Desktop) */}
           <div className="hidden md:flex justify-center space-x-8 text-sm font-medium text-zinc-400">
-            <a href="#about" className="hover:text-white hover:underline decoration-red-600 underline-offset-8 transition-all">Tentang</a>
+            <a href="#hero" className="hover:text-white hover:underline decoration-red-600 underline-offset-8 transition-all">Tentang</a>
             <a href="#karya" className="hover:text-white hover:underline decoration-red-600 underline-offset-8 transition-all">Karya</a>
             <a href="#organisasi" className="hover:text-white hover:underline decoration-red-600 underline-offset-8 transition-all">Organisasi</a>
             <a href="#sertifikat" className="hover:text-white hover:underline decoration-red-600 underline-offset-8 transition-all">Sertifikat</a>
           </div>
 
-          {/* Tombol Hamburger (Hanya Mobile) */}
           <button 
             className="md:hidden text-zinc-300 hover:text-white focus:outline-none"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -95,10 +92,9 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Menu Dropdown untuk Mobile */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full bg-[#0a0a0c]/95 backdrop-blur-xl border-b border-white/5 py-4 px-6 flex flex-col space-y-5 shadow-2xl animate-in slide-in-from-top-2">
-            <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Tentang</a>
+            <a href="#hero" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Tentang</a>
             <a href="#karya" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Karya</a>
             <a href="#organisasi" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Organisasi</a>
             <a href="#sertifikat" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Sertifikat</a>
@@ -108,7 +104,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="hero" className="relative z-10 w-full min-h-screen flex items-center overflow-hidden py-32 md:py-0">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 w-full">
           <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-12 md:gap-16">
             
             {/* Sisi Kiri: Deskripsi & Tombol */}
@@ -138,6 +134,7 @@ export default function Home() {
 
                 <div className="hidden sm:block w-px h-12 bg-white/10 mx-2"></div>
 
+                {/* Sosial Media Rata Kiri & Sejajar Vertikal */}
                 <div className="flex flex-col gap-3">
                   <a href="https://wa.me/6282218361690" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-gray-400 hover:text-green-400 transition-colors font-medium">
                     📞 Ghabriel
@@ -170,7 +167,7 @@ export default function Home() {
       </section>
 
       {/* Karya Section */}
-      <section id="karya" className="py-24 px-6 bg-[#0a0a0c] scroll-mt-10 border-t border-white/5">
+      <section id="karya" className="py-24 px-6 bg-[#0a0a0c] scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Karya & Proyek<span className="text-red-600">.</span></h2>
@@ -229,7 +226,7 @@ export default function Home() {
       )}
 
       {/* Organisasi Section */}
-      <section id="organisasi" className="py-24 px-6 bg-[#050505] scroll-mt-10 border-t border-white/5">
+      <section id="organisasi" className="py-24 px-6 bg-[#050505] scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Pengalaman Organisasi<span className="text-red-600">.</span></h2>
@@ -258,7 +255,7 @@ export default function Home() {
       </section>
 
       {/* Sertifikat Section */}
-      <section id="sertifikat" className="py-24 px-6 bg-[#0a0a0c] scroll-mt-10 border-t border-white/5">
+      <section id="sertifikat" className="py-24 px-6 bg-[#0a0a0c] scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Sertifikasi & Penghargaan<span className="text-red-600">.</span></h2>
