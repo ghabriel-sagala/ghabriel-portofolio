@@ -12,7 +12,7 @@ const poppins = Poppins({
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
-  const [selectedCert, setSelectedCert] = useState<any>(null); // State baru untuk pop-up sertifikat
+  const [selectedCert, setSelectedCert] = useState<any>(null); 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const projects = [
@@ -53,7 +53,7 @@ export default function Home() {
       id: 1,
       title: "Microsoft Office Desktop Application",
       org: "Trust Training Partners (Microsoft Partner)",
-      date: "22 Agustus 2024",
+      date: "2024",
       image: "/sertifikatmicrosoft.jpg" 
     },
     {
@@ -65,16 +65,15 @@ export default function Home() {
     }
   ];
 
-  // simplified social links data for iterative pattern
-  const simplifiedSocialLinks = [
-    { label: "📸 Ghabriel Theo", href: "https://instagram.com/ghabrielsagala", target: "_blank", text: "@ghabrielsagala" },
-    { label: "💼 Ghabriel Theo Petra Sagala", href: "https://www.linkedin.com/in/ghabriel-sagala-93bba027b", target: "_blank", text: "Ghabriel Theo" },
+  const socialLinks = [
+    { label: "📸 Instagram", href: "https://instagram.com/ghabrielsagala", text: "@ghabrielsagala" },
+    { label: "💼 LinkedIn", href: "https://www.linkedin.com/in/ghabriel-sagala-93bba027b", text: "Ghabriel Theo" },
   ];
 
   return (
     <main className={`${poppins.className} relative min-h-screen bg-[#050505] text-white selection:bg-red-900 selection:text-white overflow-x-hidden`}>
       
-      {/* Background Image & Gradient */}
+      {/* Premium Ambient Background */}
       <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
         <Image
           src="/profile.jpg"
@@ -87,7 +86,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-red-950/40 to-[#050505]"></div>
       </div>
 
-      {/* Navbar */}
+      {/* Navigation Bar */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-lg border-b border-white/5">
         <div className="relative max-w-7xl mx-auto px-6 py-5 flex md:justify-center justify-between items-center">
           <Link href="/" className="md:absolute md:left-6 font-extrabold text-2xl tracking-tighter text-zinc-300">
@@ -128,13 +127,12 @@ export default function Home() {
       {/* Hero Section */}
       <section id="hero" className="relative z-10 w-full min-h-screen flex items-center overflow-hidden pt-20">
         <div className="max-w-7xl mx-auto px-6 w-full">
-          {/* Kolom grid ditiadakan, diganti flex agar lebih leluasa di kiri */}
           <div className="flex flex-col space-y-6 max-w-4xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
               Ghabriel Theo Petra Sagala
             </h1>
 
-            {/* PENYELARASAN D3, UB, DAN IPK */}
+            {/* 1. Aligned Education Tags Directly Under Name */}
             <div className="flex flex-wrap items-center gap-4">
               <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
                 Mahasiswa D3 Teknologi Informasi Vokasi
@@ -142,7 +140,6 @@ export default function Home() {
               <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
                 Universitas Brawijaya
               </span>
-              {/* Chip IPK */}
               <div className="group relative">
                 <div className="absolute -inset-0.5 bg-green-500 rounded-lg blur opacity-20 group-hover:opacity-100 transition duration-500"></div>
                 <span className="relative bg-zinc-900 border border-zinc-800 text-green-400 group-hover:text-green-300 px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
@@ -159,22 +156,21 @@ export default function Home() {
               Seorang profesional teknologi yang berdedikasi dengan fokus pada pengembangan web Fullstack dan desain UI/UX. Memiliki rekam jejak kepemimpinan yang teruji melalui berbagai pengalaman organisasi strategis, serta berkomitmen penuh untuk menghadirkan solusi digital yang inovatif melalui kolaborasi tim yang dinamis dan keunggulan teknis.
             </p>
 
-            {/* Area Tombol dan Kontak Sosmed Disatukan di Kiri */}
+            {/* Actions and Left-Aligned Social Network Area */}
             <div className="pt-8 flex flex-col gap-6">
-              {/* Tombol Kontak dan Karya */}
               <div className="flex w-full sm:w-auto gap-4">
                 <a href="#karya" className="flex-1 sm:flex-none bg-red-700 hover:bg-red-600 text-white px-8 py-3.5 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] text-center hover:scale-105">
                   Lihat Karya
                 </a>
                 <a href="https://wa.me/6282218361690" target="_blank" className="flex-1 sm:flex-none bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3.5 rounded-full font-semibold transition-all text-center">
-                  Hubungi
+                  Hubungi Saya
                 </a>
               </div>
 
-              {/* Sosmed Pindah Ke Kiri Bawah Tombol */}
+              {/* 2. Social Media Accounts Shifted to Left under buttons */}
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                  {simplifiedSocialLinks.map((link, idx) => (
-                    <Link key={idx} href={link.href} target={link.target} className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-md border border-white/5 text-sm hover:bg-white/10 transition group w-fit">
+                  {socialLinks.map((link, idx) => (
+                    <Link key={idx} href={link.href} target="_blank" className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-md border border-white/5 text-sm hover:bg-white/10 transition group w-fit">
                         <span className="text-zinc-300 font-medium">{link.label}</span>
                         <span className="text-gray-500 font-normal group-hover:text-zinc-600 transition">|</span>
                         <span className="text-gray-400 font-normal group-hover:text-zinc-300 transition">{link.text}</span>
@@ -187,8 +183,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Karya Section */}
-      <section id="karya" className="py-24 px-6 bg-[#0a0a0c] backdrop-blur-sm scroll-mt-10 border-t border-white/5 relative z-10 selection:bg-red-900/50 selection:text-white">
+      {/* Projects Section */}
+      <section id="karya" className="py-24 px-6 bg-[#0a0a0c] backdrop-blur-sm scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Karya & Proyek<span className="text-red-600">.</span></h2>
@@ -217,7 +213,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modal / Popup Detail Karya */}
+      {/* Modal Detail Karya */}
       {selectedProject && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8 transition-opacity duration-300 animate-in fade-in" onClick={() => setSelectedProject(null)}>
           <div className="bg-[#0f0f11] border-2 border-white/10 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200" onClick={(e) => e.stopPropagation()}>
@@ -244,20 +240,46 @@ export default function Home() {
         </div>
       )}
 
-      {/* Organisasi Section */}
-      <section id="organisasi" className="py-24 px-6 bg-[#050505] scroll-mt-10 border-t border-white/5 relative z-10 selection:bg-red-900/50 selection:text-white">
+      {/* Organization Section (With Newly Translated Detailed Professional Content) */}
+      <section id="organisasi" className="py-24 px-6 bg-[#050505] scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Pengalaman Organisasi<span className="text-red-600">.</span></h2>
-            <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">Melalui organisasi, saya membangun kepemimpinan dan teamwork yang kuat untuk mencapai tujuan bersama.</p>
+            <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">Melalui rekam jejak kepemimpinan, saya aktif membangun ekosistem kerja tim yang adaptif dan berorientasi pada pencapaian organisasi.</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
             {[
-              { title: "Ketua Komisi Pengawas & Standarisasi", org: "HMPSTI Universitas Brawijaya Kabinet INNOVARA", year: "2026", desc: "Bertanggung jawab penuh dalam pengawasan dan standarisasi kinerja himpunan mahasiswa untuk memastikan setiap program kerja sejalan dengan visi dan tujuan organisasi.", color: "bg-red-700", badge: "👑 Badan Pengurus Inti", isHighlighted: true },
-              { title: "Staff Magang PSDM", org: "BEM Fakultas Vokasi Universitas Brawijaya", year: "2024", desc: "Berkontribusi dalam pengembangan sumber daya mahasiswa, dinobatkan sebagai Best Internship Staff atas kinerja luar biasa.", color: "bg-red-800" },
-              { title: "Ketua Divisi Acara PKKMB", org: "Krida Mahasiswa Fakultas Vokasi UB", year: "2025", desc: "Memimpin konsep dan eksekusi acara penyambutan mahasiswa baru.", color: "bg-red-800" },
-              { title: "Wakil Ketua Divisi Acara", org: "Program Abdi Desa UB", year: "2025", desc: "Koordinasi acara pengabdian masyarakat.", color: "bg-red-800" },
+              { 
+                title: "Ketua Komisi Pengawas & Standarisasi", 
+                org: "HMPSTI Universitas Brawijaya Kabinet INNOVARA", 
+                year: "2026", 
+                desc: "Memegang mandat penuh sebagai Badan Pengurus Inti (BPI) yang memimpin perancangan serta eksekusi kerangka pengawasan fungsional. Bertanggung jawab langsung dalam memonitor, mengevaluasi mutu efisiensi kerja internal, serta mengaudit akuntabilitas program kerja berkala demi menyelaraskan visi misi strategis himpunan dengan AD/ART.", 
+                color: "bg-red-700", 
+                badge: "👑 Badan Pengurus Inti", 
+                isHighlighted: true 
+              },
+              { 
+                title: "Staff Magang PSDM", 
+                org: "BEM Fakultas Vokasi Universitas Brawijaya", 
+                year: "2024", 
+                desc: "Berkontribusi penuh dalam merumuskan modul pengembangan kompetensi dasar dan kepemimpinan mahasiswa. Sukses mengorkestrasi program orientasi serta penilaian performa internal, serta dinobatkan sebagai 'Best Internship Staff' atas dedikasi tinggi dan inisiatif solutif sepanjang masa kerja.", 
+                color: "bg-red-800" 
+              },
+              { 
+                title: "Ketua Divisi Acara PKKMB", 
+                org: "Krida Mahasiswa Fakultas Vokasi UB", 
+                year: "2025", 
+                desc: "Memimpin manajemen koordinasi dan perencanaan konseptual untuk orientasi akbar tingkat fakultas. Mengarahkan tim staf pelaksana selama persiapan intensif 3 bulan, merumuskan peta alur manajemen krisis kegiatan (*rundown layout*), serta menjaga kelancaran operasional acara lintas divisi.", 
+                color: "bg-red-800" 
+              },
+              { 
+                title: "Wakil Ketua Divisi Acara", 
+                org: "Program Abdi Desa UB", 
+                year: "2025", 
+                desc: "Berperan strategis mendampingi pimpinan dalam memetakan agenda pemberdayaan wilayah serta linimasa pengabdian masyarakat selama 1 bulan penuh. Mengintegrasikan komunikasi teknis acara bersama tokoh masyarakat setempat demi kesuksesan program sosialisasi.", 
+                color: "bg-red-800" 
+              },
             ].map((item, idx) => (
               <div key={idx} className={`group relative bg-[#0d0d0f]/60 backdrop-blur-sm p-8 rounded-3xl border-2 transition-all duration-300 overflow-hidden ${item.isHighlighted ? 'border-red-600/60 shadow-[0_0_30px_rgba(220,38,38,0.15)] hover:border-red-500 hover:shadow-[0_0_40px_rgba(220,38,38,0.3)]' : 'border-white/5 hover:border-red-600/50'}`}>
                 <div className={`absolute top-0 left-0 w-1.5 h-full ${item.color}`}></div>
@@ -266,19 +288,19 @@ export default function Home() {
                   {item.badge && <span className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap w-fit">{item.badge}</span>}
                 </div>
                 <p className="text-sm md:text-base text-red-400 font-semibold mb-4 leading-relaxed">{item.org} • {item.year}</p>
-                <p className="text-zinc-400 text-lg leading-relaxed">{item.desc}</p>
+                <p className="text-zinc-400 text-base leading-relaxed text-justify">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Sertifikat Section */}
-      <section id="sertifikat" className="py-24 px-6 bg-[#0a0a0c] scroll-mt-10 border-t border-white/5 relative z-10 selection:bg-red-900/50 selection:text-white">
+      {/* Certificates Section (Corrected Years) */}
+      <section id="sertifikat" className="py-24 px-6 bg-[#0a0a0c] scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Sertifikasi & Penghargaan<span className="text-red-600">.</span></h2>
-            <p className="text-zinc-400 max-w-2xl text-lg md:text-xl">Validasi keahlian melalui sertifikasi dari perusahaan teknologi terkemuka. Klik untuk melihat detail sertifikat.</p>
+            <p className="text-zinc-400 max-w-2xl text-lg md:text-xl">Validasi kompetensi teknis profesional berstandar industri global. Klik kartu untuk melihat lampiran penuh.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -288,7 +310,6 @@ export default function Home() {
                 onClick={() => setSelectedCert(cert)}
                 className="bg-[#121214] flex items-center space-x-6 p-6 rounded-2xl border-2 border-white/5 hover:border-red-600 transition group cursor-pointer hover:-translate-y-1"
               >
-                {/* Thumbnail Gambar Sertifikat */}
                 <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden border border-white/10 group-hover:border-red-500/50 shadow-inner">
                   <Image 
                     src={cert.image} 
@@ -311,7 +332,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modal / Popup Detail Sertifikat */}
+      {/* Modal Detail Sertifikat */}
       {selectedCert && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8 transition-opacity duration-300 animate-in fade-in" onClick={() => setSelectedCert(null)}>
           <div className="bg-[#0f0f11] border-2 border-white/10 w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200" onClick={(e) => e.stopPropagation()}>
@@ -328,9 +349,9 @@ export default function Home() {
               </div>
               <div className="bg-white/5 p-6 rounded-2xl border border-white/5 mb-8">
                 <h4 className="text-red-500 font-bold text-sm mb-3 tracking-widest uppercase">Informasi Sertifikat</h4>
-                <p className="text-zinc-300 text-base md:text-xl leading-relaxed">Sertifikasi kompetensi profesional berstandar tinggi yang memvalidasi keahlian dan pengetahuan dalam domain spesifik. Terbit pada {selectedCert.date} oleh {selectedCert.org}.</p>
+                <p className="text-zinc-300 text-base md:text-xl leading-relaxed">Sertifikasi kompetensi profesional berstandar tinggi yang memvalidasi keahlian dan pengetahuan dalam domain spesifik. Terbit pada tahun {selectedCert.date} oleh {selectedCert.org}.</p>
               </div>
-              <div className="relative h-64 md:h-[450px] w-full rounded-2xl overflow-hidden border-2 border-white/10 shadow-inner bg-zinc-900 flex items-center justify-center">
+              <div className="relative h-64 md:h-[500px] w-full rounded-2xl overflow-hidden border-2 border-white/10 shadow-inner bg-zinc-900 flex items-center justify-center">
                 <Image src={selectedCert.image} alt={selectedCert.title} fill className="object-contain" />
               </div>
             </div>
@@ -339,7 +360,7 @@ export default function Home() {
       )}
 
       {/* Footer */}
-      <footer id="contact" className="py-20 bg-[#050505] border-t border-white/5 text-center relative z-10 scroll-mt-10 selection:bg-red-900/50 selection:text-white">
+      <footer id="contact" className="py-20 bg-[#050505] border-t border-white/5 text-center relative z-10 scroll-mt-10">
         <h2 className="text-3xl font-bold mb-8 text-zinc-200">Mari Berkolaborasi!</h2>
         <div className="flex justify-center gap-6 mb-10 flex-wrap px-6 text-sm font-medium">
           <a href="https://wa.me/6282218361690" target="_blank" className="text-zinc-400 hover:text-green-500 transition-colors">WhatsApp</a>
