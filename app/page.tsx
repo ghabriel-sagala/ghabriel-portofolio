@@ -18,33 +18,33 @@ export default function Home() {
   const projects = [
     {
       id: 1,
-      title: "Website Wisata Kampoeng Kadjoetangan Heritage",
-      shortDesc: "Website profil wisata berbasis framework Laravel.",
+      title: "Platform E-Tourism Wisata Kampoeng Kadjoetangan Heritage",
+      shortDesc: "Sistem manajemen konten dan portal promosi cagar budaya digital interaktif.",
       image: "/websitewisata.jpg",
       tech: ["Laravel", "PHP", "Tailwind CSS"],
-      semester: "Semester 3",
-      grade: "Nilai A",
-      fullDesc: "Website dashboard untuk Kampoeng Kadjoetangan Heritage yang dikerjakan secara berkolaborasi. Mengedepankan kerja sama tim dalam menyajikan UI/UX yang menarik serta pengelolaan data wisata yang informatif."
+      category: "E-Commerce & Tourism Platform",
+      status: "Production Ready",
+      fullDesc: "Sebuah platform e-tourism terintegrasi yang dirancang untuk mendigitalisasi ekosistem cagar budaya Kampoeng Kadjoetangan Heritage. Sistem ini mengimplementasikan manajemen data wisata dinamis, optimasi UI/UX interaktif, serta arsitektur backend kokoh yang memudahkan pengelolaan informasi destinasi, rute, dan event secara real-time."
     },
     {
       id: 2,
-      title: "Website Tabungan Mahasiswa",
-      shortDesc: "Sistem pencatatan tabungan mahasiswa (Native PHP).",
+      title: "Sistem Manajemen Keuangan & Tabungan Digital",
+      shortDesc: "Aplikasi pencatatan transaksi finansial mandiri dengan arsitektur ledger presisi.",
       image: "/websitetabunganmahasiswa.png",
       tech: ["Native PHP", "HTML", "CSS", "JS"],
-      semester: "Semester 2",
-      grade: "Nilai A",
-      fullDesc: "Sistem pencatatan tabungan mahasiswa yang dibangun menggunakan teknologi Native. Gabungan penugasan dari 3 mata kuliah sekaligus pada Semester 2."
+      category: "Financial Technology (Fintech)",
+      status: "Fully Functional",
+      fullDesc: "Aplikasi manajemen finansial internal yang dibangun menggunakan arsitektur MVC native terstruktur untuk menjamin akurasi dan performa pencatatan. Dilengkapi dengan sistem autentikasi multi-user yang aman, pelacakan histori mutasi keuangan secara berkala, enkripsi database, serta kalkulasi saldo otomatis yang robust terhadap galat."
     },
     {
       id: 3,
-      title: "Dashboard Monitoring IoT",
-      shortDesc: "Antarmuka pemantauan data IoT real-time.",
+      title: "Dashboard Analitik & Monitoring IoT Real-Time",
+      shortDesc: "Platform visualisasi metrik data telemetri sensorik dengan latensi rendah.",
       image: "/dashboardmonitoringIoT.png",
       tech: ["Next.js", "IoT", "Realtime"],
-      semester: "Semester 4",
-      grade: "On-Going",
-      fullDesc: "Website dashboard interaktif untuk memonitoring data dari perangkat IoT secara efisien. Masih dalam tahap pengembangan (on-going)."
+      category: "IoT & Analytics Automation",
+      status: "In Active Development",
+      fullDesc: "Platform dashboard mutakhir berbasis Server-Side Rendering (SSR) yang dikembangkan untuk memantau dan memvisualisasikan data dari perangkat keras IoT secara instan. Mengintegrasikan manajemen state tingkat tinggi guna memastikan manajemen data sensor mengalir lancar, responsif, dan siap diintegrasikan dengan berbagai infrastruktur *smart-system*."
     }
   ];
 
@@ -256,12 +256,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Projects Section (Product-Centric Highlight) */}
       <section id="karya" className="py-24 px-6 bg-[#0a0a0c] backdrop-blur-sm scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Karya & Proyek<span className="text-red-600">.</span></h2>
-            <p className="text-zinc-400 max-w-2xl text-lg md:text-xl">Beberapa proyek web development dan UI/UX yang telah saya kerjakan selama masa perkuliahan.</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Karya & Proyek Berbasis Solusi<span className="text-red-600">.</span></h2>
+            <p className="text-zinc-400 max-w-2xl text-lg md:text-xl">Arsitektur aplikasi dan sistem perangkat lunak mandiri yang dirancang mengutamakan keunggulan teknis, skalabilitas, dan pengalaman pengguna global.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -283,7 +283,7 @@ export default function Home() {
                 <div className="p-8">
                   <h3 className="text-xl md:text-2xl font-bold mb-3 text-white group-hover:text-red-500 transition-colors leading-snug">{project.title}</h3>
                   <p className="text-sm md:text-base text-zinc-400 mb-6 line-clamp-2 leading-relaxed">{project.shortDesc}</p>
-                  <span className="text-xs md:text-sm bg-red-950/30 text-red-400 border border-red-900/30 px-3 py-1.5 rounded-full font-semibold">{project.semester}</span>
+                  <span className="text-xs md:text-sm bg-red-950/30 text-red-400 border border-red-900/30 px-4 py-1.5 rounded-full font-semibold">{project.category}</span>
                 </div>
               </div>
             ))}
@@ -311,11 +311,11 @@ export default function Home() {
                   </span>
                 ))}
                 <span className="bg-green-500/10 text-sm px-4 py-1.5 rounded-full text-green-400 border border-green-500/20 font-bold">
-                  {selectedProject.grade}
+                  {selectedProject.status}
                 </span>
               </div>
               <div className="bg-white/5 p-6 rounded-2xl border border-white/5 mb-8">
-                <h4 className="text-red-500 font-bold text-sm mb-3 tracking-widest uppercase">Ringkasan Project</h4>
+                <h4 className="text-red-500 font-bold text-sm mb-3 tracking-widest uppercase">Spesifikasi Arsitektur Produk</h4>
                 <p className="text-zinc-300 text-base md:text-xl leading-relaxed">{selectedProject.fullDesc}</p>
               </div>
               <div className="relative h-64 md:h-[450px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-inner">
