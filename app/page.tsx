@@ -60,7 +60,7 @@ export default function Home() {
       id: 2,
       title: "Program Pelatihan Google Gemini",
       org: "Google Gemini",
-      date: "2026", // DIPERBAIKI: Tanggal diubah menjadi 2026
+      date: "2026", 
       image: "/sertifikatgemini.jpg" 
     }
   ];
@@ -128,64 +128,59 @@ export default function Home() {
       {/* Hero Section */}
       <section id="hero" className="relative z-10 w-full min-h-screen flex items-center overflow-hidden pt-20">
         <div className="max-w-7xl mx-auto px-6 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-[2fr,1fr] items-center gap-12 md:gap-16">
-            
-            {/* Sisi Kiri: Deskripsi & Tombol */}
-            <div className="flex flex-col space-y-6 max-w-4xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
-                Ghabriel Theo Petra Sagala
-              </h1>
+          {/* Kolom grid ditiadakan, diganti flex agar lebih leluasa di kiri */}
+          <div className="flex flex-col space-y-6 max-w-4xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
+              Ghabriel Theo Petra Sagala
+            </h1>
 
-              {/* 1. PENYELARASAN D3, UB, DAN IPK DIPINDAH DI BAWAH NAMA */}
-              <div className="flex flex-wrap items-center gap-4">
-                <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
-                  Mahasiswa D3 Teknologi Informasi Vokasi
+            {/* PENYELARASAN D3, UB, DAN IPK */}
+            <div className="flex flex-wrap items-center gap-4">
+              <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
+                Mahasiswa D3 Teknologi Informasi Vokasi
+              </span>
+              <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
+                Universitas Brawijaya
+              </span>
+              {/* Chip IPK */}
+              <div className="group relative">
+                <div className="absolute -inset-0.5 bg-green-500 rounded-lg blur opacity-20 group-hover:opacity-100 transition duration-500"></div>
+                <span className="relative bg-zinc-900 border border-zinc-800 text-green-400 group-hover:text-green-300 px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+                  IPK: 3.83
                 </span>
-                <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
-                  Universitas Brawijaya
-                </span>
-                {/* Chip IPK */}
-                <div className="group relative">
-                  <div className="absolute -inset-0.5 bg-green-500 rounded-lg blur opacity-20 group-hover:opacity-100 transition duration-500"></div>
-                  <span className="relative bg-zinc-900 border border-zinc-800 text-green-400 group-hover:text-green-300 px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
-                    IPK: 3.83
-                  </span>
-                </div>
-              </div>
-              
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight pt-2">
-                 Fullstack Web Developer <br /> & Tech Enthusiast.
-              </h2>
-              
-              <p className="max-w-3xl text-zinc-400 text-lg md:text-xl leading-relaxed pt-2">
-                Seorang profesional teknologi yang berdedikasi dengan fokus pada pengembangan web Fullstack dan desain UI/UX. Memiliki rekam jejak kepemimpinan yang teruji melalui berbagai pengalaman organisasi strategis, serta berkomitmen penuh untuk menghadirkan solusi digital yang inovatif melalui kolaborasi tim yang dinamis dan keunggulan teknis.
-              </p>
-
-              {/* Tombol Kontak dan Karya */}
-              <div className="pt-8 flex flex-col sm:flex-row items-center gap-6">
-                <div className="flex w-full sm:w-auto gap-4">
-                  <a href="#karya" className="flex-1 sm:flex-none bg-red-700 hover:bg-red-600 text-white px-8 py-3.5 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] text-center hover:scale-105">
-                    Lihat Karya
-                  </a>
-                  <a href="https://wa.me/6282218361690" target="_blank" className="flex-1 sm:flex-none bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3.5 rounded-full font-semibold transition-all text-center">
-                    Hubungi
-                  </a>
-                </div>
               </div>
             </div>
+            
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight pt-2">
+                Fullstack Web Developer <br /> & Tech Enthusiast.
+            </h2>
+            
+            <p className="max-w-3xl text-zinc-400 text-lg md:text-xl leading-relaxed pt-2">
+              Seorang profesional teknologi yang berdedikasi dengan fokus pada pengembangan web Fullstack dan desain UI/UX. Memiliki rekam jejak kepemimpinan yang teruji melalui berbagai pengalaman organisasi strategis, serta berkomitmen penuh untuk menghadirkan solusi digital yang inovatif melalui kolaborasi tim yang dinamis dan keunggulan teknis.
+            </p>
 
-            {/* Sisi Kanan: Area Kontak Rapi - DIPERBAIKI SESUAI PERMINTAAN */}
-            <div className="flex flex-col gap-6 md:items-end w-full md:w-auto pt-10 md:pt-0">
-               {/* 2. AREA KONTAK RAPI DAN SEDERHANA - HANYA INSTA DAN LINKEDIN */}
-                <div className="flex flex-wrap items-center gap-6">
-                    {simplifiedSocialLinks.map((link, idx) => (
-                      <Link key={idx} href={link.href} target={link.target} className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-md border border-white/5 text-sm hover:bg-white/10 transition group">
-                         <span className="text-zinc-300 font-medium">{link.label}</span>
-                         <span className="text-gray-500 font-normal group-hover:text-zinc-600 transition">|</span>
-                         <span className="text-gray-400 font-normal group-hover:text-zinc-300 transition">{link.text}</span>
-                      </Link>
-                    ))}
-                </div>
+            {/* Area Tombol dan Kontak Sosmed Disatukan di Kiri */}
+            <div className="pt-8 flex flex-col gap-6">
+              {/* Tombol Kontak dan Karya */}
+              <div className="flex w-full sm:w-auto gap-4">
+                <a href="#karya" className="flex-1 sm:flex-none bg-red-700 hover:bg-red-600 text-white px-8 py-3.5 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] text-center hover:scale-105">
+                  Lihat Karya
+                </a>
+                <a href="https://wa.me/6282218361690" target="_blank" className="flex-1 sm:flex-none bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3.5 rounded-full font-semibold transition-all text-center">
+                  Hubungi
+                </a>
+              </div>
+
+              {/* Sosmed Pindah Ke Kiri Bawah Tombol */}
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                  {simplifiedSocialLinks.map((link, idx) => (
+                    <Link key={idx} href={link.href} target={link.target} className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-md border border-white/5 text-sm hover:bg-white/10 transition group w-fit">
+                        <span className="text-zinc-300 font-medium">{link.label}</span>
+                        <span className="text-gray-500 font-normal group-hover:text-zinc-600 transition">|</span>
+                        <span className="text-gray-400 font-normal group-hover:text-zinc-300 transition">{link.text}</span>
+                    </Link>
+                  ))}
+              </div>
             </div>
 
           </div>
@@ -278,7 +273,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sertifikat Section - DIPERBAIKI DENGAN GAMBAR BISA DIKLIK DAN TANGGAL DIPERBAIKI */}
+      {/* Sertifikat Section */}
       <section id="sertifikat" className="py-24 px-6 bg-[#0a0a0c] scroll-mt-10 border-t border-white/5 relative z-10 selection:bg-red-900/50 selection:text-white">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
@@ -293,9 +288,8 @@ export default function Home() {
                 onClick={() => setSelectedCert(cert)}
                 className="bg-[#121214] flex items-center space-x-6 p-6 rounded-2xl border-2 border-white/5 hover:border-red-600 transition group cursor-pointer hover:-translate-y-1"
               >
-                {/* Thumbnail Gambar Sertifikat - DIPERBAIKI VERSI FINAL */}
+                {/* Thumbnail Gambar Sertifikat */}
                 <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden border border-white/10 group-hover:border-red-500/50 shadow-inner">
-                  {/* Gunakan gambar sertifikat baru yang Anda unggah */}
                   <Image 
                     src={cert.image} 
                     alt={cert.title} 
@@ -307,7 +301,6 @@ export default function Home() {
                   </div>
                 </div>
                 <div>
-                  {/* chip info */}
                   <span className="text-green-500 text-[10px] font-bold uppercase tracking-[2px] mb-2 inline-block">Verified Credentials</span>
                   <h3 className="font-bold text-zinc-100 text-xl md:text-2xl group-hover:text-red-400 transition-colors leading-snug">{cert.title}</h3>
                   <p className="text-sm md:text-base text-zinc-400 font-medium mb-1 leading-normal">{cert.org} • {cert.date}</p>
@@ -318,7 +311,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modal / Popup Detail Sertifikat (Baru) */}
+      {/* Modal / Popup Detail Sertifikat */}
       {selectedCert && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8 transition-opacity duration-300 animate-in fade-in" onClick={() => setSelectedCert(null)}>
           <div className="bg-[#0f0f11] border-2 border-white/10 w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200" onClick={(e) => e.stopPropagation()}>
@@ -353,7 +346,7 @@ export default function Home() {
           <a href="https://instagram.com/ghabrielsagala" target="_blank" className="text-zinc-400 hover:text-pink-500 transition-colors">Instagram</a>
           <a href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b" target="_blank" className="text-zinc-400 hover:text-blue-500 transition-colors">LinkedIn</a>
         </div>
-        <p className="text-zinc-600 text-sm">© {new Date().getFullYear()} Ghabriel Theo Petra Sagala. Dibuat dengan Poppins Font & Keseeren CSS.</p>
+        <p className="text-zinc-600 text-sm">© {new Date().getFullYear()} Ghabriel Theo Petra Sagala. Dibuat dengan Poppins Font.</p>
       </footer>
     </main>
   );
