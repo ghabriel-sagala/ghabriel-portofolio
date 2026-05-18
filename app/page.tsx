@@ -73,7 +73,7 @@ export default function Home() {
   return (
     <main className={`${poppins.className} relative min-h-screen bg-[#050505] text-white selection:bg-red-900 selection:text-white overflow-x-hidden`}>
       
-      {/* Premium Ambient Background */}
+      {/* Background Image & Gradient Blur */}
       <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
         <Image
           src="/profile.jpg"
@@ -86,7 +86,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-red-950/40 to-[#050505]"></div>
       </div>
 
-      {/* Navigation Bar */}
+      {/* Navbar Section */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-lg border-b border-white/5">
         <div className="relative max-w-7xl mx-auto px-6 py-5 flex md:justify-center justify-between items-center">
           <Link href="/" className="md:absolute md:left-6 font-extrabold text-2xl tracking-tighter text-zinc-300">
@@ -132,7 +132,7 @@ export default function Home() {
               Ghabriel Theo Petra Sagala
             </h1>
 
-            {/* 1. Aligned Education Tags Directly Under Name */}
+            {/* Tags Pendidikan & IPK di bawah nama */}
             <div className="flex flex-wrap items-center gap-4">
               <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
                 Mahasiswa D3 Teknologi Informasi Vokasi
@@ -156,7 +156,7 @@ export default function Home() {
               Seorang profesional teknologi yang berdedikasi dengan fokus pada pengembangan web Fullstack dan desain UI/UX. Memiliki rekam jejak kepemimpinan yang teruji melalui berbagai pengalaman organisasi strategis, serta berkomitmen penuh untuk menghadirkan solusi digital yang inovatif melalui kolaborasi tim yang dinamis dan keunggulan teknis.
             </p>
 
-            {/* Actions and Left-Aligned Social Network Area */}
+            {/* Tombol Aksi & Akun Sosial Media Terpindah ke Sisi Kiri */}
             <div className="pt-8 flex flex-col gap-6">
               <div className="flex w-full sm:w-auto gap-4">
                 <a href="#karya" className="flex-1 sm:flex-none bg-red-700 hover:bg-red-600 text-white px-8 py-3.5 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] text-center hover:scale-105">
@@ -167,7 +167,7 @@ export default function Home() {
                 </a>
               </div>
 
-              {/* 2. Social Media Accounts Shifted to Left under buttons */}
+              {/* Tautan Sosial Media */}
               <div className="flex flex-wrap items-center gap-4 pt-2">
                   {socialLinks.map((link, idx) => (
                     <Link key={idx} href={link.href} target="_blank" className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-md border border-white/5 text-sm hover:bg-white/10 transition group w-fit">
@@ -183,7 +183,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Proyek Section */}
       <section id="karya" className="py-24 px-6 bg-[#0a0a0c] backdrop-blur-sm scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
@@ -240,12 +240,12 @@ export default function Home() {
         </div>
       )}
 
-      {/* Organization Section (With Newly Translated Detailed Professional Content) */}
+      {/* Organisasi Section (Penerjemahan & Integrasi Data Terbaru Sukses) */}
       <section id="organisasi" className="py-24 px-6 bg-[#050505] scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Pengalaman Organisasi<span className="text-red-600">.</span></h2>
-            <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">Melalui rekam jejak kepemimpinan, saya aktif membangun ekosistem kerja tim yang adaptif dan berorientasi pada pencapaian organisasi.</p>
+            <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">Melalui rekam jejak kepemimpinan, saya aktif membangun ekosistem kerja tim yang adaptif, akuntabel, dan berorientasi pada pencapaian strategis.</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
@@ -254,7 +254,7 @@ export default function Home() {
                 title: "Ketua Komisi Pengawas & Standarisasi", 
                 org: "HMPSTI Universitas Brawijaya Kabinet INNOVARA", 
                 year: "2026", 
-                desc: "Memegang mandat penuh sebagai Badan Pengurus Inti (BPI) yang memimpin perancangan serta eksekusi kerangka pengawasan fungsional. Bertanggung jawab langsung dalam memonitor, mengevaluasi mutu efisiensi kerja internal, serta mengaudit akuntabilitas program kerja berkala demi menyelaraskan visi misi strategis himpunan dengan AD/ART.", 
+                desc: "Memegang mandat tertinggi sebagai Badan Pengurus Inti (BPI) yang memimpin perancangan serta eksekusi kerangka pengawasan fungsional organisasi. Bertanggung jawab penuh dalam memonitor, mengevaluasi mutu efisiensi kerja internal, menyusun standarisasi operasional prosedur (SOP), serta melakukan audit akuntabilitas program kerja berkala demi menyelaraskan arah gerak himpunan mahasiswa dengan AD/ART.", 
                 color: "bg-red-700", 
                 badge: "👑 Badan Pengurus Inti", 
                 isHighlighted: true 
@@ -263,21 +263,21 @@ export default function Home() {
                 title: "Staff Magang PSDM", 
                 org: "BEM Fakultas Vokasi Universitas Brawijaya", 
                 year: "2024", 
-                desc: "Berkontribusi penuh dalam merumuskan modul pengembangan kompetensi dasar dan kepemimpinan mahasiswa. Sukses mengorkestrasi program orientasi serta penilaian performa internal, serta dinobatkan sebagai 'Best Internship Staff' atas dedikasi tinggi dan inisiatif solutif sepanjang masa kerja.", 
+                desc: "Berkontribusi penuh dalam merumuskan modul dan kurikulum pengembangan kompetensi dasar serta nilai kepemimpinan mahasiswa tingkat fakultas. Berperan aktif dalam menyusun program orientasi staf dan sistem penilaian performa internal (performance appraisal), serta dianugerahi penghargaan 'Best Internship Staff' atas dedikasi tinggi dan inisiatif solutif sepanjang masa kerja.", 
                 color: "bg-red-800" 
               },
               { 
                 title: "Ketua Divisi Acara PKKMB", 
                 org: "Krida Mahasiswa Fakultas Vokasi UB", 
                 year: "2025", 
-                desc: "Memimpin manajemen koordinasi dan perencanaan konseptual untuk orientasi akbar tingkat fakultas. Mengarahkan tim staf pelaksana selama persiapan intensif 3 bulan, merumuskan peta alur manajemen krisis kegiatan (*rundown layout*), serta menjaga kelancaran operasional acara lintas divisi.", 
+                desc: "Memimpin manajemen koordinasi dan perencanaan konseptual untuk rangkaian orientasi akbar mahasiswa baru tingkat fakultas yang melibatkan ribuan peserta. Mengarahkan tim panitia pelaksana selama persiapan intensif 3 bulan, merumuskan peta alur manajemen krisis kegiatan (rundown contingency layout), serta mengelola komunikasi operasional lintas divisi demi kelancaran acara.", 
                 color: "bg-red-800" 
               },
               { 
                 title: "Wakil Ketua Divisi Acara", 
                 org: "Program Abdi Desa UB", 
                 year: "2025", 
-                desc: "Berperan strategis mendampingi pimpinan dalam memetakan agenda pemberdayaan wilayah serta linimasa pengabdian masyarakat selama 1 bulan penuh. Mengintegrasikan komunikasi teknis acara bersama tokoh masyarakat setempat demi kesuksesan program sosialisasi.", 
+                desc: "Berperan strategis mendampingi pimpinan divisi dalam memetakan agenda pemberdayaan wilayah serta menyusun linimasa detail pelaksanaan pengabdian masyarakat selama 1 bulan penuh. Mengintegrasikan komunikasi teknis program dan berkolaborasi langsung dengan tokoh masyarakat setempat demi memastikan kesuksesan seluruh kegiatan sosialisasi.", 
                 color: "bg-red-800" 
               },
             ].map((item, idx) => (
@@ -295,7 +295,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Certificates Section (Corrected Years) */}
+      {/* Sertifikat Section */}
       <section id="sertifikat" className="py-24 px-6 bg-[#0a0a0c] scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
