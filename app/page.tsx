@@ -28,6 +28,16 @@ export default function Home() {
     },
     {
       id: 2,
+      title: "Platform Manajemen Produktivitas & Aktivitas 'TaskMate'",
+      shortDesc: "Sistem manajemen tugas pintar dengan dasbor interaktif berbasis personalisasi pengguna.",
+      image: "/taskmate.jpg",
+      tech: ["React.js", "Tailwind CSS", "Context API"],
+      category: "Productivity & SaaS Application",
+      status: "Production Ready",
+      fullDesc: "TaskMate merupakan platform asisten produktivitas modern yang dirancang khusus untuk mengoptimalkan efisiensi alur kerja harian pengguna. Perangkat lunak ini mengintegrasikan dasbor dinamis dengan fitur personalisasi profil pengguna (intelligent user greeting), modul manajemen skala prioritas tugas, pelacak tenggat waktu berkala, serta visualisasi progres aktivitas yang intuitif untuk menjamin produktivitas tingkat tinggi."
+    },
+    {
+      id: 3,
       title: "Sistem Manajemen Keuangan & Tabungan Digital",
       shortDesc: "Aplikasi pencatatan transaksi finansial mandiri dengan arsitektur ledger presisi.",
       image: "/websitetabunganmahasiswa.png",
@@ -37,7 +47,7 @@ export default function Home() {
       fullDesc: "Aplikasi manajemen finansial internal yang dibangun menggunakan arsitektur MVC native terstruktur untuk menjamin akurasi dan performa pencatatan. Dilengkapi dengan sistem autentikasi multi-user yang aman, pelacakan histori mutasi keuangan secara berkala, enkripsi database, serta kalkulasi saldo otomatis yang robust terhadap galat."
     },
     {
-      id: 3,
+      id: 4,
       title: "Dashboard Analitik & Monitoring IoT Real-Time",
       shortDesc: "Platform visualisasi metrik data telemetri sensorik dengan latensi rendah.",
       image: "/dashboardmonitoringIoT.png",
@@ -228,7 +238,7 @@ export default function Home() {
             </h2>
             
             <p className="max-w-3xl text-zinc-400 text-lg md:text-xl leading-relaxed pt-2">
-              Seorang profesional teknologi yang berdedikasi dengan fokus pada pengembangan web Fullstack dan desain UI/UX. Memiliki rekam jejak kepemimpinan yang teruji melalui berbagai pengalaman organisasi strategis, serta berkomitmen penuh untuk menghadirkan solusi digital yang inovatif melalui kolaborasi tim yang dinamis dan keunggulan teknis.
+              Seorang profesional teknologi yang berdedikasi dengan focus pada pengembangan web Fullstack dan desain UI/UX. Memiliki rekam jejak kepemimpinan yang teruji melalui berbagai pengalaman organisasi strategis, serta berkomitmen penuh untuk menghadirkan solusi digital yang inovatif melalui kolaborasi tim yang dinamis dan keunggulan teknis.
             </p>
 
             <div className="pt-8 flex flex-col gap-6">
@@ -256,7 +266,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section (Product-Centric Highlight) */}
+      {/* Projects Section */}
       <section id="karya" className="py-24 px-6 bg-[#0a0a0c] backdrop-blur-sm scroll-mt-10 border-t border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
@@ -264,14 +274,14 @@ export default function Home() {
             <p className="text-zinc-400 max-w-2xl text-lg md:text-xl">Arsitektur aplikasi dan sistem perangkat lunak mandiri yang dirancang mengutamakan keunggulan teknis, skalabilitas, dan pengalaman pengguna global.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {projects.map((project) => (
               <div 
                 key={project.id} 
                 onClick={() => setSelectedProject(project)}
                 className="bg-[#121214] border-2 border-white/5 rounded-3xl overflow-hidden hover:border-red-600/50 transition-all duration-300 group cursor-pointer hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-900/20"
               >
-                <div className="relative h-56 bg-zinc-900 overflow-hidden">
+                <div className="relative h-64 bg-zinc-900 overflow-hidden">
                   <Image 
                     src={project.image} 
                     alt={project.title} 
