@@ -93,7 +93,7 @@ export default function Home() {
       title: "Ketua Komisi Pengawas & Standarisasi", 
       org: "HMPSTI Universitas Brawijaya Kabinet INNOVARA", 
       year: "2026", 
-      desc: "Memegang mandat tertinggi sebagai Badan Pengurus Inti (BPI) yang memimpin perancangan serta eksekusi kerangka pengawasan fungsional organisasi. Bertanggung jawab penuh dalam memonitor, mengevaluasi mutu efisiensi kerja internal, serta melakukan audit akuntabilitas program kerja berkala demi menyelaraskan arah gerak himpunan mahasiswa dengan AD/ART.", 
+      desc: "Memegang mandat sebagai Badan Pengurus Inti (BPI) yang memimpin perancangan serta eksekusi kerangka pengawasan fungsional organisasi. Bertanggung jawab penuh dalam memonitor, mengevaluasi mutu efisiensi kerja internal, serta melakukan audit akuntabilitas program kerja berkala demi menyelaraskan arah gerak himpunan mahasiswa dengan AD/ART.", 
       color: "bg-red-700", 
       badge: "👑 Badan Pengurus Inti", 
       isHighlighted: true 
