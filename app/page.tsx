@@ -15,7 +15,6 @@ const poppins = Poppins({
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [selectedCert, setSelectedCert] = useState<any>(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -31,14 +30,6 @@ export default function Home() {
       </div>
 
       <Header />
-      {isMobileMenuOpen && (
-        <div className="absolute top-[88px] left-0 w-full bg-[#0a0a0c]/95 backdrop-blur-xl border-b border-white/5 py-4 px-6 flex flex-col space-y-5 shadow-2xl md:hidden">
-          <a href="#home" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Beranda</a>
-          <a href="#portfolio" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Portofolio</a>
-          <a href="#organisasi" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Organisasi</a>
-          <a href="#sertifikat" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Sertifikat</a>
-        </div>
-      )}
 
       <section id="home" className="relative z-10 w-full min-h-screen overflow-hidden pt-24 pb-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(220,38,38,0.18),transparent_35%)] pointer-events-none" />
