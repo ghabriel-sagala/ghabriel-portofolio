@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Poppins } from "next/font/google";
+import Header from "./components/Header";
+import { certificates, organizations, projects } from "./content";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -12,323 +14,247 @@ const poppins = Poppins({
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
-  const [selectedCert, setSelectedCert] = useState<any>(null); 
+  const [selectedCert, setSelectedCert] = useState<any>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  const projects = [
-    {
-      id: 1,
-      title: "Platform E-Tourism Wisata Kampoeng Kadjoetangan Heritage",
-      shortDesc: "Sistem manajemen konten dan portal promosi cagar budaya digital interaktif.",
-      image: "/websitewisata.jpg",
-      tech: ["Laravel", "PHP", "Tailwind CSS"],
-      category: "E-Commerce & Tourism Platform",
-      status: "Production Ready",
-      fullDesc: "Sebuah platform e-tourism terintegrasi yang dirancang untuk mendigitalisasi ekosistem cagar budaya Kampoeng Kadjoetangan Heritage. Sistem ini mengimplementasikan manajemen data wisata dinamis, optimasi UI/UX interaktif, serta arsitektur backend kokoh yang memudahkan pengelolaan informasi destinasi, rute, dan event secara real-time."
-    },
-    {
-      id: 2,
-      title: "Platform Manajemen Produktivitas & Aktivitas 'TaskMate'",
-      shortDesc: "Sistem manajemen tugas pintar dengan dasbor interaktif berbasis personalisasi pengguna.",
-      image: "/taskmate.jpg",
-      tech: ["React.js", "Tailwind CSS", "Context API"],
-      category: "Productivity & SaaS Application",
-      status: "Production Ready",
-      fullDesc: "TaskMate merupakan platform asisten produktivitas modern yang dirancang khusus untuk mengoptimalkan efisiensi alur kerja harian pengguna. Perangkat lunak ini mengintegrasikan dasbor dinamis dengan fitur personalisasi profil pengguna (intelligent user greeting), modul manajemen skala prioritas tugas, pelacak tenggat waktu berkala, serta visualisasi progres aktivitas yang intuitif untuk menjamin produktivitas tingkat tinggi."
-    },
-    {
-      id: 3,
-      title: "Sistem Manajemen Keuangan & Tabungan Digital",
-      shortDesc: "Aplikasi pencatatan transaksi finansial mandiri dengan arsitektur ledger presisi.",
-      image: "/websitetabunganmahasiswa.png",
-      tech: ["Native PHP", "HTML", "CSS", "JS"],
-      category: "Financial Technology (Fintech)",
-      status: "Fully Functional",
-      fullDesc: "Aplikasi manajemen finansial internal yang dibangun menggunakan arsitektur MVC native terstruktur untuk menjamin akurasi dan performa pencatatan. Dilengkapi dengan sistem autentikasi multi-user yang aman, pelacakan histori mutasi keuangan secara berkala, enkripsi database, serta kalkulasi saldo otomatis yang robust terhadap galat."
-    },
-    {
-      id: 4,
-      title: "Dashboard Analitik & Monitoring IoT Real-Time",
-      shortDesc: "Platform visualisasi metrik data telemetri sensorik dengan latensi rendah.",
-      image: "/dashboardmonitoringIoT.png",
-      tech: ["Next.js", "IoT", "Realtime"],
-      category: "IoT & Analytics Automation",
-      status: "In Active Development",
-      fullDesc: "Platform dashboard mutakhir berbasis Server-Side Rendering (SSR) yang dikembangkan untuk memantau dan memvisualisasikan data dari perangkat keras IoT secara instan. Mengintegrasikan manajemen state tingkat tinggi guna memastikan manajemen data sensor mengalir lancar, responsif, dan siap diintegrasikan dengan berbagai infrastruktur *smart-system*."
-    }
-  ];
-
-  const certificates = [
-    {
-      id: 1,
-      title: "Microsoft Office Desktop Application",
-      org: "Trust Training Partners (Microsoft Partner)",
-      date: "2024",
-      image: "/sertifikatmicrosoft.jpg" 
-    },
-    {
-      id: 2,
-      title: "Program Pelatihan Google Gemini",
-      org: "Google Gemini",
-      date: "2026", 
-      image: "/sertifikatgemini.jpg" 
-    }
-  ];
-
-  const socialLinks = [
-    { 
-      label: "📸 Instagram", 
-      href: "https://instagram.com/ghabrielsagala", 
-      text: "@ghabrielsagala" 
-    },
-    { 
-      label: "💼 LinkedIn", 
-      href: "https://www.linkedin.com/in/ghabriel-sagala-93bba027b", 
-      text: "Ghabriel Theo" 
-    },
-  ];
-
-  const organizations = [
-    { 
-      title: "Ketua Komisi Pengawas & Standarisasi", 
-      org: "HMPSTI Universitas Brawijaya Kabinet INNOVARA", 
-      year: "2026", 
-      desc: "Memegang mandat sebagai Badan Pengurus Inti (BPI) yang memimpin perancangan serta eksekusi kerangka pengawasan fungsional organisasi. Bertanggung jawab penuh dalam memonitor, mengevaluasi mutu efisiensi kerja internal, serta melakukan audit akuntabilitas program kerja berkala demi menyelaraskan arah gerak himpunan mahasiswa dengan AD/ART.", 
-      color: "bg-red-700", 
-      badge: "👑 Badan Pengurus Inti", 
-      isHighlighted: true 
-    },
-    { 
-      title: "Staff Magang PSDM", 
-      org: "BEM Fakultas Vokasi Universitas Brawijaya", 
-      year: "2024", 
-      desc: "Berkontribusi penuh dalam merumuskan kurikulum pengembangan kompetensi dasar dan kepemimpinan mahasiswa tingkat fakultas. Berperan aktif dalam menyusun program orientasi staf dan sistem penilaian performa internal, serta dianugerahi penghargaan 'Best Internship Staff' atas dedikasi tinggi dan inisiatif solutif.", 
-      color: "bg-red-800" 
-    },
-    { 
-      title: "UI/UX & Web Development Member", 
-      org: "Google Developer Groups (GDG) On Campus Brawijaya", 
-      year: "2025 - 2026", 
-      desc: "Berfokus pada perancangan antarmuka pengguna (UI) yang intuitif dan pengembangan aplikasi web responsif menggunakan standar framework modern dan teknologi terbaru dari Google.", 
-      color: "bg-blue-700" 
-    },
-    { 
-      title: "Pemeran Utama (Lead Actor)", 
-      org: "NOL DERAJAT FILM Universitas Brawijaya", 
-      year: "2025 - 2026", 
-      desc: "Memerankan karakter utama dalam film 'Memorials'. Mengoptimalkan teknik vokal, ekspresi wajah, dan pendalaman karakter untuk menyampaikan narasi emosional yang kuat. Berkolaborasi erat dengan sutradara, sinematografer, dan tim teknis dari tahap latihan hingga pasca-produksi.", 
-      color: "bg-red-900" 
-    },
-    { 
-      title: "Master of Ceremony (MC)", 
-      org: "Berbagai Agenda Resmi Universitas & Eksternal", 
-      year: "2024 - 2026", 
-      desc: "Memandu berbagai acara besar seperti Abdi Desa, Dedikarya, hingga Joint Easter Celebration. Bertanggung jawab dalam manajemen panggung, menjaga keterlibatan audiens lintas latar belakang, serta melakukan koordinasi real-time dengan tim teknis untuk penyesuaian rundown yang sigap tanpa hambatan.", 
-      color: "bg-red-800" 
-    },
-    { 
-      title: "Ketua Divisi Acara PKKMB", 
-      org: "Krida Mahasiswa Fakultas Vokasi UB", 
-      year: "2025", 
-      desc: "Memimpin manajemen koordinasi dan perencanaan konseptual untuk orientasi akbar mahasiswa baru tingkat fakultas. Mengarahkan tim panitia pelaksana selama persiapan intensif 3 bulan dan merumuskan peta alur manajemen krisis kegiatan.", 
-      color: "bg-red-800" 
-    },
-    { 
-      title: "Wakil Ketua Pelaksana (Vice Chairman)", 
-      org: "Farewell Party HMPSTI Vokasi UB", 
-      year: "2024", 
-      desc: "Menjadi pelopor penyelenggaraan Farewell Party berbasis villa pertama dalam sejarah organisasi untuk menciptakan suasana yang lebih intim dan berkesan. Mengawasi manajemen logistik komprehensif, pemilihan lokasi, hingga transportasi peserta.", 
-      color: "bg-red-800" 
-    },
-    { 
-      title: "Ketua Divisi Acara", 
-      org: "Studi Banding PSDM BEM Vokasi & BEM Pertanian UB", 
-      year: "2024", 
-      desc: "Mengorkestrasi seluruh rangkaian acara kolaboratif antar fakultas. Mengelola konten agenda, memfasilitasi sesi pertukaran ilmu (sharing session), dan memastikan tujuan strategis studi banding tercapai melalui koordinasi teknis yang matang.", 
-      color: "bg-red-800" 
-    },
-    { 
-      title: "Wakil Ketua Divisi Acara", 
-      org: "Program Abdi Desa UB", 
-      year: "2025", 
-      desc: "Berperan strategis dalam memetakan agenda pemberdayaan wilayah serta menyusun linimasa detail pelaksanaan pengabdian masyarakat selama 1 bulan penuh dan berkolaborasi langsung dengan tokoh masyarakat setempat.", 
-      color: "bg-red-800" 
-    },
-  ];
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   return (
-    <main className={`${poppins.className} relative min-h-screen bg-[#050505] text-white selection:bg-red-900 selection:text-white overflow-x-hidden`}>
-      
-      {/* Background Section */}
+    <main className={`${poppins.className} relative min-h-screen bg-[#050505] text-white selection:bg-red-900 selection:text-white overflow-x-hidden ${isLoaded ? 'animate-page-enter' : 'opacity-0'}`}>
       <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
-        <Image 
-          src="/profile.jpg" 
-          alt="Background" 
-          fill 
-          className="object-cover object-top opacity-30 mix-blend-luminosity scale-105 transition-all duration-500" 
-          priority 
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-red-950/40 to-[#050505]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(220,38,38,0.16),transparent_28%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.12),transparent_32%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/95 to-[#050505]" />
       </div>
 
-      {/* Navbar Section */}
-      <nav className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-lg border-b border-white/5">
-        <div className="relative max-w-7xl mx-auto px-6 py-5 flex md:justify-center justify-between items-center">
-          <Link href="/" className="md:absolute md:left-6 font-extrabold text-2xl tracking-tighter text-zinc-300">
-            GHABRIEL<span className="text-red-600">.</span>
-          </Link>
-          
-          <div className="hidden md:flex justify-center space-x-8 text-sm font-medium text-zinc-400">
-            <a href="#hero" className="hover:text-white hover:underline decoration-red-600 underline-offset-8 transition-all">Tentang</a>
-            <a href="#karya" className="hover:text-white hover:underline decoration-red-600 underline-offset-8 transition-all">Karya</a>
-            <a href="#organisasi" className="hover:text-white hover:underline decoration-red-600 underline-offset-8 transition-all">Organisasi</a>
-            <a href="#sertifikat" className="hover:text-white hover:underline decoration-red-600 underline-offset-8 transition-all">Sertifikat</a>
-          </div>
-
-          <button 
-            className="md:hidden text-zinc-300 hover:text-white focus:outline-none"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isMobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+      <Header />
+      {isMobileMenuOpen && (
+        <div className="absolute top-[88px] left-0 w-full bg-[#0a0a0c]/95 backdrop-blur-xl border-b border-white/5 py-4 px-6 flex flex-col space-y-5 shadow-2xl md:hidden">
+          <a href="#home" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Beranda</a>
+          <a href="#portfolio" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Portofolio</a>
+          <a href="#organisasi" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Organisasi</a>
+          <a href="#sertifikat" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Sertifikat</a>
         </div>
+      )}
 
-        {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-[#0a0a0c]/95 backdrop-blur-xl border-b border-white/5 py-4 px-6 flex flex-col space-y-5 shadow-2xl animate-in slide-in-from-top-2">
-            <a href="#hero" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Tentang</a>
-            <a href="#karya" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Karya</a>
-            <a href="#organisasi" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Organisasi</a>
-            <a href="#sertifikat" onClick={() => setIsMobileMenuOpen(false)} className="text-zinc-300 hover:text-red-500 font-medium text-base">Sertifikat</a>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section id="hero" className="relative z-10 w-full min-h-screen flex items-center overflow-hidden pt-20">
+      <section id="home" className="relative z-10 w-full min-h-screen overflow-hidden pt-24 pb-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(220,38,38,0.18),transparent_35%)] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 w-full">
-          <div className="flex flex-col space-y-6 max-w-4xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
-              Ghabriel Theo Petra Sagala
-            </h1>
-
-            <div className="flex flex-wrap items-center gap-4">
-              <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
-                Mahasiswa D3 Teknologi Informasi Vokasi
+          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.9fr] items-center">
+            <div className="max-w-3xl">
+              <span className="inline-flex items-center rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-300 backdrop-blur-sm">
+                Freelance · Internship · Fulltime
               </span>
-              <span className="bg-zinc-900/80 border border-zinc-800 hover:border-red-600 transition-all cursor-default px-5 py-2 rounded-lg text-sm font-medium text-zinc-300">
-                Universitas Brawijaya
-              </span>
-              <div className="group relative">
-                <div className="absolute -inset-0.5 bg-green-500 rounded-lg blur opacity-20 group-hover:opacity-100 transition duration-500"></div>
-                <span className="relative bg-zinc-900 border border-zinc-800 text-green-400 group-hover:text-green-300 px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
-                  IPK: 3.83
-                </span>
-              </div>
-            </div>
-            
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight pt-2">
-                Fullstack Web Developer <br /> & Tech Enthusiast.
-            </h2>
-            
-            <p className="max-w-3xl text-zinc-400 text-lg md:text-xl leading-relaxed pt-2">
-              Seorang profesional teknologi yang berdedikasi dengan focus pada pengembangan web Fullstack dan desain UI/UX. Memiliki rekam jejak kepemimpinan yang teruji melalui berbagai pengalaman organisasi strategis, serta berkomitmen penuh untuk menghadirkan solusi digital yang inovatif melalui kolaborasi tim yang dinamis dan keunggulan teknis.
-            </p>
 
-            <div className="pt-8 flex flex-col gap-6">
-              <div className="flex w-full sm:w-auto gap-4">
-                <a href="#karya" className="flex-1 sm:flex-none bg-red-700 hover:bg-red-600 text-white px-8 py-3.5 rounded-full font-semibold transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] text-center hover:scale-105">
-                  Lihat Karya
+              <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white">
+                Solusi digital modern untuk anak IT yang ingin tampil profesional.
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-lg md:text-xl leading-relaxed text-zinc-400">
+                Saya adalah Ghabriel Theo Petra Sagala. Halaman ini menunjukkan pendekatan saya sebagai anak IT: halus namun kuat, dengan fokus pada struktur kode yang rapih, performa yang stabil, dan pengalaman pengguna yang mudah diikuti.
+              </p>
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <a href="/portfolio" className="flex-1 sm:flex-none rounded-full bg-red-700 px-8 py-3.5 text-center font-semibold text-white shadow-[0_0_20px_rgba(220,38,38,0.35)] transition duration-300 hover:-translate-y-1 hover:bg-red-600 hover:shadow-[0_0_30px_rgba(220,38,38,0.55)] active:scale-95">
+                  Masuk ke Portofolio
                 </a>
-                <a href="https://wa.me/6282218361690" target="_blank" className="flex-1 sm:flex-none bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-3.5 rounded-full font-semibold transition-all text-center">
-                  Hubungi Saya
+                <a href="mailto:ghabrielsagala@gmail.com" className="flex-1 sm:flex-none rounded-full border border-white/10 bg-white/5 px-8 py-3.5 text-center font-semibold text-white transition duration-300 hover:bg-white/10 active:scale-95">
+                  Email Saya
                 </a>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                  {socialLinks.map((link, idx) => (
-                    <Link key={idx} href={link.href} target="_blank" className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-md border border-white/5 text-sm hover:bg-white/10 transition group w-fit">
-                        <span className="text-zinc-300 font-medium">{link.label}</span>
-                        <span className="text-gray-500 font-normal group-hover:text-zinc-600 transition">|</span>
-                        <span className="text-gray-400 font-normal group-hover:text-zinc-300 transition">{link.text}</span>
-                    </Link>
-                  ))}
+              <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                {[
+                  { label: "Project selesai", value: "4+" },
+                  { label: "Organisasi aktif", value: "3+" },
+                  { label: "IPK", value: "3.87" },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-[28px] border border-white/10 bg-[#121214]/80 p-6 shadow-[0_18px_55px_rgba(0,0,0,0.25)] transition hover:border-red-500/20">
+                    <p className="text-3xl font-bold text-white">{item.value}</p>
+                    <p className="mt-3 text-sm uppercase tracking-[0.25em] text-zinc-500">{item.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
+            <div className="relative">
+              <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-red-600/20 via-transparent to-transparent blur-3xl pointer-events-none" />
+              <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#0b0b0f]/90 p-6 md:p-8 shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
+                <div className="absolute right-6 top-6 h-24 w-24 rounded-full bg-red-500/10 blur-3xl" />
+                <div className="relative flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-400">Digital Toolkit</p>
+                    <h2 className="mt-2 text-3xl font-semibold text-white">Backend + Frontend + Design</h2>
+                  </div>
+                  <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-sm font-semibold text-emerald-300">
+                    IT Vibes
+                  </span>
+                </div>
+
+                <div className="mt-8 grid gap-4">
+                  <div className="rounded-[24px] border border-white/10 bg-white/5 p-5">
+                    <p className="text-sm uppercase tracking-[0.3em] text-zinc-400">Kekuatan</p>
+                    <p className="mt-3 text-lg font-semibold text-white">Aplikasi cepat, aman, dan skalabel.</p>
+                  </div>
+                  <div className="rounded-[24px] border border-white/10 bg-[#111118] p-5">
+                    <p className="text-sm uppercase tracking-[0.3em] text-zinc-400">Tools yang biasa saya gunakan</p>
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      {["Figma", "Java", "VS Code", "JavaScript", "Python", "Excel", "Laravel", "Tailwind CSS", "React", "Next.js"].map((tool) => (
+                        <span key={tool} className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-medium uppercase tracking-[0.2em] text-zinc-300">
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="rounded-[24px] border border-white/10 bg-[#111118] p-5">
+                    <p className="text-sm uppercase tracking-[0.3em] text-zinc-400">Dari</p>
+                    <div className="mt-3 flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
+                      <div className="h-24 w-24 overflow-hidden rounded-3xl border border-white/10 bg-zinc-900">
+                        <Image src="/profile.jpg" alt="Ghabriel Theo" width={96} height={96} className="object-cover" />
+                      </div>
+                      <div>
+                        <p className="text-lg font-semibold text-white">Ghabriel Theo</p>
+                        <p className="mt-2 max-w-md text-sm leading-relaxed text-zinc-400">Anak IT dengan pendekatan modern, kualitas tinggi, dan detail teknis yang kuat.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 rounded-[28px] border border-white/10 bg-[#121218]/90 p-5">
+                  <p className="text-sm uppercase tracking-[0.3em] text-red-400">Latest focus</p>
+                  <p className="mt-3 text-base leading-relaxed text-zinc-300">Meningkatkan pengalaman pengguna dengan animasi halus, pemanggilan data real-time, dan antarmuka yang bisa diadaptasi pada desktop maupun mobile.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="karya" className="py-24 px-6 bg-[#0a0a0c] backdrop-blur-sm scroll-mt-10 border-t border-white/5 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Karya & Proyek Berbasis Solusi<span className="text-red-600">.</span></h2>
-            <p className="text-zinc-400 max-w-2xl text-lg md:text-xl">Arsitektur aplikasi dan sistem perangkat lunak mandiri yang dirancang mengutamakan keunggulan teknis, skalabilitas, dan pengalaman pengguna global.</p>
+      <section className="relative z-10 bg-[#070707] px-6 pb-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 rounded-[32px] border border-white/10 bg-[#101018]/80 p-8 shadow-[0_18px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-2xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-red-400">Apa yang saya lakukan</p>
+                <h2 className="mt-3 text-4xl font-bold text-white md:text-5xl">Layanan digital untuk era IT modern.</h2>
+                <p className="mt-4 text-base leading-relaxed text-zinc-400">Saya membantu membangun produk yang dapat diakses, mudah dikembangkan, dan siap menghadapi UI masa depan. Lebih dari sekadar desain, saya mengutamakan struktur teknis yang bersih dan implementasi yang praktis.</p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2 xl:gap-4">
+                {[
+                  { title: "Prototyping cepat", desc: "Menguji ide sebelum masuk ke produksi." },
+                  { title: "Integrasi API", desc: "Membuat sistem saling berkomunikasi dengan lancar." },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-3xl border border-white/10 bg-[#121217] p-5">
+                    <p className="text-sm font-semibold text-white">{item.title}</p>
+                    <p className="mt-2 text-sm text-zinc-400">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {projects.map((project) => (
-              <div 
-                key={project.id} 
-                onClick={() => setSelectedProject(project)}
-                className="bg-[#121214] border-2 border-white/5 rounded-3xl overflow-hidden hover:border-red-600/50 transition-all duration-300 group cursor-pointer hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-900/20"
-              >
-                <div className="relative h-64 bg-zinc-900 overflow-hidden">
-                  <Image 
-                    src={project.image} 
-                    alt={project.title} 
-                    fill 
-                    className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#121214] to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-60"></div>
-                </div>
-                <div className="p-8">
-                  <h3 className="text-xl md:text-2xl font-bold mb-3 text-white group-hover:text-red-500 transition-colors leading-snug">{project.title}</h3>
-                  <p className="text-sm md:text-base text-zinc-400 mb-6 line-clamp-2 leading-relaxed">{project.shortDesc}</p>
-                  <span className="text-xs md:text-sm bg-red-950/30 text-red-400 border border-red-900/30 px-4 py-1.5 rounded-full font-semibold">{project.category}</span>
-                </div>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {[
+              { title: "Cloud-ready", description: "Membangun solusi yang mudah di-deploy dan dipelihara di server modern." },
+              { title: "Performance first", description: "Fokus pada kecepatan dan efisiensi dari sisi pengguna dan server." },
+              { title: "Design system", description: "Standarisasi komponen agar tampilan tetap konsisten dan terjaga." },
+            ].map((item) => (
+              <div key={item.title} className="rounded-[28px] border border-white/10 bg-[#121218]/90 p-6 text-white shadow-[0_18px_60px_rgba(0,0,0,0.2)]">
+                <p className="text-xl font-semibold text-white">{item.title}</p>
+                <p className="mt-4 text-sm leading-relaxed text-zinc-400">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Modal Detail Karya */}
+      <section id="portfolio" className="relative z-10 border-t border-white/5 bg-[#070708] px-6 py-20 scroll-mt-20">
+        <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,_rgba(220,38,38,0.18),transparent_35%)] pointer-events-none" />
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-red-400">Portofolio</p>
+              <h2 className="mt-3 text-4xl font-bold text-white md:text-5xl">Portofolio ringkas yang kuat dan tajam.</h2>
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-zinc-400">Dua proyek terpilih yang mencerminkan kemampuan saya dalam menciptakan solusi IT modern.</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {['UI/UX', 'Backend', 'Performance'].map((item) => (
+                <span key={item} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-300">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {projects.slice(0, 2).map((project) => (
+              <div
+                key={project.id}
+                onClick={() => setSelectedProject(project)}
+                className="group cursor-pointer overflow-hidden rounded-[28px] border border-white/10 bg-[#0d0d12]/95 shadow-[0_20px_65px_rgba(0,0,0,0.2)] transition duration-300 hover:-translate-y-1 hover:border-red-500/30"
+              >
+                <div className="relative h-56 overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                  <div className="absolute left-4 top-4 rounded-full bg-red-500/15 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-red-300 backdrop-blur-sm">
+                    {project.category}
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-white transition-colors group-hover:text-red-500">{project.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{project.shortDesc}</p>
+                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-zinc-500">
+                    <span>{project.tech.slice(0, 2).join(' • ')}</span>
+                    <span className="font-semibold text-red-300">{project.status}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <Link href="/portfolio" className="rounded-full border border-red-500/30 bg-red-500/10 px-6 py-3 text-sm font-semibold text-red-300 transition hover:bg-red-500/20">
+              Lihat semua karya →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {selectedProject && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8 transition-opacity duration-300 animate-in fade-in" onClick={() => setSelectedProject(null)}>
-          <div className="bg-[#0f0f11] border-2 border-white/10 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-center p-6 border-b border-white/5 bg-[#121214]">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8 transition-opacity duration-300" onClick={() => setSelectedProject(null)}>
+          <div className="w-full max-w-4xl overflow-hidden rounded-[32px] border border-white/10 bg-[#0f0f11] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between border-b border-white/5 bg-[#121214] p-6">
               <h3 className="text-2xl font-bold text-white tracking-tight">{selectedProject.title}</h3>
-              <button onClick={() => setSelectedProject(null)} className="text-gray-400 hover:text-white bg-white/5 hover:bg-red-600 p-3 rounded-full transition-all">
+              <button onClick={() => setSelectedProject(null)} className="rounded-full bg-white/5 p-3 text-gray-400 transition-all hover:bg-red-600 hover:text-white">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
               </button>
             </div>
-            <div className="p-6 md:p-8 overflow-y-auto max-h-[75vh]">
-              <div className="flex gap-2 mb-8 flex-wrap">
+            <div className="max-h-[75vh] overflow-y-auto p-6 md:p-8">
+              <div className="mb-8 flex flex-wrap gap-2">
                 {selectedProject.tech.map((t: string) => (
-                  <span key={t} className="bg-white/5 text-sm px-4 py-1.5 rounded-full text-gray-300 border border-white/10 font-medium tracking-wide">
+                  <span key={t} className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-gray-300">
                     {t}
                   </span>
                 ))}
-                <span className="bg-green-500/10 text-sm px-4 py-1.5 rounded-full text-green-400 border border-green-500/20 font-bold">
+                <span className="rounded-full border border-green-500/20 bg-green-500/10 px-4 py-1.5 text-sm font-bold text-green-400">
                   {selectedProject.status}
                 </span>
               </div>
-              <div className="bg-white/5 p-6 rounded-2xl border border-white/5 mb-8">
-                <h4 className="text-red-500 font-bold text-sm mb-3 tracking-widest uppercase">Spesifikasi Arsitektur Produk</h4>
-                <p className="text-zinc-300 text-base md:text-xl leading-relaxed">{selectedProject.fullDesc}</p>
+              <div className="mb-8 rounded-2xl border border-white/5 bg-white/5 p-6">
+                <h4 className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-red-500">Spesifikasi Arsitektur Produk</h4>
+                <p className="text-base leading-relaxed text-zinc-300 md:text-xl">{selectedProject.fullDesc}</p>
               </div>
-              <div className="relative h-64 md:h-[450px] w-full rounded-2xl overflow-hidden border border-white/10 shadow-inner">
+              <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-white/10 shadow-inner md:h-[450px]">
                 <Image src={selectedProject.image} alt={selectedProject.title} fill className="object-cover" />
               </div>
             </div>
@@ -336,95 +262,118 @@ export default function Home() {
         </div>
       )}
 
-      {/* Organization Section */}
-      <section id="organisasi" className="py-24 px-6 bg-[#050505] scroll-mt-10 border-t border-white/5 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Pengalaman Organisasi<span className="text-red-600">.</span></h2>
-            <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">Melalui rekam jejak kepemimpinan, saya aktif membangun ekosistem kerja tim yang adaptif, akuntabel, dan berorientasi pada pencapaian strategis.</p>
+      <section id="organisasi" className="relative z-10 border-t border-white/5 bg-[#050505] px-6 py-24 scroll-mt-20">
+        <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top_right,rgba(220,38,38,0.18),transparent_40%)] pointer-events-none" />
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.3em] text-red-300">Organisasi</div>
+            <h2 className="mt-5 text-4xl font-bold text-white md:text-5xl">Pengalaman organisasi yang terasa lebih terarah dan profesional.</h2>
+            <p className="mt-4 text-lg leading-relaxed text-zinc-400">Setiap peran menunjukkan cara saya memimpin, memantau proses, dan menjaga tim beroperasi dengan rapi.</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
-            {organizations.map((item, idx) => (
-              <div key={idx} className={`group relative bg-[#0d0d0f]/60 backdrop-blur-sm p-8 rounded-3xl border-2 transition-all duration-300 overflow-hidden ${item.isHighlighted ? 'border-red-600/60 shadow-[0_0_30px_rgba(220,38,38,0.15)] hover:border-red-500 hover:shadow-[0_0_40px_rgba(220,38,38,0.3)]' : 'border-white/5 hover:border-red-600/50'}`}>
-                <div className={`absolute top-0 left-0 w-1.5 h-full ${item.color}`}></div>
-                <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-2 xl:gap-4 mb-2 xl:mb-1">
-                  <h3 className="text-xl md:text-2xl font-bold text-zinc-100 group-hover:text-red-500 transition-colors leading-snug">{item.title}</h3>
-                  {item.badge && <span className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap w-fit">{item.badge}</span>}
-                </div>
-                <p className="text-sm md:text-base text-red-400 font-semibold mb-4 leading-relaxed">{item.org} • {item.year}</p>
-                <p className="text-zinc-400 text-base leading-relaxed text-justify">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Certificates Section */}
-      <section id="sertifikat" className="py-24 px-6 bg-[#0a0a0c] scroll-mt-10 border-t border-white/5 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Sertifikasi & Penghargaan<span className="text-red-600">.</span></h2>
-            <p className="text-zinc-400 max-w-2xl text-lg md:text-xl">Validasi kompetensi teknis profesional berstandar industri global. Klik kartu untuk melihat lampiran penuh.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {certificates.map((cert) => (
-              <div 
-                key={cert.id} 
-                onClick={() => setSelectedCert(cert)}
-                className="bg-[#121214] flex items-center space-x-6 p-6 rounded-2xl border-2 border-white/5 hover:border-red-600 transition group cursor-pointer hover:-translate-y-1"
-              >
-                <div className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden border border-white/10 group-hover:border-red-500/50 shadow-inner">
-                  <Image 
-                    src={cert.image} 
-                    alt={cert.title} 
-                    fill 
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" 
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-300 flex items-center justify-center">
-                    <span className="bg-black/70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">Perbesar</span>
+          <div className="grid gap-6 md:grid-cols-2">
+            {organizations.slice(0, 4).map((item, idx) => (
+              <div key={idx} className={`group relative overflow-hidden rounded-[28px] border border-white/10 bg-[#111118]/90 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-1 hover:border-red-500/30 ${item.isHighlighted ? 'border-red-600/50 shadow-[0_25px_90px_rgba(220,38,38,0.16)]' : ''}`}>
+                <div className={`absolute left-0 top-0 h-full w-1.5 ${item.color}`}></div>
+                <div className="relative z-10 space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                    {item.badge ? <span className="rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-[11px] font-semibold text-red-300">{item.badge}</span> : null}
+                  </div>
+                  <p className="text-sm font-semibold text-red-400">{item.org} • {item.year}</p>
+                  <p className="text-sm leading-relaxed text-zinc-400">{item.desc}</p>
+                  <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.25em] text-zinc-500">
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Kepemimpinan</span>
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Organisasi</span>
                   </div>
                 </div>
-                <div>
-                  <span className="text-green-500 text-[10px] font-bold uppercase tracking-[2px] mb-2 inline-block">Verified Credentials</span>
-                  <h3 className="font-bold text-zinc-100 text-xl md:text-2xl group-hover:text-red-400 transition-colors leading-snug">{cert.title}</h3>
-                  <p className="text-sm md:text-base text-zinc-400 font-medium mb-1 leading-normal">{cert.org} • {cert.date}</p>
-                </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <Link href="/organisasi" className="rounded-full border border-red-500/30 bg-red-500/10 px-6 py-3 text-sm font-semibold text-red-300 transition hover:bg-red-500/20">
+              Lihat semua pengalaman →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Modal Detail Sertifikat */}
+      <section id="sertifikat" className="relative z-10 border-t border-white/5 bg-[#0a0a0c] px-6 py-24 scroll-mt-20">
+        <div className="absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.16),transparent_40%)] pointer-events-none" />
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-16 max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-emerald-300">Sertifikat</div>
+            <h2 className="mt-5 text-4xl font-bold text-white md:text-5xl">Sertifikat profesional dengan tampilan yang lebih tajam.</h2>
+            <p className="mt-4 text-lg leading-relaxed text-zinc-400">Dokumen resmi yang mendukung kemampuan teknis saya dengan gaya yang modern dan elegan.</p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {certificates.map((cert) => (
+              <button 
+                key={cert.id}
+                type="button"
+                onClick={() => setSelectedCert(cert)}
+                className="group relative overflow-hidden rounded-[32px] border border-white/10 bg-[#0d0d12]/90 p-5 text-left shadow-[0_25px_80px_rgba(0,0,0,0.24)] transition duration-300 hover:-translate-y-1 hover:border-emerald-400/30"
+              >
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.12),transparent_65%)] opacity-0 transition group-hover:opacity-100" />
+                <div className="flex items-center gap-4">
+                  <div className="relative h-24 w-24 overflow-hidden rounded-3xl border border-white/10 bg-zinc-900">
+                    <Image 
+                      src={cert.image} 
+                      alt={cert.title} 
+                      fill 
+                      className="object-cover" 
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-semibold uppercase tracking-[2px] text-emerald-400">Verified credential</span>
+                    <h3 className="mt-3 text-xl font-semibold text-white">{cert.title}</h3>
+                    <p className="mt-1 text-sm text-zinc-400">{cert.org} • {cert.date}</p>
+                  </div>
+                </div>
+                <div className="mt-6 rounded-[24px] border border-white/10 bg-white/5 p-4 text-sm leading-relaxed text-zinc-300">
+                  Sertifikat ini menunjukkan bahwa saya terus menambah kompetensi dan mengadopsi standar profesional terbaru.
+                </div>
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-10 flex justify-center">
+            <Link href="/sertifikat" className="rounded-full border border-emerald-400/30 bg-emerald-500/10 px-6 py-3 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-500/20">
+              Lihat semua sertifikat →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {selectedCert && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8 transition-opacity duration-300 animate-in fade-in" onClick={() => setSelectedCert(null)}>
-          <div className="bg-[#0f0f11] border-2 border-white/10 w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-between items-center p-6 md:p-8 border-b border-white/5 bg-[#121214]">
-              <h3 className="text-2xl md:text-3xl font-bold text-white pr-8 tracking-tight">{selectedCert.title}</h3>
-              <button onClick={() => setSelectedCert(null)} className="text-gray-400 hover:text-white bg-white/5 hover:bg-red-600 p-3 rounded-full transition-all">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8 transition-opacity duration-300" onClick={() => setSelectedCert(null)}>
+          <div className="w-full max-w-5xl overflow-hidden rounded-[32px] border border-white/10 bg-[#0f0f11] shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between border-b border-white/5 bg-[#121214] p-6 md:p-8">
+              <h3 className="pr-8 text-2xl font-bold text-white tracking-tight md:text-3xl">{selectedCert.title}</h3>
+              <button onClick={() => setSelectedCert(null)} className="rounded-full bg-white/5 p-3 text-gray-400 transition-all hover:bg-red-600 hover:text-white">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
               </button>
             </div>
-            <div className="p-6 md:p-8 overflow-y-auto max-h-[75vh]">
-              <div className="flex gap-2 mb-8 flex-wrap">
-                <span className="bg-white/5 text-sm px-4 py-1.5 rounded-full text-zinc-300 border border-white/10 font-medium tracking-wide">
+            <div className="max-h-[75vh] overflow-y-auto p-6 md:p-8">
+              <div className="mb-8 flex flex-wrap gap-2">
+                <span className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-zinc-300">
                   {selectedCert.org}
                 </span>
-                <span className="bg-white/5 text-sm px-4 py-1.5 rounded-full text-zinc-400 border border-white/10">
+                <span className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-zinc-400">
                   {selectedCert.date}
                 </span>
               </div>
-              <div className="bg-white/5 p-6 rounded-2xl border border-white/5 mb-8">
-                <h4 className="text-red-500 font-bold text-sm mb-3 tracking-widest uppercase">Informasi Sertifikat</h4>
-                <p className="text-zinc-300 text-base md:text-xl leading-relaxed">
+              <div className="mb-8 rounded-2xl border border-white/5 bg-white/5 p-6">
+                <h4 className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-red-500">Informasi Sertifikat</h4>
+                <p className="text-base leading-relaxed text-zinc-300 md:text-xl">
                   Sertifikasi kompetensi profesional berstandar tinggi yang memvalidasi keahlian dan pengetahuan dalam domain spesifik. Terbit pada tahun {selectedCert.date} oleh {selectedCert.org}.
                 </p>
               </div>
-              <div className="relative h-64 md:h-[500px] w-full rounded-2xl overflow-hidden border-2 border-white/10 shadow-inner bg-zinc-900 flex items-center justify-center">
+              <div className="relative h-64 w-full overflow-hidden rounded-2xl border-2 border-white/10 bg-zinc-900 shadow-inner md:h-[500px]">
                 <Image src={selectedCert.image} alt={selectedCert.title} fill className="object-contain" />
               </div>
             </div>
@@ -432,15 +381,14 @@ export default function Home() {
         </div>
       )}
 
-      {/* Footer */}
-      <footer id="contact" className="py-20 bg-[#050505] border-t border-white/5 text-center relative z-10 scroll-mt-10">
-        <h2 className="text-3xl font-bold mb-8 text-zinc-200">Mari Berkolaborasi!</h2>
-        <div className="flex justify-center gap-6 mb-10 flex-wrap px-6 text-sm font-medium">
-          <a href="https://wa.me/6282218361690" target="_blank" className="text-zinc-400 hover:text-green-500 transition-colors">WhatsApp</a>
-          <a href="https://instagram.com/ghabrielsagala" target="_blank" className="text-zinc-400 hover:text-pink-500 transition-colors">Instagram</a>
-          <a href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b" target="_blank" className="text-zinc-400 hover:text-blue-500 transition-colors">LinkedIn</a>
+      <footer id="contact" className="relative z-10 border-t border-white/5 bg-[#050505] py-20 text-center">
+        <h2 className="mb-8 text-3xl font-bold text-zinc-200">Mari berkolaborasi dan membuat sesuatu yang berarti.</h2>
+        <div className="mb-10 flex flex-wrap justify-center gap-6 px-6 text-sm font-medium">
+          <a href="mailto:ghabrielsagala@gmail.com" className="text-zinc-400 transition-colors hover:text-green-500">ghabrielsagala@gmail.com</a>
+          <a href="https://instagram.com/ghabrielsagala" target="_blank" className="text-zinc-400 transition-colors hover:text-pink-500">Instagram</a>
+          <a href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b" target="_blank" className="text-zinc-400 transition-colors hover:text-blue-500">LinkedIn</a>
         </div>
-        <p className="text-zinc-600 text-sm">© {new Date().getFullYear()} Ghabriel Theo Petra Sagala. Dibuat dengan Poppins Font.</p>
+        <p className="text-sm text-zinc-600">© {new Date().getFullYear()} Ghabriel Theo Petra Sagala. Dibuat dengan desain modern dan pengalaman yang lebih personal.</p>
       </footer>
     </main>
   );
