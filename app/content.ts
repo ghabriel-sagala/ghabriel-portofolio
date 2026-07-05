@@ -112,10 +112,24 @@ export const organizations = [
     color: "bg-red-900"
   },
   {
-    title: "Master of Ceremony (MC)",
-    org: "Berbagai Agenda Resmi Universitas & Eksternal",
-    year: "2024 - 2026",
-    desc: "Memandu berbagai acara besar seperti Abdi Desa, Dedikarya, hingga Joint Easter Celebration. Bertanggung jawab dalam manajemen panggung dan koordinasi real-time dengan tim teknis.",
+    title: "Master of Ceremony (MC) — Puncak Acara Abdi Desa",
+    org: "Abdi Desa — Desa Amandanom",
+    year: "2025",
+    desc: "Kegiatan pengabdian pada masyarakat yang dilaksanakan di Desa Amandanom sebagai bagian dari program pengabdian universitas. Bertugas memandu rangkaian acara puncak, memastikan alur kegiatan berjalan lancar, dan berkoordinasi dengan tim lapangan untuk kebutuhan teknis dan logistik.",
+    color: "bg-red-800"
+  },
+  {
+    title: "Master of Ceremony (MC) — Dedikarya",
+    org: "Vokasi Universitas Brawijaya",
+    year: "2024",
+    desc: "Acara apresiasi bagi organisasi mahasiswa (ormawa) di lingkungan Vokasi Universitas Brawijaya. Berperan sebagai MC dalam sesi penghargaan dan presentasi, menjaga ritme acara serta interaksi audiens agar suasana tetap hangat dan terstruktur.",
+    color: "bg-red-800"
+  },
+  {
+    title: "Master of Ceremony (MC) — Joint Easter Celebration",
+    org: "Paskah PMK Vokasi UB • Team Level Up Blitar • GBI Suropati",
+    year: "2026",
+    desc: "Acara gabungan Paskah yang melibatkan Paskah PMK Vokasi Universitas Brawijaya, Team Level Up Blitar, dan GBI Suropati. Sebagai MC, memimpin rangkaian acara bersama dan memastikan sinkronisasi antar-tim untuk perpindahan sesi, koordinasi sound/lighting, serta interaksi peserta.",
     color: "bg-red-800"
   },
   {
