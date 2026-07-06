@@ -39,10 +39,6 @@ export default function Landing() {
             Hello, I'm Ghabriel.
           </h1>
 
-          <p className="mt-8 mx-auto max-w-3xl text-justify text-lg leading-8 text-[var(--muted)] sm:text-xl">
-            This site is designed as a developer-first portfolio: clean visuals, strong interactions, and real code-driven detail from the first impression.
-          </p>
-
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-center">
             <Link href="/home" className="inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-9 py-4 text-base font-semibold text-[var(--btn-fg)] shadow-[0_0_35px_rgba(239,68,68,0.35)] transition duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-[var(--accent-2)] focus:outline-none focus:ring-4 focus:ring-[var(--accent)]/20 active:scale-95">
               Enter my work
