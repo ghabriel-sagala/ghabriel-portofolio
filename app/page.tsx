@@ -28,9 +28,9 @@ export default function Landing() {
         <div className="absolute inset-x-0 bottom-0 h-64 bg-[radial-gradient(circle_at_bottom,rgba(0,255,209,0.12),transparent_45%)] pointer-events-none" />
       </div>
 
-      <div className={`relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-6 py-24 text-center transition-all duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
+      <div className={`relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-end px-6 pb-16 pt-10 text-center transition-all duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
         <div className="w-full max-w-4xl">
-          <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--glass)] px-5 py-2 text-sm text-[var(--muted)] shadow-[0_20px_80px_rgba(0,0,0,0.08)] backdrop-blur-md">
+          <div className="mx-auto mb-8 inline-flex items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--glass)] px-5 py-2 text-sm text-[var(--muted)] shadow-[0_20px_80px_rgba(0,0,0,0.08)] backdrop-blur-md">
             <span className="h-2.5 w-2.5 rounded-full bg-[var(--accent)] shadow-[0_0_14px_rgba(239,68,68,0.35)]" />
             Web developer portfolio • built for modern interfaces
           </div>
@@ -39,27 +39,24 @@ export default function Landing() {
             Hello, I'm Ghabriel.
           </h1>
 
-          <p className="mt-8 max-w-2xl text-lg leading-8 text-[var(--muted)] sm:text-xl">
+          <p className="mt-8 mx-auto max-w-3xl text-justify text-lg leading-8 text-[var(--muted)] sm:text-xl">
             This site is designed as a developer-first portfolio: clean visuals, strong interactions, and real code-driven detail from the first impression.
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-center">
-            <Link href="/home" className="inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-8 py-3.5 text-sm font-semibold text-[var(--btn-fg)] shadow-[0_0_25px_rgba(239,68,68,0.32)] transition duration-300 hover:-translate-y-1 hover:bg-[var(--accent-2)] active:scale-95">
+            <Link href="/home" className="inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-9 py-4 text-base font-semibold text-[var(--btn-fg)] shadow-[0_0_35px_rgba(239,68,68,0.35)] transition duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-[var(--accent-2)] focus:outline-none focus:ring-4 focus:ring-[var(--accent)]/20 active:scale-95">
               Enter my work
             </Link>
-            <div className="rounded-full border border-[var(--border)] bg-[var(--glass)] px-5 py-3 text-sm text-[var(--muted)]">
-              Crafted with <span className="font-semibold text-[var(--fg)]">Next.js</span>, <span className="font-semibold text-[var(--fg)]">Tailwind</span>, and a developer mindset.
-            </div>
           </div>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             <div className="rounded-[28px] border border-[var(--border)] bg-[var(--card)]/90 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.14)]">
               <p className="text-sm uppercase tracking-[0.35em] text-[var(--muted)]">Role</p>
-              <p className="mt-4 text-xl font-semibold text-[var(--fg)]">Frontend & UI developer</p>
+              <p className="mt-4 text-xl font-semibold text-[var(--fg)]">Frontend & UI Developer</p>
             </div>
             <div className="rounded-[28px] border border-[var(--border)] bg-[var(--card)]/90 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.14)]">
               <p className="text-sm uppercase tracking-[0.35em] text-[var(--muted)]">Focus</p>
-              <p className="mt-4 text-xl font-semibold text-[var(--fg)]">Responsive interactions</p>
+              <p className="mt-4 text-xl font-semibold text-[var(--fg)]">Engaging interactions</p>
             </div>
             <div className="rounded-[28px] border border-[var(--border)] bg-[var(--card)]/90 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.14)]">
               <p className="text-sm uppercase tracking-[0.35em] text-[var(--muted)]">Built with</p>

@@ -58,7 +58,7 @@ export const projects = [
     id: 6,
     title: "EcoScan AI Waste Classifier",
     shortDesc: "A Laravel web app that uses machine learning to classify waste as organic or non-organic.",
-    image: "/ecoscan-ai.jpg",
+    image: "/EcoScan AI.png",
     tech: ["Laravel", "Machine Learning", "AI", "Tailwind CSS"],
     category: "AI Waste Classification",
     status: "Production Ready",
