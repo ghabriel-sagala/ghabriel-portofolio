@@ -1,27 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0b1020; /* deep navy */
-  --fg: #e6f0ff; /* soft white */
-  --muted: #9aa7bd; /* muted text */
-  --accent: #00ffd1; /* neon cyan */
-  --accent-2: #7c5cff; /* purple accent */
-  --card: rgba(255,255,255,0.03);
-  --glass: rgba(255,255,255,0.04);
-  --glass-2: rgba(124,92,255,0.06);
+  --bg: #0b1020;
+  --fg: #e6f0ff;
+  --muted: #9aa7bd;
+  --accent: #ef4444;
+  --accent-2: #b91c1c;
+  --card: rgba(255,255,255,0.06);
+  --glass: rgba(255,255,255,0.08);
+  --glass-2: rgba(248,113,113,0.10);
+  --border: rgba(255,255,255,0.12);
+  --overlay: rgba(0,0,0,0.75);
+  --btn-fg: #e6f0ff;
+  --btn-bg: rgba(239,68,68,0.16);
+  --bg-gradient: radial-gradient(circle at top left, rgba(220,38,38,0.22), transparent 24%), radial-gradient(circle at bottom right, rgba(0,0,0,0.28), transparent 30%);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f7fafc;
-    --fg: #0b1220;
-    --muted: #4a5568;
-    --accent: #0ea5b6;
-    --accent-2: #7c5cff;
-    --card: rgba(11,17,32,0.04);
-    --glass: rgba(11,17,32,0.03);
-    --glass-2: rgba(124,92,255,0.04);
-  }
+html.light {
+  color-scheme: light;
+  --bg: #f4f5f7;
+  --fg: #111827;
+  --muted: #475569;
+  --accent: #ef4444;
+  --accent-2: #f97316;
+  --card: rgba(255,255,255,0.90);
+  --glass: rgba(255,255,255,0.76);
+  --glass-2: rgba(248,113,113,0.12);
+  --border: rgba(15,23,42,0.12);
+  --overlay: rgba(0,0,0,0.38);
+  --btn-fg: #111827;
+  --btn-bg: rgba(239,68,68,0.10);
+  --bg-gradient: radial-gradient(circle at top left, rgba(248,113,113,0.16), transparent 22%), radial-gradient(circle at bottom right, rgba(148,163,184,0.16), transparent 28%);
+}
+
+html.dark {
+  color-scheme: dark;
+  --bg: #0b1020;
+  --fg: #e6f0ff;
+  --muted: #9aa7bd;
+  --accent: #ef4444;
+  --accent-2: #b91c1c;
+  --card: rgba(255,255,255,0.06);
+  --glass: rgba(255,255,255,0.08);
+  --glass-2: rgba(248,113,113,0.10);
+  --border: rgba(255,255,255,0.12);
+  --overlay: rgba(0,0,0,0.75);
+  --btn-fg: #e6f0ff;
+  --btn-bg: rgba(239,68,68,0.16);
+  --bg-gradient: radial-gradient(circle at top left, rgba(220,38,38,0.22), transparent 24%), radial-gradient(circle at bottom right, rgba(0,0,0,0.28), transparent 30%);
 }
 
 @theme inline {
@@ -35,9 +61,19 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--fg);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+.global-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--bg-gradient);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 * { box-sizing: border-box; }

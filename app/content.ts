@@ -2,57 +2,68 @@ export const projects = [
   {
     id: 1,
     title: "Platform E-Tourism Wisata Kampoeng Kadjoetangan Heritage",
-    shortDesc: "Sistem manajemen konten dan portal promosi cagar budaya digital interaktif.",
+    shortDesc: "A content management system and promotional portal for an interactive cultural heritage tourism platform.",
     image: "/websitewisata.jpg",
     tech: ["Laravel", "PHP", "Tailwind CSS"],
     category: "E-Commerce & Tourism Platform",
     status: "Production Ready",
     fullDesc:
-      "Sebuah platform e-tourism terintegrasi yang dirancang untuk mendigitalisasi ekosistem cagar budaya Kampoeng Kadjoetangan Heritage. Sistem ini mengimplementasikan manajemen data wisata dinamis, optimasi UI/UX interaktif, serta arsitektur backend kokoh yang memudahkan pengelolaan informasi destinasi, rute, dan event secara real-time."
+      "An integrated e-tourism platform designed to digitalize the heritage ecosystem of Kampoeng Kadjoetangan Heritage. This system features dynamic destination data management, interactive UI/UX optimization, and a robust backend architecture for real-time control of route, destination, and event information."
   },
   {
     id: 2,
-    title: "Platform Manajemen Produktivitas & Aktivitas 'TaskMate'",
-    shortDesc: "Sistem manajemen tugas pintar dengan dasbor interaktif berbasis personalisasi pengguna.",
+    title: "TaskMate Productivity & Activity Management Platform",
+    shortDesc: "A smart task management system with a user-personalized interactive dashboard.",
     image: "/taskmate.jpg",
     tech: ["React.js", "Tailwind CSS", "Context API"],
     category: "Productivity & SaaS Application",
     status: "Production Ready",
     fullDesc:
-      "TaskMate merupakan platform asisten produktivitas modern yang dirancang khusus untuk mengoptimalkan efisiensi alur kerja harian pengguna. Perangkat lunak ini mengintegrasikan dasbor dinamis dengan fitur personalisasi profil pengguna, modul manajemen skala prioritas tugas, pelacak tenggat waktu, serta visualisasi progres aktivitas yang intuitif."
+      "TaskMate is a modern productivity assistant platform designed to optimize daily workflows. The software combines a dynamic dashboard with user profile personalization, priority-based task management, deadline tracking, and intuitive progress visualizations."
   },
   {
     id: 3,
-    title: "Sistem Manajemen Keuangan & Tabungan Digital",
-    shortDesc: "Aplikasi pencatatan transaksi finansial mandiri dengan arsitektur ledger presisi.",
+    title: "Digital Finance & Savings Management System",
+    shortDesc: "A self-service financial transaction recording app with precision ledger architecture.",
     image: "/websitetabunganmahasiswa.png",
     tech: ["Native PHP", "HTML", "CSS", "JS"],
     category: "Financial Technology (Fintech)",
     status: "Fully Functional",
     fullDesc:
-      "Aplikasi manajemen finansial internal yang dibangun menggunakan arsitektur MVC native terstruktur untuk menjamin akurasi dan performa pencatatan. Dilengkapi dengan sistem autentikasi multi-user yang aman, pelacakan histori mutasi keuangan secara berkala, enkripsi database, serta kalkulasi saldo otomatis yang robust."
+      "An internal finance management application built with structured native MVC architecture for accurate, high-performance transaction recording. It includes secure multi-user authentication, periodic financial history tracking, database encryption, and robust automatic balance calculations."
   },
   {
     id: 4,
-    title: "Dashboard Analitik & Monitoring IoT Real-Time",
-    shortDesc: "Platform visualisasi metrik data telemetri sensorik dengan latensi rendah.",
+    title: "Real-Time IoT Analytics & Monitoring Dashboard",
+    shortDesc: "A telemetry data visualization platform built for low-latency insight delivery.",
     image: "/dashboardmonitoringIoT.png",
     tech: ["Next.js", "IoT", "Realtime"],
     category: "IoT & Analytics Automation",
     status: "In Active Development",
     fullDesc:
-      "Platform dashboard mutakhir berbasis Server-Side Rendering (SSR) yang dikembangkan untuk memantau dan memvisualisasikan data dari perangkat keras IoT secara instan. Mengintegrasikan manajemen state tingkat tinggi guna memastikan mengalirnya data sensor secara lancar dan responsif."
+      "A modern dashboard built with server-side rendering to monitor and visualize sensor telemetry instantly. It integrates high-level state management to ensure sensor data flows smoothly and stays responsive under active monitoring conditions."
   },
   {
     id: 5,
-    title: "Management System RT untuk Laravel",
-    shortDesc: "Sistem manajemen RT modern dengan kontrol data warga yang terstruktur.",
+    title: "RT Management System with Laravel",
+    shortDesc: "A modern neighborhood management system with structured resident data control.",
     image: "/management-rt.png",
     tech: ["Laravel", "PHP", "MySQL", "Tailwind CSS"],
     category: "Management System",
     status: "Production Ready",
     fullDesc:
-      "Sistem manajemen RT berbasis Laravel ini didesain untuk memudahkan pengelolaan data warga, pengumuman, serta pelaporan rutin. Tampilan modern dan fungsionalitas administrasi yang rapih menjadikan aplikasi ini ideal untuk lingkungan komunitas yang membutuhkan kontrol digital yang jelas dan responsif."
+      "This Laravel-based RT management system is designed for easy resident data administration, announcements, and routine reporting. The modern interface and clear administrative functionality make it ideal for communities needing responsive digital control."
+  },
+  {
+    id: 6,
+    title: "EcoScan AI Waste Classifier",
+    shortDesc: "A Laravel web app that uses machine learning to classify waste as organic or non-organic.",
+    image: "/ecoscan-ai.jpg",
+    tech: ["Laravel", "Machine Learning", "AI", "Tailwind CSS"],
+    category: "AI Waste Classification",
+    status: "Production Ready",
+    fullDesc:
+      "EcoScan AI is a machine learning-powered waste classification website built with Laravel. It helps users determine whether an item is organic or non-organic waste, combining trained AI models with a polished web interface for practical environmental awareness."
   }
 ];
 
@@ -66,7 +77,7 @@ export const certificates = [
   },
   {
     id: 2,
-    title: "Program Pelatihan Google Gemini",
+    title: "Google Gemini Training Program",
     org: "Google Gemini",
     date: "2026",
     image: "/sertifikatgemini.jpg"
@@ -82,61 +93,61 @@ export const certificates = [
 
 export const organizations = [
   {
-    title: "Ketua Komisi Pengawas & Standarisasi",
+    title: "Chair of Monitoring & Standardization Commission",
     org: "HMPSTI Universitas Brawijaya Kabinet INNOVARA",
     year: "2026",
-    desc: "Memegang mandat sebagai Badan Pengurus Inti (BPI) yang memimpin perancangan serta eksekusi kerangka pengawasan fungsional organisasi. Bertanggung jawab penuh dalam memonitor, mengevaluasi mutu efisiensi kerja internal, serta melakukan audit akuntabilitas program kerja berkala demi menyelaraskan arah gerak himpunan mahasiswa dengan AD/ART.",
+    desc: "Held a leadership mandate within the executive core to define and execute an organizational monitoring framework. Fully responsible for reviewing internal efficiency, evaluating program quality, and auditing accountability to align the student association with its bylaws.",
     color: "bg-red-700",
-    badge: "👑 Badan Pengurus Inti",
+    badge: "👑 Executive Leadership",
     isHighlighted: true
   },
   {
-    title: "Staff Magang PSDM",
+    title: "HRD Internship Staff",
     org: "BEM Fakultas Vokasi Universitas Brawijaya",
     year: "2024",
-    desc: "Berkontribusi penuh dalam merumuskan kurikulum pengembangan kompetensi dasar dan kepemimpinan mahasiswa tingkat fakultas. Berperan aktif dalam menyusun program orientasi staf dan sistem penilaian performa internal, serta dianugerahi penghargaan 'Best Internship Staff'.",
+    desc: "Contributed to curriculum design for basic competency development and student leadership. Actively helped shape staff orientation programs and internal performance evaluation, earning recognition as 'Best Internship Staff'.",
     color: "bg-red-800"
   },
   {
     title: "UI/UX & Web Development Member",
     org: "Google Developer Groups (GDG) On Campus Brawijaya",
     year: "2025 - 2026",
-    desc: "Berfokus pada perancangan antarmuka pengguna (UI) yang intuitif dan pengembangan aplikasi web responsif menggunakan standar framework modern dan teknologi terbaru dari Google.",
+    desc: "Focused on intuitive user interface design and responsive web application development using modern frameworks and the latest Google-supported technologies.",
     color: "bg-blue-700"
   },
   {
-    title: "Pemeran Utama (Lead Actor)",
+    title: "Lead Actor",
     org: "NOL DERAJAT FILM Universitas Brawijaya",
     year: "2025 - 2026",
-    desc: "Memerankan karakter utama dalam film 'Memorials'. Mengoptimalkan teknik vokal, ekspresi wajah, dan pendalaman karakter untuk menyampaikan narasi emosional yang kuat.",
+    desc: "Portrayed the main character in 'Memorials,' optimizing vocal delivery, facial expression, and character depth to convey a powerful emotional narrative.",
     color: "bg-red-900"
   },
   {
-    title: "Master of Ceremony (MC) — Puncak Acara Abdi Desa",
+    title: "Master of Ceremony — Abdi Desa Finale",
     org: "Abdi Desa — Desa Amandanom",
     year: "2025",
-    desc: "Kegiatan pengabdian pada masyarakat yang dilaksanakan di Desa Amandanom sebagai bagian dari program pengabdian universitas. Bertugas memandu rangkaian acara puncak, memastikan alur kegiatan berjalan lancar, dan berkoordinasi dengan tim lapangan untuk kebutuhan teknis dan logistik.",
+    desc: "Hosted the final event for a community service program in Desa Amandanom, guiding the schedule, ensuring smooth transitions, and coordinating with technical and logistics teams.",
     color: "bg-red-800"
   },
   {
-    title: "Master of Ceremony (MC) — Dedikarya",
+    title: "Master of Ceremony — Dedikarya",
     org: "Vokasi Universitas Brawijaya",
     year: "2024",
-    desc: "Acara apresiasi bagi organisasi mahasiswa (ormawa) di lingkungan Vokasi Universitas Brawijaya. Berperan sebagai MC dalam sesi penghargaan dan presentasi, menjaga ritme acara serta interaksi audiens agar suasana tetap hangat dan terstruktur.",
+    desc: "Served as MC for a student society appreciation event, maintaining event flow and audience engagement across presentations and recognition sessions.",
     color: "bg-red-800"
   },
   {
-    title: "Master of Ceremony (MC) — Joint Easter Celebration",
+    title: "Master of Ceremony — Joint Easter Celebration",
     org: "Paskah PMK Vokasi UB • Team Level Up Blitar • GBI Suropati",
     year: "2026",
-    desc: "Acara gabungan Paskah yang melibatkan Paskah PMK Vokasi Universitas Brawijaya, Team Level Up Blitar, dan GBI Suropati. Sebagai MC, memimpin rangkaian acara bersama dan memastikan sinkronisasi antar-tim untuk perpindahan sesi, koordinasi sound/lighting, serta interaksi peserta.",
+    desc: "Co-hosted a multi-organization Easter celebration, coordinating between teams for seamless transitions, sound and lighting support, and audience interaction.",
     color: "bg-red-800"
   },
   {
-    title: "Ketua Divisi Acara PKKMB",
+    title: "Event Division Lead — PKKMB",
     org: "Krida Mahasiswa Fakultas Vokasi UB",
     year: "2025",
-    desc: "Memimpin manajemen koordinasi dan perencanaan konseptual untuk orientasi akbar mahasiswa baru tingkat fakultas. Mengarahkan tim panitia pelaksana selama persiapan intensif 3 bulan.",
+    desc: "Led event coordination and conceptual planning for the large-scale freshman orientation ceremony. Directed a preparation team through an intensive three-month execution period.",
     color: "bg-red-800"
   }
 ];

@@ -1,10 +1,40 @@
 "use client";
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
+type Theme = "light" | "dark";
+interface ThemeContextValue {
+  theme: Theme;
+  setTheme: React.Dispatch<React.SetStateAction<Theme>>;
+}
+
+const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme must be used within UXProvider");
+  }
+  return context;
+}
 
 export default function UXProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [flash, setFlash] = useState(false);
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  useEffect(() => {
+    const storedTheme = window.localStorage.getItem("theme") as Theme | null;
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    const initialTheme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : systemTheme;
+    setTheme(initialTheme);
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("theme", theme);
+    document.documentElement.classList.toggle("light", theme === "light");
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
@@ -40,15 +70,17 @@ export default function UXProvider({ children }: { children: React.ReactNode }) 
   }, [router]);
 
   return (
-    <div className="relative">
-      {children}
-      <div
-        aria-hidden
-        className={`link-flash ${flash ? "show" : ""}`}
-        style={{
-          background: "radial-gradient(circle at 20% 10%, rgba(0,255,209,0.10), transparent 12%), radial-gradient(circle at 80% 90%, rgba(124,92,255,0.08), transparent 18%)",
-        }}
-      />
-    </div>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <div className="relative">
+        {children}
+        <div
+          aria-hidden
+          className={`link-flash ${flash ? "show" : ""}`}
+          style={{
+            background: "radial-gradient(circle at 20% 10%, rgba(0,255,209,0.10), transparent 12%), radial-gradient(circle at 80% 90%, rgba(124,92,255,0.08), transparent 18%)",
+          }}
+        />
+      </div>
+    </ThemeContext.Provider>
   );
 }
