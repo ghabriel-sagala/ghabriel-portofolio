@@ -61,9 +61,9 @@ export default function HomePage() {
 
               <div className="mt-10 grid gap-4 sm:grid-cols-3">
                 {[
-                  { label: "Projects Completed", value: "5+" },
-                  { label: "Certifications", value: "3+" },
-                  { label: "Student Activities", value: "10+" },
+                  { label: "Proyek Selesai", value: "6+" },
+                  { label: "Sertifikat", value: "5+" },
+                  { label: "Kegiatan Mahasiswa", value: "10+" },
                 ].map((item) => (
                   <div key={item.label} className="rounded-[28px] border border-[var(--border)] bg-[var(--card)]/80 p-6 shadow-[0_18px_55px_rgba(0,0,0,0.20)] transition hover:border-[var(--accent)]/20">
                     <p className="text-3xl font-bold text-[var(--fg)]">{item.value}</p>
@@ -240,7 +240,7 @@ export default function HomePage() {
                 </span>
               </div>
               <div className="mb-8 rounded-2xl border border-[var(--border)] bg-[var(--glass)] p-6">
-                <h4 className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-[var(--accent)]">Product architecture details</h4>
+                <h4 className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-[var(--accent)]">Detail arsitektur produk</h4>
                 <p className="text-base leading-relaxed text-[var(--muted)] md:text-xl">{selectedProject.fullDesc}</p>
               </div>
               <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-[var(--border)] shadow-inner md:h-[450px]">
@@ -272,9 +272,9 @@ export default function HomePage() {
                 </span>
               </div>
               <div className="mb-8 rounded-2xl border border-[var(--border)] bg-[var(--glass)] p-6">
-                <h4 className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-[var(--accent)]">Certificate details</h4>
+                <h4 className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-[var(--accent)]">Detail sertifikat</h4>
                 <p className="text-base leading-relaxed text-[var(--muted)] md:text-xl">
-                  This credential reflects high-standard professional competence and validates domain-specific knowledge. Issued in {selectedCert.date} by {selectedCert.org}.
+                  Kredensial ini mencerminkan kompetensi profesional berstandar tinggi dan memvalidasi pengetahuan khusus di bidang tertentu. Diterbitkan pada {selectedCert.date} oleh {selectedCert.org}.
                 </p>
               </div>
               <div className="relative h-64 w-full overflow-hidden rounded-2xl border-2 border-[var(--border)] bg-[var(--glass)] shadow-inner md:h-[500px]">

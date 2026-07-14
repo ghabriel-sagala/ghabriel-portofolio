@@ -8,10 +8,10 @@ export default function Header() {
   const { theme, setTheme } = useTheme();
   const isDark = theme === "dark";
   const navItems = [
-    { label: "Home", href: "/home" },
-    { label: "Portfolio", href: "/portfolio" },
-    { label: "Organization", href: "/organisasi" },
-    { label: "Certificates", href: "/sertifikat" },
+    { label: "Beranda", href: "/home" },
+    { label: "Portofolio", href: "/portfolio" },
+    { label: "Organisasi", href: "/organisasi" },
+    { label: "Sertifikat", href: "/sertifikat" },
     { label: "CV", href: "/CV.pdf", download: true }
   ];
   const toggleTheme = () => setTheme(isDark ? "light" : "dark");

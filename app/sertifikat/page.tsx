@@ -17,9 +17,9 @@ export default function SertifikatPage() {
       <div className="relative mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-16">
         <div className="mb-16 rounded-[32px] border border-[var(--border)] bg-[var(--card)]/90 p-8 shadow-[0_30px_100px_rgba(0,0,0,0.25)] backdrop-blur-xl">
           <div className="space-y-6">
-            <span className="inline-flex items-center rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-[var(--accent)]">Certificates</span>
-            <h1 className="text-4xl font-bold md:text-5xl">Modern certificates that support my professionalism.</h1>
-            <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">Certification documents that back my technical growth with a clear and polished presentation.</p>
+            <span className="inline-flex items-center rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-[var(--accent)]">Sertifikat</span>
+            <h1 className="text-4xl font-bold md:text-5xl">Sertifikat modern yang mendukung profesionalisme saya.</h1>
+            <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">Dokumen sertifikat yang mendukung perkembangan teknis saya dengan presentasi yang jelas dan profesional.</p>
           </div>
         </div>
 
@@ -33,13 +33,13 @@ export default function SertifikatPage() {
                     <Image src={cert.image} alt={cert.title} fill className="object-cover" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-semibold uppercase tracking-[2px] text-[var(--accent)]">Verified credential</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-[2px] text-[var(--accent)]">Kredensial terverifikasi</span>
                     <h2 className="mt-3 text-xl font-semibold text-[var(--fg)]">{cert.title}</h2>
                     <p className="mt-1 text-sm text-[var(--muted)]">{cert.org} • {cert.date}</p>
                   </div>
                 </div>
                 <div className="rounded-[24px] border border-[var(--border)] bg-[var(--glass)] p-4 text-sm leading-relaxed text-[var(--muted)]">
-                  This certificate highlights my ongoing commitment to advancing professional technical skills.
+                  Sertifikat ini menegaskan komitmen saya untuk terus mengembangkan kemampuan teknis secara profesional.
                 </div>
               </div>
             </article>
@@ -47,8 +47,8 @@ export default function SertifikatPage() {
         </div>
 
         <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted)]">These official documents reinforce my story as a fast-learning, professional IT developer.</p>
-          <Link href="/" className="rounded-full border border-[var(--border)] bg-[var(--glass)] px-6 py-3 text-sm font-semibold text-[var(--fg)] transition hover:bg-[var(--glass)]/80">← Back to home</Link>
+          <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted)]">Dokumen resmi ini memperkuat perjalanan saya sebagai pengembang IT yang cepat belajar dan profesional.</p>
+          <Link href="/" className="rounded-full border border-[var(--border)] bg-[var(--glass)] px-6 py-3 text-sm font-semibold text-[var(--fg)] transition hover:bg-[var(--glass)]/80">← Kembali ke beranda</Link>
         </div>
       </div>
     </main>

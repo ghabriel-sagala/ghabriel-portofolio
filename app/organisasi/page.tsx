@@ -17,9 +17,9 @@ export default function OrganisasiPage() {
       <div className="relative mx-auto max-w-7xl px-6 py-24 md:px-10 lg:px-16">
         <div className="mb-16 rounded-[32px] border border-[var(--border)] bg-[var(--card)]/90 p-8 shadow-[0_30px_100px_rgba(0,0,0,0.25)] backdrop-blur-xl">
           <div className="space-y-6">
-            <span className="inline-flex items-center rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-[var(--accent)]">Organization</span>
-            <h1 className="text-4xl font-bold md:text-5xl">Organizational experience with modern strength.</h1>
-            <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">A summary of leadership, coordination, and event management experience that supports my professional growth.</p>
+            <span className="inline-flex items-center rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-[var(--accent)]">Organisasi</span>
+            <h1 className="text-4xl font-bold md:text-5xl">Pengalaman organisasi dengan kekuatan yang solid.</h1>
+            <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">Ringkasan pengalaman kepemimpinan, koordinasi, dan pengelolaan acara yang mendukung perkembangan profesional saya.</p>
           </div>
         </div>
 
@@ -35,8 +35,8 @@ export default function OrganisasiPage() {
                 <p className="text-sm font-semibold text-[var(--accent)]">{item.org} • {item.year}</p>
                 <p className="text-sm leading-relaxed text-[var(--muted)]">{item.desc}</p>
                 <div className="mt-4 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.25em] text-[var(--muted)]">
-                  <span className="rounded-full border border-[var(--border)] bg-[var(--glass)]/70 px-3 py-1">Leadership</span>
-                  <span className="rounded-full border border-[var(--border)] bg-[var(--glass)]/70 px-3 py-1">Organization</span>
+                  <span className="rounded-full border border-[var(--border)] bg-[var(--glass)]/70 px-3 py-1">Kepemimpinan</span>
+                  <span className="rounded-full border border-[var(--border)] bg-[var(--glass)]/70 px-3 py-1">Organisasi</span>
                 </div>
               </div>
             </article>
@@ -44,8 +44,8 @@ export default function OrganisasiPage() {
         </div>
 
         <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted)]">This role shows my ability to bridge strategy, process, and strong team execution.</p>
-          <Link href="/" className="rounded-full border border-[var(--border)] bg-[var(--glass)] px-6 py-3 text-sm font-semibold text-[var(--fg)] transition hover:bg-[var(--glass)]/80">← Back to home</Link>
+          <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted)]">Peran-peran ini menunjukkan kemampuan saya dalam menghubungkan strategi, proses, dan eksekusi tim yang kuat.</p>
+          <Link href="/" className="rounded-full border border-[var(--border)] bg-[var(--glass)] px-6 py-3 text-sm font-semibold text-[var(--fg)] transition hover:bg-[var(--glass)]/80">← Kembali ke beranda</Link>
         </div>
       </div>
     </main>

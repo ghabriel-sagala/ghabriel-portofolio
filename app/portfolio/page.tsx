@@ -22,9 +22,9 @@ export default function PortfolioPage() {
       <div className="relative mx-auto max-w-7xl px-6 py-20 md:px-10 lg:px-16">
         <div className="mb-16 rounded-[32px] border border-[var(--border)] bg-[var(--card)]/90 p-8 shadow-[0_30px_100px_rgba(0,0,0,0.25)] backdrop-blur-xl">
           <div className="space-y-6">
-            <span className="inline-flex items-center rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-[var(--accent)]">Portfolio</span>
-            <h1 className="text-4xl font-bold md:text-5xl">A modern body of work that represents me as an IT professional.</h1>
-            <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">These digital solutions are designed with clean technical structure, stable performance, and professional visuals.</p>
+            <span className="inline-flex items-center rounded-full bg-[var(--accent)]/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-[var(--accent)]">Portofolio</span>
+            <h1 className="text-4xl font-bold md:text-5xl">Kumpulan karya modern yang mewakili saya sebagai profesional TI.</h1>
+            <p className="max-w-2xl text-base leading-relaxed text-[var(--muted)]">Solusi digital ini dirancang dengan struktur teknis yang rapi, performa yang stabil, dan tampilan yang profesional.</p>
           </div>
         </div>
 
@@ -72,9 +72,9 @@ export default function PortfolioPage() {
         </div>
 
         <div className="mt-14 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted)]">All of these works are selected to show the technical quality and aesthetic I bring to every project.</p>
+          <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted)]">Semua karya ini dipilih untuk menunjukkan kualitas teknis dan estetika yang saya bawa ke setiap proyek.</p>
           <Link href="/" className="rounded-full border border-[var(--border)] bg-[var(--glass)] px-6 py-3 text-sm font-semibold text-[var(--fg)] transition hover:bg-[var(--glass)]/80">
-            ← Back to home
+            ← Kembali ke beranda
           </Link>
         </div>
       </div>
