@@ -73,35 +73,63 @@ export const certificates = [
     title: "Aplikasi Desktop Microsoft Office",
     org: "Trust Training Partners (Microsoft Partner)",
     date: "2024",
-    image: "/sertifikatmicrosoft.jpg"
+    image: "/sertifikatmicrosoft.jpg",
+    pdf: "/sertifikatmicrosoft.jpg",
+    description: "Sertifikat ini menegaskan kemampuan saya dalam mengoperasikan aplikasi desktop Microsoft Office secara efektif untuk kebutuhan kerja dan presentasi profesional."
   },
   {
     id: 2,
     title: "Program Pelatihan Google Gemini",
     org: "Google Gemini",
     date: "2026",
-    image: "/sertifikatgemini.jpg"
+    image: "/sertifikatgemini.jpg",
+    pdf: "/sertifikatgemini.jpg",
+    description: "Sertifikat ini menunjukkan pemahaman saya terhadap pengembangan ide, prompting, dan pemanfaatan AI generatif untuk mendukung proses kerja yang lebih cepat dan terarah."
   },
   {
     id: 3,
     title: "Pengembangan Berbasis Spesifikasi",
     org: "Dicoding x Kiro",
     date: "2026",
-    image: "/Sertifikatdicoding.png"
+    image: "/Sertifikatdicoding.png",
+    pdf: "/Sertifikatdicoding.png",
+    description: "Sertifikat ini menandai kompetensi saya dalam memahami arsitektur, spesifikasi, dan praktik pengembangan produk digital yang terstruktur dan profesional."
   },
   {
     id: 4,
     title: "Dasar Pemrograman Python",
     org: "Dicoding Indonesia",
     date: "2026",
-    image: "/sertifikatdasarpython.png"
+    image: "/sertifikatdasarpython.png",
+    pdf: "/sertifikatdasarpython.png",
+    description: "Sertifikat ini menegaskan fondasi saya dalam pemrograman Python, termasuk logika dasar, struktur data, dan kemampuan menyelesaikan permasalahan secara sistematis."
   },
   {
     id: 5,
     title: "AWS Cloud Practitioner",
     org: "Amazon Web Services",
     date: "2026",
-    image: "/sertifikatgenaws.png"
+    image: "/sertifikatgenaws.png",
+    pdf: "/sertifikatgenaws.png",
+    description: "Sertifikat ini membuktikan pemahaman saya akan dasar layanan cloud AWS, termasuk model layanan, skala deployment, dan prinsip keamanan dasar cloud."
+  },
+  {
+    id: 6,
+    title: "Sertifikat Financial",
+    org: "Dicoding Indonesia",
+    date: "2026",
+    image: "/Sertifikatdicoding.png",
+    pdf: "/sertifikatfinancial.pdf",
+    description: "Sertifikat ini menandai pemahaman saya dalam pengelolaan keuangan secara praktis, mulai dari perencanaan, pengendalian, hingga pengambilan keputusan finansial yang lebih terstruktur."
+  },
+  {
+    id: 7,
+    title: "Sertifikat SQL",
+    org: "Dicoding Indonesia",
+    date: "2026",
+    image: "/Sertifikatdicoding.png",
+    pdf: "/sertifikatsql.pdf",
+    description: "Sertifikat ini menunjukkan kemampuan saya dalam memahami query SQL untuk pengolahan data, analisis informasi, dan manipulasi tabel secara efektif dalam sistem basis data."
   }
 ];
 

@@ -62,7 +62,7 @@ export default function HomePage() {
               <div className="mt-10 grid gap-4 sm:grid-cols-3">
                 {[
                   { label: "Proyek Selesai", value: "6+" },
-                  { label: "Sertifikat", value: "5+" },
+                  { label: "Sertifikat", value: "7+" },
                   { label: "Kegiatan Mahasiswa", value: "10+" },
                 ].map((item) => (
                   <div key={item.label} className="rounded-[28px] border border-[var(--border)] bg-[var(--card)]/80 p-6 shadow-[0_18px_55px_rgba(0,0,0,0.20)] transition hover:border-[var(--accent)]/20">
@@ -274,8 +274,16 @@ export default function HomePage() {
               <div className="mb-8 rounded-2xl border border-[var(--border)] bg-[var(--glass)] p-6">
                 <h4 className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-[var(--accent)]">Detail sertifikat</h4>
                 <p className="text-base leading-relaxed text-[var(--muted)] md:text-xl">
-                  Kredensial ini mencerminkan kompetensi profesional berstandar tinggi dan memvalidasi pengetahuan khusus di bidang tertentu. Diterbitkan pada {selectedCert.date} oleh {selectedCert.org}.
+                  {selectedCert.description}
                 </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <a href={selectedCert.pdf} target="_blank" rel="noreferrer" className="rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] transition hover:bg-[var(--accent)]/20">
+                    Lihat dokumen
+                  </a>
+                  <a href={selectedCert.pdf} download className="rounded-full border border-[var(--border)] bg-[var(--glass)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--fg)] transition hover:bg-[var(--glass)]/80">
+                    Unduh PDF
+                  </a>
+                </div>
               </div>
               <div className="relative h-64 w-full overflow-hidden rounded-2xl border-2 border-[var(--border)] bg-[var(--glass)] shadow-inner md:h-[500px]">
                 <Image src={selectedCert.image} alt={selectedCert.title} fill className="object-contain" />

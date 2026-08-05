@@ -39,7 +39,15 @@ export default function SertifikatPage() {
                   </div>
                 </div>
                 <div className="rounded-[24px] border border-[var(--border)] bg-[var(--glass)] p-4 text-sm leading-relaxed text-[var(--muted)]">
-                  Sertifikat ini menegaskan komitmen saya untuk terus mengembangkan kemampuan teknis secara profesional.
+                  <p>{cert.description}</p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    <a href={cert.pdf} target="_blank" rel="noreferrer" className="rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)] transition hover:bg-[var(--accent)]/20">
+                      Lihat dokumen
+                    </a>
+                    <a href={cert.pdf} download className="rounded-full border border-[var(--border)] bg-[var(--glass)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--fg)] transition hover:bg-[var(--glass)]/80">
+                      Unduh PDF
+                    </a>
+                  </div>
                 </div>
               </div>
             </article>
