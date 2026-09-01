@@ -11,11 +11,11 @@ import ProjectShowcase from "@/components/ProjectShowcase";
 const pengalamanData = [
   {
     id: "exp1",
-    title: "Software Engineer",
-    subtitle: "Dinas Kominfo Kota Malang",
+    title: "Software Engineer Intern",
+    subtitle: "Dinas Komunikasi dan Informatika Kota Malang",
     period: "Agu 2026 - Sekarang",
     fullDesc:
-      "Merancang dan mengembangkan aplikasi web dari awal, menerjemahkan kebutuhan menjadi struktur sistem yang dapat diskalakan dan mudah dipelihara. Merancang skema basis data tingkat lanjut, serta merekayasa fitur web yang responsif dengan mengintegrasikan fungsi front-end dan back-end menggunakan metodologi Software Engineering terstruktur.",
+      "Mengembangkan platform web 'Malang Mbois' dengan merekreasi aplikasi berbasis seluler menjadi versi web yang lebih terintegrasi dan responsif. Membangun fitur peta interaktif berbasis LeafletJS untuk mengagregasi dan memantau seluruh tayangan CCTV publik di Kota Malang secara real-time dalam satu portal web terpusat.",
   },
 ];
 
