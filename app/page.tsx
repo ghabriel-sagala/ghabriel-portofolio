@@ -1,99 +1,251 @@
-"use client";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Contact from "@/components/Contact";
+import Skills from "@/components/Skills";
+import Timeline from "@/components/Timeline";
+import Certificates from "@/components/Certificates";
+import ProjectShowcase from "@/components/ProjectShowcase";
 
-import Link from "next/link";
-import Header from "./components/Header";
-import { Inter } from "next/font/google";
-import { useEffect, useState } from "react";
+// --- DATA ---
 
-const inter = Inter({ subsets: ["latin"] });
+const pengalamanData = [
+  {
+    id: "exp1",
+    title: "Software Engineer",
+    subtitle: "Dinas Kominfo Kota Malang",
+    period: "Agu 2026 - Sekarang",
+    fullDesc:
+      "Merancang dan mengembangkan aplikasi web dari awal, menerjemahkan kebutuhan menjadi struktur sistem yang dapat diskalakan dan mudah dipelihara. Merancang skema basis data tingkat lanjut, serta merekayasa fitur web yang responsif dengan mengintegrasikan fungsi front-end dan back-end menggunakan metodologi Software Engineering terstruktur.",
+  },
+];
 
-const techBadges = ["Next.js", "React", "TypeScript", "Tailwind", "Node.js"];
+const organisasiData = [
+  {
+    id: "org1",
+    title: "Ketua Komisi Pengawas & Standarisasi",
+    subtitle: "HMPSTI Universitas Brawijaya",
+    period: "Feb 2026 - Des 2026",
+    fullDesc:
+      "Memegang mandat kepemimpinan di jajaran inti eksekutif untuk merancang kerangka pemantauan organisasi. Mengoordinasikan kinerja tim BPH dan divisi secara langsung. Bertanggung jawab penuh dalam mengaudit akuntabilitas internal serta menyukseskan program krusial.",
+  },
+  {
+    id: "org2",
+    title: "Kepala Divisi Acara — PKKMB",
+    subtitle: "Fakultas Vokasi Universitas Brawijaya",
+    period: "Agu 2025 - Nov 2025",
+    fullDesc:
+      'Menggagas dan memimpin pelaksanaan orientasi fakultas (tema "Adaptive: Ready to move, Strong to lead"). Mengkoordinasikan susunan acara untuk ribuan mahasiswa baru dengan mengintegrasikan konsep inovasi produk digital, serta berhasil menjaga tingkat interaksi dan kepuasan peserta secara maksimal.',
+  },
+  {
+    id: "org3",
+    title: "Wakil Kepala Divisi Acara — Abdi Desa",
+    subtitle: "Fakultas Vokasi Universitas Brawijaya",
+    period: "2025",
+    fullDesc:
+      "Merevolusi konsep acara puncak (grand finale) pengabdian masyarakat dengan mengintegrasikan elemen pertunjukan inovatif. Menetapkan standar baru untuk acara pengabdian masyarakat di masa depan dengan peningkatan keterlibatan signifikan antara mahasiswa dan warga desa.",
+  },
+  {
+    id: "org4",
+    title: "Master of Ceremony — Finale Abdi Desa",
+    subtitle: "Desa Amandanom",
+    period: "2025",
+    fullDesc:
+      "Menjadi pembawa acara utama untuk acara puncak, memastikan komunikasi yang jelas dan memberikan hiburan yang menarik bagi beragam audiens. Berkolaborasi erat dengan divisi acara untuk menjaga antusiasme tanpa adanya momen hening (dead-air).",
+  },
+  {
+    id: "org5",
+    title: "Master of Ceremony — Perayaan Paskah",
+    subtitle: "PMK Vokasi x Level Up Blitar x GBI",
+    period: "2026",
+    fullDesc:
+      "Memfasilitasi acara kolaborasi lintas institusi berskala besar secara real-time. Menjaga keseimbangan suasana khusyuk dan interaksi penuh energi, serta berkomunikasi aktif dengan tim teknis untuk menyelaraskan transisi di lapangan.",
+  },
+  {
+    id: "org6",
+    title: "Staf Magang HRD Terbaik",
+    subtitle: "BEM Fakultas Vokasi Universitas Brawijaya",
+    period: "Okt 2024 - Des 2024",
+    fullDesc:
+      'Dianugerahi penghargaan "Staf Magang Terbaik" atas kinerja luar biasa pada inisiatif SDM. Berperan aktif menyusun kurikulum pengembangan kompetensi kepemimpinan mahasiswa dan secara komprehensif membantu pelaksanaan orientasi staf.',
+  },
+];
 
-export default function Landing() {
-  const [isLoaded, setIsLoaded] = useState(false);
+const proyekData = [
+  {
+    id: "proj1",
+    title: "Kampoeng Kadjoetangan - E-Tourism",
+    tech: ["Laravel", "PHP", "MySQL", "System Arch"],
+    category: "Web Development",
+    shortDesc:
+      "Platform pariwisata digital dengan perancangan arsitektur perangkat lunak terstruktur, UML Use Case, dan integrasi tiket aman.",
+    image: "/websitewisata.jpg",
+  },
+  {
+    id: "proj2",
+    title: "MineFleet & Management",
+    tech: ["PHP", "MySQL", "Bootstrap", "JS"],
+    category: "Information System",
+    shortDesc:
+      "Platform manajemen armada perusahaan untuk memantau utilitas kendaraan, persetujuan transportasi, dan jadwal perawatan.",
+    image: "/management-rt.png",
+  },
+  {
+    id: "proj3",
+    title: "TaskMate Productivity",
+    tech: ["HTML", "CSS", "JavaScript"],
+    category: "Web Application",
+    shortDesc:
+      "Platform produktivitas untuk manajemen tugas efisien. Menetapkan prioritas tugas, tenggat waktu, dengan antarmuka dashboard analitik interaktif.",
+    image: "/taskmate.jpg",
+  },
+  {
+    id: "proj4",
+    title: "EcoScan AI Detection",
+    tech: ["Python", "AI / ML", "TensorFlow"],
+    category: "Artificial Intelligence",
+    shortDesc:
+      "Model kecerdasan buatan untuk mengklasifikasikan pola visual sampah secara instan dan membantu inisiatif keberlanjutan lingkungan.",
+    image: "/EcoScan AI.png",
+  },
+  {
+    id: "proj5",
+    title: "IoT Real-Time Dashboard",
+    tech: ["C++", "ESP32", "Next.js", "MQTT"],
+    category: "Internet of Things",
+    shortDesc:
+      "Antarmuka pemantauan real-time untuk jaringan perangkat sensor IoT dengan visualisasi metrik data dan logika otomasi yang efisien.",
+    image: "/dashboardmonitoringIoT.png",
+  },
+  {
+    id: "proj6",
+    title: "Tabungan Mahasiswa",
+    tech: ["Laravel", "MySQL", "Bootstrap"],
+    category: "Financial System",
+    shortDesc:
+      "Sistem manajemen keuangan khusus mahasiswa untuk melacak arus kas, memantau riwayat simpanan, dan membuat laporan pengeluaran.",
+    image: "/websitetabunganmahasiswa.png",
+  },
+];
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => setIsLoaded(true), 80);
-    return () => window.clearTimeout(timer);
-  }, []);
+const sertifikatData = [
+  {
+    id: 1,
+    title: "Google Gemini - AI Generatif",
+    org: "Google for Education",
+    date: "Mei 2026 - Mei 2029",
+    description:
+      "Sertifikasi pemahaman mendalam tentang teknik prompting dan pemanfaatan AI generatif tingkat universitas.",
+    image: "/sertifikatgemini.jpg",
+  },
+  {
+    id: 2,
+    title: "Pengembangan Berbasis Spesifikasi",
+    org: "Dicoding x Kiro",
+    date: "Mei 2026 - Mei 2029",
+    description:
+      "Kompetensi teknis arsitektur perangkat lunak, penyusunan requirements, dan praktik SDLC standar industri.",
+    image: "/Sertifikatdicoding.png",
+  },
+  {
+    id: 3,
+    title: "AWS Cloud Practitioner",
+    org: "Dicoding Indonesia",
+    date: "Jul 2026 - Jul 2029",
+    description:
+      "Pemahaman model komputasi cloud, deployment infrastruktur, arsitektur dasar, dan keamanan lingkungan AWS.",
+    image: "/sertifikatgenaws.png",
+  },
+  {
+    id: 4,
+    title: "Dasar Pemrograman Python",
+    org: "Dicoding Indonesia",
+    date: "Jul 2026 - Jul 2029",
+    description:
+      "Fondasi logika algoritma, manipulasi struktur data, kontrol alur, dan pemecahan masalah secara komputasional.",
+    image: "/sertifikatdasarpython.png",
+  },
+  {
+    id: 5,
+    title: "Aplikasi Desktop Microsoft Office",
+    org: "Trust Training Partners",
+    date: "Agu 2024",
+    description:
+      "Verifikasi pengoperasian perangkat lunak administratif tingkat lanjut untuk pemrosesan dokumen dan manajemen basis data.",
+    image: "/sertifikatmicrosoft.jpg",
+  },
+  {
+    id: 6,
+    title: "Sertifikat Financial",
+    org: "Professional Certification",
+    date: "2024",
+    description:
+      "Sertifikasi kompetensi di bidang analisis dan pengelolaan keuangan profesional.",
+    image: "",
+    pdf: "/sertifikatfinancial.pdf",
+  },
+  {
+    id: 7,
+    title: "Sertifikat SQL",
+    org: "Database Certification",
+    date: "2024",
+    description:
+      "Verifikasi kompetensi dalam query SQL tingkat lanjut, optimasi database, dan manajemen data terstruktur.",
+    image: "",
+    pdf: "/sertifikatsql.pdf",
+  },
+];
 
+export default function Home() {
   return (
-    <main className={`${inter.className} relative min-h-screen bg-transparent text-[var(--fg)] overflow-hidden`}>      
-      <Header />
-
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-[-8rem] top-10 h-72 w-72 rounded-full bg-[var(--accent)]/20 blur-3xl" />
-        <div className="absolute right-[-10rem] top-1/4 h-80 w-80 rounded-full bg-[var(--accent-2)]/10 blur-3xl" />
-        <div className="absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_top,rgba(239,68,68,0.18),transparent_50%)] pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-[radial-gradient(circle_at_bottom,rgba(0,255,209,0.12),transparent_45%)] pointer-events-none" />
-      </div>
-
-      <div className={`relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-end px-6 pb-16 pt-10 text-center transition-all duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
-        <div className="w-full max-w-4xl">
-          <div className="mx-auto mb-8 inline-flex items-center gap-3 rounded-full border border-[var(--border)] bg-[var(--glass)] px-5 py-2 text-sm text-[var(--muted)] shadow-[0_20px_80px_rgba(0,0,0,0.08)] backdrop-blur-md">
-            <span className="h-2.5 w-2.5 rounded-full bg-[var(--accent)] shadow-[0_0_14px_rgba(239,68,68,0.35)]" />
-            Web developer portfolio • built for modern interfaces
-          </div>
-
-          <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-[var(--fg)] sm:text-6xl md:text-7xl">
-            Hello, I'm Ghabriel.
-          </h1>
-
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-center">
-            <Link href="/home" className="inline-flex items-center justify-center rounded-full bg-[var(--accent)] px-9 py-4 text-base font-semibold text-[var(--btn-fg)] shadow-[0_0_35px_rgba(239,68,68,0.35)] transition duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-[var(--accent-2)] focus:outline-none focus:ring-4 focus:ring-[var(--accent)]/20 active:scale-95">
-              Enter my work
-            </Link>
-          </div>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-[28px] border border-[var(--border)] bg-[var(--card)]/90 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.14)]">
-              <p className="text-sm uppercase tracking-[0.35em] text-[var(--muted)]">Role</p>
-              <p className="mt-4 text-xl font-semibold text-[var(--fg)]">Frontend & UI Developer</p>
-            </div>
-            <div className="rounded-[28px] border border-[var(--border)] bg-[var(--card)]/90 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.14)]">
-              <p className="text-sm uppercase tracking-[0.35em] text-[var(--muted)]">Focus</p>
-              <p className="mt-4 text-xl font-semibold text-[var(--fg)]">Engaging interactions</p>
-            </div>
-            <div className="rounded-[28px] border border-[var(--border)] bg-[var(--card)]/90 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.14)]">
-              <p className="text-sm uppercase tracking-[0.35em] text-[var(--muted)]">Built with</p>
-              <p className="mt-4 text-xl font-semibold text-[var(--fg)]">Modern web stack</p>
-            </div>
-          </div>
+    <div className="relative w-full flex flex-col items-center justify-center bg-[#030305]">
+      <main className="w-full">
+        {/* HERO */}
+        <div id="hero">
+          <Hero />
         </div>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className={`rounded-[32px] border border-[var(--border)] bg-[var(--glass)] p-8 shadow-[0_35px_120px_rgba(0,0,0,0.15)] backdrop-blur-xl transition duration-700 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <p className="text-xs uppercase tracking-[0.35em] text-[var(--accent)]">What this page shows</p>
-            <h2 className="mt-4 text-3xl font-bold text-[var(--fg)]">A portfolio created by a curious web developer.</h2>
-            <p className="mt-4 text-base leading-7 text-[var(--muted)]">
-              From the first screen, the website speaks in gradients, code-inspired styling, and clear product intent. This is more than a landing page — it’s a developer showcase.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              {techBadges.map((badge) => (
-                <span key={badge} className="rounded-full border border-[var(--border)] bg-[var(--glass)] px-4 py-2 text-xs uppercase tracking-[0.25em] text-[var(--muted)]">
-                  {badge}
-                </span>
-              ))}
-            </div>
+        {/* ABOUT */}
+        <section
+          id="about"
+          className="relative w-full flex items-center justify-center border-t border-white/5 scroll-mt-20"
+        >
+          <div className="w-full max-w-7xl">
+            <About />
           </div>
+        </section>
 
-          <div className={`relative overflow-hidden rounded-[32px] border border-[var(--border)] bg-[var(--card)]/90 p-6 shadow-[0_35px_120px_rgba(0,0,0,0.16)] transition duration-700 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <div className="absolute inset-x-0 top-0 h-32 bg-[var(--accent)]/10 blur-3xl" />
-            <div className="relative z-10">
-              <p className="text-sm uppercase tracking-[0.35em] text-[var(--accent)]">Live preview</p>
-              <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--bg)] p-5 text-left text-sm text-[var(--muted)]">
-                <pre className="whitespace-pre-wrap font-mono leading-7">
-{`const website = {
-  builtWith: ["Next.js", "Tailwind CSS", "TypeScript"],
-  goal: "Show my developer skill from the first screen",
-  style: "dark gradient, polished interactions, glassmorphism"
-};`}
-                </pre>
-              </div>
-            </div>
-          </div>
+        {/* SKILLS */}
+        <div id="skills" className="border-t border-white/5 scroll-mt-20">
+          <Skills />
         </div>
-      </div>
-    </main>
+
+        {/* TIMELINE */}
+        <div
+          id="pengalaman"
+          className="bg-gradient-to-b from-transparent to-[#0a0a0f]/50 scroll-mt-20"
+        >
+          <Timeline title="Experience" items={pengalamanData} />
+          <Timeline title="Organization & Leadership" items={organisasiData} />
+        </div>
+
+        {/* PROJECTS */}
+        <div id="projects" className="bg-[#030305] scroll-mt-20">
+          <ProjectShowcase projects={proyekData} />
+        </div>
+
+        {/* CERTIFICATES */}
+        <div id="sertifikat" className="border-t border-white/5 scroll-mt-20">
+          <Certificates certificates={sertifikatData} />
+        </div>
+
+        {/* CONTACT */}
+        <section
+          id="contact"
+          className="relative w-full flex items-center justify-center bg-gradient-to-t from-[#0a0a0f] to-[#030305] scroll-mt-20"
+        >
+          <Contact />
+        </section>
+      </main>
+    </div>
   );
 }
