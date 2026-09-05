@@ -72,6 +72,15 @@ const organisasiData = [
 
 const proyekData = [
   {
+    id: "proj7",
+    title: "Website Kopi Ruang - Company Profile",
+    tech: ["HTML", "CSS"],
+    category: "Web Development",
+    shortDesc:
+      "Sebuah studi kasus dan proyek konsep pembuatan website company profile untuk cafe Kopi Ruang. Dibuat untuk mengeksplorasi perancangan UI yang intuitif, struktur HTML/CSS yang bersih, serta penerapan praktik dasar SEO.",
+    image: "/Webkopiruang.png",
+  },
+  {
     id: "proj1",
     title: "Kampoeng Kadjoetangan - E-Tourism",
     tech: ["Laravel", "PHP", "MySQL", "System Arch"],
