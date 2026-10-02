@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 const skills = [
-  { name: "Next.js", level: 92, color: "from-black to-white" },
+  { name: "Next.js", level: 92, color: "from-gray-900 to-white" },
   { name: "React.js", level: 90, color: "from-blue-400 to-cyan-400" },
   { name: "TypeScript", level: 85, color: "from-blue-600 to-blue-400" },
   { name: "Tailwind CSS", level: 94, color: "from-cyan-400 to-blue-500" },
@@ -48,25 +48,26 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
   },
 };
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export default function Skills() {
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Gradient Background */}
+    <section className="relative py-24">
+      {/* Ambient background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-red-500/10 to-orange-500/10 rounded-full blur-[100px]" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[var(--color-accent)]/8 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[var(--color-accent-secondary)]/6 rounded-full blur-[100px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -74,22 +75,25 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-space text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+          <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
+            03 — Skills
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mt-3 mb-5 tracking-tight">
             Technical Skills
           </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto font-inter">
-            Keahlian teknis yang telah saya kembangkan melalui pengalaman praktis
-            dan pembelajaran berkelanjutan
+          <p className="text-gray-400 max-w-2xl mx-auto text-base leading-relaxed">
+            My technical capabilities, developed through hands-on experience
+            and continuous learning.
           </p>
         </motion.div>
 
-        {/* Skills by Category */}
+        {/* Categories */}
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20"
         >
           {skillCategories.map((category) => (
             <motion.div
@@ -97,22 +101,22 @@ export default function Skills() {
               variants={item}
               className="group relative"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--brand-primary)]/15 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl -z-10" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-accent-secondary)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl -z-10" />
 
-              <div className="relative glass-card border border-white/[0.08] group-hover:border-[var(--brand-primary)]/20 rounded-2xl p-7 transition-all duration-300 h-full">
+              <div className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-7 transition-all duration-300 h-full group-hover:border-white/10">
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-3xl">{category.icon}</span>
-                  <h3 className="text-xl font-bold text-white font-space">
+                  <span className="text-2xl">{category.icon}</span>
+                  <h3 className="text-lg font-bold text-white font-display">
                     {category.title}
                   </h3>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {category.skills.map((skill) => (
                     <motion.span
                       key={skill}
-                      whileHover={{ scale: 1.05 }}
-                      className="px-3 py-1.5 bg-white/5 hover:bg-gradient-to-r hover:from-[var(--brand-primary)]/20 hover:to-orange-500/20 text-gray-300 rounded-full text-sm font-medium transition-all duration-200 cursor-default border border-white/5 hover:border-[var(--brand-primary)]/20"
+                      whileHover={{ scale: 1.04 }}
+                      className="px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 cursor-default border border-white/[0.04] bg-white/[0.02] text-gray-400 group-hover:border-white/10 group-hover:bg-white/[0.04] group-hover:text-white"
                     >
                       {skill}
                     </motion.span>
@@ -123,9 +127,9 @@ export default function Skills() {
           ))}
         </motion.div>
 
-        {/* Proficiency Levels */}
-        <div>
-          <h3 className="text-3xl font-bold text-center mb-12 text-white font-space">
+        {/* Proficiency */}
+        <div className="max-w-3xl mx-auto">
+          <h3 className="text-2xl font-bold text-white font-display text-center mb-10">
             Proficiency Level
           </h3>
           <motion.div
@@ -133,19 +137,19 @@ export default function Skills() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6"
+            className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5"
           >
             {skills.map((skill) => (
               <motion.div key={skill.name} variants={item}>
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-gray-300 font-medium text-sm">
+                  <span className="text-sm text-gray-300 font-medium">
                     {skill.name}
                   </span>
-                  <span className="text-[var(--brand-primary)] font-bold text-sm font-mono">
+                  <span className="text-sm font-bold text-[var(--color-accent)] font-mono">
                     {skill.level}%
                   </span>
                 </div>
-                <div className="relative h-2 bg-white/5 rounded-full overflow-hidden">
+                <div className="relative h-1.5 bg-white/5 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}

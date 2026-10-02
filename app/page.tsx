@@ -5,6 +5,7 @@ import Skills from "@/components/Skills";
 import Timeline from "@/components/Timeline";
 import Certificates from "@/components/Certificates";
 import ProjectShowcase from "@/components/ProjectShowcase";
+import GitHubProfileCard from "@/components/GitHubProfileCard";
 
 // --- DATA ---
 
@@ -206,55 +207,53 @@ const sertifikatData = [
 
 export default function Home() {
   return (
-    <div className="relative w-full flex flex-col items-center justify-center bg-[#030305]">
-      <main className="w-full">
-        {/* HERO */}
-        <div id="hero">
-          <Hero />
-        </div>
+    <>
+      {/* HERO */}
+      <div id="hero">
+        <Hero />
+      </div>
 
-        {/* ABOUT */}
-        <section
-          id="about"
-          className="relative w-full flex items-center justify-center border-t border-white/5 scroll-mt-20"
-        >
-          <div className="w-full max-w-7xl">
-            <About />
-          </div>
-        </section>
+      {/* ABOUT */}
+      <section
+        id="about"
+        className="border-t border-white/6 scroll-mt-20"
+      >
+        <About />
+      </section>
 
-        {/* SKILLS */}
-        <div id="skills" className="border-t border-white/5 scroll-mt-20">
-          <Skills />
-        </div>
+      {/* SKILLS */}
+      <div id="skills" className="scroll-mt-20">
+        <Skills />
+      </div>
 
-        {/* TIMELINE */}
-        <div
-          id="pengalaman"
-          className="bg-gradient-to-b from-transparent to-[#0a0a0f]/50 scroll-mt-20"
-        >
-          <Timeline title="Experience" items={pengalamanData} />
-          <Timeline title="Organization & Leadership" items={organisasiData} />
-        </div>
+      {/* EXPERIENCE & TIMELINE */}
+      <div id="pengalaman" className="scroll-mt-20">
+        <Timeline title="Experience" items={pengalamanData} />
+        <Timeline title="Organization & Leadership" items={organisasiData} />
+      </div>
 
-        {/* PROJECTS */}
-        <div id="projects" className="bg-[#030305] scroll-mt-20">
-          <ProjectShowcase projects={proyekData} />
-        </div>
+      {/* PROJECTS */}
+      <div id="projects" className="scroll-mt-20">
+        <ProjectShowcase projects={proyekData} />
+      </div>
 
-        {/* CERTIFICATES */}
-        <div id="sertifikat" className="border-t border-white/5 scroll-mt-20">
-          <Certificates certificates={sertifikatData} />
-        </div>
+      {/* CERTIFICATES */}
+      <div id="sertifikat" className="scroll-mt-20">
+        <Certificates certificates={sertifikatData} />
+      </div>
 
-        {/* CONTACT */}
-        <section
-          id="contact"
-          className="relative w-full flex items-center justify-center bg-gradient-to-t from-[#0a0a0f] to-[#030305] scroll-mt-20"
-        >
-          <Contact />
-        </section>
-      </main>
-    </div>
+      {/* CONTACT */}
+      <section
+        id="contact"
+        className="scroll-mt-20"
+      >
+        <Contact />
+      </section>
+
+      {/* GITHUB PROFILE CARD */}
+      <div id="github" className="scroll-mt-20">
+        <GitHubProfileCard />
+      </div>
+    </>
   );
 }

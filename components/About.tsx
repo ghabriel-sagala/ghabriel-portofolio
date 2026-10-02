@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import AnimatedCounter from "./AnimatedCounter";
 
@@ -32,76 +33,82 @@ const services = [
 
 export default function About() {
   return (
-    <div className="w-full space-y-16 py-24">
-      {/* Section Header */}
+    <div className="w-full space-y-20 py-24">
+      {/* Section header */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8"
+        transition={{ duration: 0.6 }}
+        className="max-w-3xl"
       >
-        <h2 className="font-space text-5xl md:text-7xl font-bold uppercase tracking-tighter">
-          About{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--brand-primary)] to-orange-500">
-            Me
-          </span>
+        <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
+          02 — About
+        </span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mt-3 tracking-tight">
+          About Me
         </h2>
-        <p className="text-gray-400 font-inter max-w-sm text-base leading-relaxed">
-          IT enthusiast dengan pendekatan modern, standar kualitas tinggi,
-          pemahaman IoT, dan detail rekayasa teknis yang kuat.
+        <p className="text-gray-400 mt-5 text-base leading-relaxed max-w-xl">
+          Software engineer with a modern, quality-first approach —
+          backed by hands-on IoT experience and strong technical fundamentals.
         </p>
       </motion.div>
 
-      <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
-        {/* Left: Profile Card */}
+      {/* Profile + Services grid */}
+      <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        {/* Profile card */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
+          initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative rounded-[2rem] border border-white/10 glass-card p-8 overflow-hidden"
+          transition={{ duration: 0.7 }}
+          className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-8 overflow-hidden"
         >
-          <div className="absolute top-0 left-0 w-48 h-48 bg-[var(--brand-primary)]/10 blur-[80px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+          {/* Gradient blend */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--color-accent)]/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-          <div className="relative w-20 h-20 rounded-2xl overflow-hidden mb-6 ring-2 ring-white/10">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/profile.jpg"
-              alt="Ghabriel Theo Petra Sagala"
-              className="w-full h-full object-cover"
-            />
+          <div className="relative flex items-start gap-5">
+            <div className="relative w-20 h-20 rounded-2xl overflow-hidden ring-1 ring-white/10 flex-shrink-0">
+                <Image
+                src="/profile.jpg"
+                alt="Ghabriel Theo Petra Sagala"
+                fill
+                sizes="80px"
+                className="object-cover"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-1">
+                About Me
+              </p>
+              <h3 className="text-xl font-bold text-white font-display">
+                Ghabriel Theo Petra Sagala
+              </h3>
+              <p className="text-sm text-[var(--color-accent)] font-medium mb-3">
+                Software Engineer & IT Enthusiast
+              </p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                I build efficient, interactive software — from intuitive UIs to
+                hardware automation and resilient system architectures.
+              </p>
+            </div>
           </div>
 
-          <p className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--brand-secondary)] mb-2">
-            Tentang Saya
-          </p>
-          <h3 className="text-2xl font-bold text-white mb-1 font-space">
-            Ghabriel Theo Petra Sagala
-          </h3>
-          <p className="text-sm text-[var(--brand-primary)] mb-4 font-medium">
-            Software Engineer & IT Enthusiast
-          </p>
-          <p className="text-gray-400 font-inter leading-relaxed mb-6">
-            Saya bersemangat membangun perangkat lunak yang efisien dan interaktif
-            — dari antarmuka yang intuitif, otomatisasi perangkat keras, hingga
-            arsitektur sistem yang tangguh.
-          </p>
-
-          <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-6">
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-white/6">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.12, ease: "easeOut" }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
                 className="text-center"
               >
-                <p className="text-2xl font-bold text-[var(--brand-primary)] font-space">
+                <p className="text-2xl font-bold text-white font-display">
                   <AnimatedCounter target={stat.target} suffix={stat.suffix} />
                 </p>
-                <p className="text-xs text-gray-500 mt-1 leading-tight">
+                <p className="text-[10px] text-gray-500 uppercase tracking-wider mt-1">
                   {stat.label}
                 </p>
               </motion.div>
@@ -109,31 +116,31 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Right: Services */}
+        {/* Services */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
+          initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="rounded-[2rem] border border-white/10 glass-card p-8"
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-8"
         >
-          <p className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--brand-secondary)] mb-6">
-            Layanan Digital
+          <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-6">
+            What I Do
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {services.map((s, i) => (
               <motion.div
                 key={s.title}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.08, ease: "easeOut" }}
-                whileHover={{ y: -4 }}
-                className="p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-[var(--brand-primary)]/20 hover:bg-white/[0.07] transition-all cursor-default"
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                whileHover={{ y: -3 }}
+                className="group p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-white/10 hover:bg-white/[0.04] transition-all cursor-default"
               >
-                <span className="text-xl mb-2 block">{s.icon}</span>
-                <p className="text-sm font-semibold text-white">{s.title}</p>
-                <p className="text-xs text-gray-500 mt-1">{s.desc}</p>
+                <span className="text-2xl block mb-2">{s.icon}</span>
+                <p className="text-sm font-semibold text-white font-display">{s.title}</p>
+                <p className="text-xs text-gray-500 mt-1 leading-relaxed">{s.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -142,28 +149,28 @@ export default function About() {
 
       {/* Toolkit */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="rounded-[2rem] border border-white/10 glass-card p-8"
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-8"
       >
-        <p className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--brand-secondary)] mb-6 text-center">
-          Digital Toolkit · Tools I Use
+        <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-6 text-center">
+          Toolkit · Tools I Use
         </p>
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="flex flex-wrap justify-center gap-2.5">
           {toolkit.map((tool, i) => (
             <motion.div
               key={tool.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.07, ease: "easeOut" }}
-              whileHover={{ scale: 1.1, y: -4 }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 hover:border-[var(--brand-primary)]/30 hover:bg-[var(--brand-primary)]/5 transition-colors cursor-default"
+              transition={{ duration: 0.35, delay: i * 0.04 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/6 hover:border-white/10 hover:bg-white/[0.05] transition-all cursor-default"
             >
               <span className="text-base">{tool.icon}</span>
-              <span className="text-sm font-medium text-gray-300">
+              <span className="text-sm font-medium text-gray-300 font-display">
                 {tool.name}
               </span>
             </motion.div>

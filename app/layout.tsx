@@ -9,11 +9,23 @@ import ScrollToTop from "@/components/ScrollToTop";
 import Preloader from "@/components/Preloader";
 import SectionDots from "@/components/SectionDots";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space",
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
-  title: "Ghabriel | Software Engineer & IT Enthusiast",
+  title: {
+    default: "Ghabriel | Software Engineer",
+    template: "%s | Ghabriel",
+  },
   description:
     "Portfolio of Ghabriel Theo Petra Sagala — Fullstack Developer & Tech Enthusiast specializing in modern web interfaces, IoT systems, and cloud architecture.",
   keywords: [
@@ -28,12 +40,36 @@ export const metadata: Metadata = {
     "IoT",
   ],
   authors: [{ name: "Ghabriel Theo Petra Sagala" }],
+  creator: "Ghabriel Theo Petra Sagala",
+  metadataBase: new URL("https://ghabriel-portofolio.vercel.app"),
   openGraph: {
-    title: "Ghabriel | Software Engineer & IT Enthusiast",
-    description:
-      "Portfolio of Ghabriel Theo Petra Sagala — Fullstack Developer & Tech Enthusiast.",
     type: "website",
     locale: "en_US",
+    url: "https://ghabriel-portofolio.vercel.app",
+    siteName: "Ghabriel Portfolio",
+    title: "Ghabriel | Software Engineer",
+    description:
+      "Portfolio of Ghabriel Theo Petra Sagala — Fullstack Developer & Tech Enthusiast.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ghabriel Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ghabriel | Software Engineer",
+    description:
+      "Portfolio of Ghabriel Theo Petra Sagala — Fullstack Developer & Tech Enthusiast.",
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+    ],
   },
 };
 
@@ -44,19 +80,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="canonical" href="https://ghabriel-portofolio.vercel.app" />
+      </head>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased relative min-h-screen flex flex-col`}
+        className={`${inter.variable} ${spaceGrotesk.variable} antialiased relative min-h-screen flex flex-col bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]`}
       >
         <Preloader />
         <BackgroundEffects />
-        <ScrollProgress />
         <Navbar />
-        <SectionDots />
-        <main className="flex-1 w-full max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+        <main className="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10 pb-20">
           {children}
         </main>
         <Footer />
         <ScrollToTop />
+        <ScrollProgress />
       </body>
     </html>
   );

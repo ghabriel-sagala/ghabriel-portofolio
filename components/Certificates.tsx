@@ -1,8 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
-import { X, FileText, Download, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  X,
+  FileText,
+  Download,
+  ExternalLink,
+  ChevronLeft,
+  ChevronRight,
+  Award,
+} from "lucide-react";
 
 interface Certificate {
   id: number;
@@ -41,7 +50,6 @@ const Certificates: React.FC<CertificatesProps> = ({ certificates }) => {
     }
   }, [currentIndex, certificates]);
 
-  // Keyboard navigation
   useEffect(() => {
     if (!selectedCert) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -53,24 +61,27 @@ const Certificates: React.FC<CertificatesProps> = ({ certificates }) => {
     return () => window.removeEventListener("keydown", handleKey);
   }, [selectedCert, goToNext, goToPrev]);
 
-  // Lock body scroll when modal is open
   useEffect(() => {
     if (selectedCert) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [selectedCert]);
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="relative py-24">
+      {/* Ambient background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-blue-500/10 to-cyan-500/10 rounded-full blur-[100px]" />
+        <div className="absolute top-0 left-1/4 w-80 h-80 bg-[var(--color-accent)]/8 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[var(--color-accent-secondary)]/6 rounded-full blur-[100px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,18 +89,19 @@ const Certificates: React.FC<CertificatesProps> = ({ certificates }) => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-space text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-            Certificates &{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--brand-primary)] to-orange-500">
-              Qualifications
-            </span>
+          <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
+            04 — Credentials
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mt-3 mb-5 tracking-tight">
+            Certificates
           </h2>
-          <p className="text-lg text-gray-400 font-inter max-w-2xl mx-auto">
-            Sertifikasi profesional yang menunjukkan komitmen saya terhadap
-            pengembangan berkelanjutan
+          <p className="text-gray-400 max-w-2xl mx-auto text-base leading-relaxed">
+            Professional certifications that demonstrate my commitment to
+            continuous learning and skill development.
           </p>
         </motion.div>
 
+        {/* STRICT GRID: 1 col mobile, 2 col tablet, 3 col desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {certificates.map((cert, index) => (
             <motion.div
@@ -97,73 +109,87 @@ const Certificates: React.FC<CertificatesProps> = ({ certificates }) => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
               onClick={() => setSelectedCert(cert)}
               onMouseEnter={() => setHoveredId(cert.id)}
               onMouseLeave={() => setHoveredId(null)}
               className="group cursor-pointer h-full"
             >
-              <div className="relative overflow-hidden rounded-2xl glass-card border border-white/[0.08] hover:border-[var(--brand-primary)]/20 transition-all duration-300 h-full flex flex-col hover:shadow-[0_10px_40px_rgba(239,68,68,0.08)]">
-                {/* Image / PDF Preview */}
-                <div className="relative h-52 overflow-hidden bg-[#111]">
+              {/* Fixed height card: h-[400px] — identical for ALL cards */}
+              <div className="relative overflow-hidden rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 hover:border-white/10 transition-all duration-300 h-[400px] flex flex-col group-hover:shadow-lg group-hover:shadow-black/20">
+                {/* Thumbnail area — fixed height 55% = 220px */}
+                <div className="relative w-full h-[220px] overflow-hidden bg-[#0a0a0a]">
                   {!hasImage(cert.image) ? (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-[var(--brand-primary)]/10 to-[var(--brand-secondary)]/5 group-hover:from-[var(--brand-primary)]/15 group-hover:to-[var(--brand-secondary)]/10 transition-all duration-500">
+                    /* PDF fallback — polished gradient with Document icon */
+                    <div
+                      className={`absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-accent-secondary)]/5 group-hover:from-[var(--color-accent)]/18 group-hover:to-[var(--color-accent-secondary)]/12 transition-all duration-500`}
+                    >
                       <motion.div
-                        animate={hoveredId === cert.id ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+                        animate={
+                          hoveredId === cert.id
+                            ? { scale: 1.08, rotate: 4 }
+                            : { scale: 1, rotate: 0 }
+                        }
                         transition={{ duration: 0.3 }}
-                        className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center"
+                        className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner"
                       >
-                        <FileText size={32} className="text-[var(--brand-primary)]" />
+                        <Award
+                          size={32}
+                          className="text-[var(--color-accent)] drop-shadow-lg"
+                        />
                       </motion.div>
-                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">
-                        PDF Document
+                      <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+                        PDF Certificate
                       </span>
                     </div>
                   ) : (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src={encodeURI(cert.image)}
+                    <Image
+                      src={cert.image}
                       alt={cert.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-tertiary)] via-transparent to-transparent pointer-events-none" />
 
                   {/* Hover overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium flex items-center gap-2">
-                      <ExternalLink size={14} />
-                      View Certificate
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30">
+                    <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-medium flex items-center gap-1.5 shadow-lg">
+                      <ExternalLink size={12} />
+                      View certificate
                     </div>
                   </div>
                 </div>
 
+                {/* Content — fills remaining space */}
                 <div className="flex-1 p-5 flex flex-col">
-                  <h3 className="text-base font-bold text-white mb-2 group-hover:text-[var(--brand-primary)] transition-colors line-clamp-2 font-space">
+                  <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-[var(--color-accent)] transition-colors line-clamp-2 font-display">
                     {cert.title}
                   </h3>
-                  <div className="flex flex-col gap-1 mb-3">
-                    <p className="text-sm text-gray-400 font-medium font-inter">
+                  <div className="flex flex-col gap-0.5 mb-2">
+                    <p className="text-xs text-gray-400 font-medium">
                       {cert.org}
                     </p>
-                    <p className="text-xs text-gray-500 font-mono">
+                    <p className="text-[10px] text-gray-500 font-mono">
                       {cert.date}
                     </p>
                   </div>
-                  <p className="text-sm text-gray-400 font-inter line-clamp-2 mb-4 flex-1">
+                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 mb-3 flex-1">
                     {cert.description}
                   </p>
-                  <button className="w-full py-2.5 px-4 bg-gradient-to-r from-[var(--brand-primary)] to-orange-500 text-white font-semibold rounded-lg shadow-md group-hover:shadow-[0_0_20px_rgba(239,68,68,0.3)] transition-all duration-300 text-sm flex items-center justify-center gap-2">
+                  <button className="w-full py-2 px-3 bg-gradient-to-r from-[var(--color-accent)] to-orange-500 text-white text-[11px] font-semibold rounded-lg shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center gap-1.5">
                     {cert.pdf ? (
                       <>
-                        <Download size={14} />
-                        Lihat Sertifikat
+                        <Download size={12} />
+                        View Certificate
                       </>
                     ) : (
                       <>
-                        <ExternalLink size={14} />
-                        Lihat Sertifikat
+                        <ExternalLink size={12} />
+                        View Certificate
                       </>
                     )}
                   </button>
@@ -174,7 +200,7 @@ const Certificates: React.FC<CertificatesProps> = ({ certificates }) => {
         </div>
       </div>
 
-      {/* Certificate Modal/Lightbox */}
+      {/* Modal */}
       <AnimatePresence>
         {selectedCert && (
           <motion.div
@@ -185,39 +211,47 @@ const Certificates: React.FC<CertificatesProps> = ({ certificates }) => {
             className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           >
             <motion.div
-              initial={{ scale: 0.9, y: 20 }}
+              initial={{ scale: 0.92, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
+              exit={{ scale: 0.92, y: 20 }}
+              transition={{ type: "spring", stiffness: 200, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#0a0a0f] rounded-2xl overflow-hidden max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10 relative"
+              className="bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-white/6 relative"
             >
-              {/* Navigation arrows */}
+              {/* Nav */}
               {currentIndex > 0 && (
                 <button
-                  onClick={(e) => { e.stopPropagation(); goToPrev(); }}
-                  className="absolute left-3 top-3 z-20 w-10 h-10 bg-black/50 hover:bg-black/75 rounded-full flex items-center justify-center text-white transition-colors backdrop-blur-md border border-white/10"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goToPrev();
+                  }}
+                  className="absolute left-3 top-3 z-20 w-9 h-9 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-colors backdrop-blur-md border border-white/10"
                   aria-label="Previous certificate"
                 >
-                  <ChevronLeft size={18} />
+                  <ChevronLeft size={16} />
                 </button>
               )}
               {currentIndex < certificates.length - 1 && (
                 <button
-                  onClick={(e) => { e.stopPropagation(); goToNext(); }}
-                  className="absolute right-14 top-3 z-20 w-10 h-10 bg-black/50 hover:bg-black/75 rounded-full flex items-center justify-center text-white transition-colors backdrop-blur-md border border-white/10"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    goToNext();
+                  }}
+                  className="absolute right-12 top-3 z-20 w-9 h-9 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-colors backdrop-blur-md border border-white/10"
                   aria-label="Next certificate"
                 >
-                  <ChevronRight size={18} />
+                  <ChevronRight size={16} />
                 </button>
               )}
 
-              <div className="relative h-72 md:h-96">
+              <div className="relative h-52 md:h-64 bg-[#0a0a0a]">
                 {!hasImage(selectedCert.image) ? (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-[var(--brand-primary)]/10 to-[var(--brand-secondary)]/5">
-                    <div className="w-24 h-24 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center">
-                      <FileText size={48} className="text-[var(--brand-primary)]" />
+                  /* PDF fallback in modal */
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-accent-secondary)]/5">
+                    <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner">
+                      <Award size={40} className="text-[var(--color-accent)]" />
                     </div>
-                    <span className="text-sm font-mono text-gray-300">
+                    <span className="text-sm font-mono text-gray-400">
                       {selectedCert.title}
                     </span>
                     {selectedCert.pdf && (
@@ -225,69 +259,69 @@ const Certificates: React.FC<CertificatesProps> = ({ certificates }) => {
                         href={selectedCert.pdf}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-6 py-3 bg-[var(--brand-primary)] text-white rounded-xl font-semibold hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-all"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-accent)] text-white rounded-xl text-sm font-semibold hover:shadow-lg transition-all"
                       >
-                        <Download size={18} />
-                        Buka PDF
+                        <Download size={16} />
+                        Open PDF
                       </a>
                     )}
                   </div>
                 ) : (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={encodeURI(selectedCert.image)}
+                  <Image
+                    src={selectedCert.image}
                     alt={selectedCert.title}
-                    className="w-full h-full object-contain bg-[#111]"
+                    fill
+                    sizes="90vw"
+                    className="object-cover"
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-secondary)] via-transparent to-transparent pointer-events-none" />
                 <button
                   onClick={() => setSelectedCert(null)}
-                  className="absolute top-3 right-3 w-10 h-10 bg-black/50 hover:bg-black/75 rounded-full flex items-center justify-center text-white transition-colors backdrop-blur-md border border-white/10 z-20"
+                  className="absolute top-3 right-3 w-8 h-8 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-colors backdrop-blur-md border border-white/10 z-20"
                   aria-label="Close modal"
                 >
-                  <X size={18} />
+                  <X size={14} />
                 </button>
               </div>
 
-              <div className="p-8">
-                <h3 className="text-2xl md:text-3xl font-bold font-space text-white mb-3">
+              <div className="p-6 md:p-8">
+                <h3 className="text-xl md:text-2xl font-bold text-white font-display mb-2">
                   {selectedCert.title}
                 </h3>
-                <div className="flex flex-col sm:flex-row gap-2 mb-5 border-b border-white/10 pb-5">
-                  <p className="text-lg text-gray-300 font-medium">
+                <div className="flex flex-col sm:flex-row gap-2 mb-4 border-b border-white/6 pb-4">
+                  <p className="text-base text-gray-300 font-medium">
                     {selectedCert.org}
                   </p>
-                  <span className="text-gray-500 font-mono text-sm">
-                    • {selectedCert.date}
+                  <span className="text-xs text-gray-500 font-mono">
+                    · {selectedCert.date}
                   </span>
                 </div>
-                <p className="text-gray-400 font-inter leading-relaxed mb-6">
+                <p className="text-sm text-gray-400 leading-relaxed mb-5">
                   {selectedCert.description}
                 </p>
 
-                {/* Counter */}
-                <div className="flex items-center justify-between">
-                  <div className="text-sm text-gray-500 font-mono">
+                <div className="flex items-center justify-between border-t border-white/6 pt-4">
+                  <span className="text-xs text-gray-500 font-mono">
                     {currentIndex + 1} / {certificates.length}
-                  </div>
-                  <div className="flex gap-3">
+                  </span>
+                  <div className="flex gap-2">
                     {selectedCert.pdf && (
                       <a
                         href={selectedCert.pdf}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-6 py-3 bg-[var(--brand-primary)] text-white rounded-xl font-semibold hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-all"
+                        className="flex items-center gap-1.5 px-4 py-2 bg-[var(--color-accent)] text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-all"
                       >
-                        <Download size={18} />
+                        <Download size={14} />
                         Download PDF
                       </a>
                     )}
                     <button
                       onClick={() => setSelectedCert(null)}
-                      className="px-6 py-3 bg-white/5 border border-white/10 text-white rounded-xl font-medium hover:bg-white/10 transition-all"
+                      className="px-4 py-2 bg-white/5 border border-white/10 text-white rounded-lg text-sm font-medium hover:bg-white/10 transition-all"
                     >
-                      Tutup
+                      Close
                     </button>
                   </div>
                 </div>

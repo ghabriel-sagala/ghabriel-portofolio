@@ -1,127 +1,198 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
-import { FaLinkedin as Linkedin } from "react-icons/fa";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { FaGithub as Github } from "react-icons/fa";
 import TypeWriter from "./TypeWriter";
 
 export default function Hero() {
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const yTrans = useTransform(scrollYProgress, [0, 0.5], [0, 150]);
+
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
-      {/* Background Glow */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-20">
+      {/* Ambient background layers */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] bg-[var(--brand-primary)]/8 rounded-full blur-[120px] mix-blend-screen" />
-        <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-[var(--brand-secondary)]/6 rounded-full blur-[120px] mix-blend-screen" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[20rem] h-[20rem] bg-purple-500/5 rounded-full blur-[100px]" />
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.015]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: "64px 64px",
+          }}
+        />
+
+        {/* Animated gradient orbs */}
+        <motion.div
+          animate={{
+            x: [0, 40, 0],
+            y: [0, -30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 left-1/4 w-[50rem] h-[50rem] bg-[var(--color-accent)]/10 rounded-full blur-[120px] mix-blend-screen"
+        />
+        <motion.div
+          animate={{
+            x: [0, -30, 0],
+            y: [0, 40, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-1/4 right-1/4 w-[40rem] h-[40rem] bg-[var(--color-accent-secondary)]/8 rounded-full blur-[100px] mix-blend-screen"
+        />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 w-full">
-        <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-16 items-center">
-          {/* Left: Text Content */}
+      {/* Floating keyboard shortcut hints */}
+      <div className="absolute bottom-6 left-6 flex gap-2 text-[10px] font-mono text-gray-600 z-10">
+        <span className="px-2 py-1 rounded bg-white/5 border border-white/5">⌘K</span>
+        <span className="px-2 py-1 rounded bg-white/5 border border-white/5">↑↓</span>
+      </div>
+
+      <motion.div
+        style={{ opacity, y: yTrans }}
+        className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 w-full"
+      >
+        <div className="grid lg:grid-cols-[1.15fr_1fr] gap-16 lg:gap-24 items-center">
+          {/* Left: Typography Hero */}
           <div className="flex flex-col text-center lg:text-left order-2 lg:order-1">
-            {/* Status Badge */}
+            {/* Eyebrow status */}
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-8 hover:bg-white/10 transition-colors self-center lg:self-start"
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/8 bg-white/[0.03] backdrop-blur-sm mb-8 hover:bg-white/[0.06] hover:border-white/12 transition-all self-center lg:self-start cursor-default"
             >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--brand-secondary)] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--brand-secondary)]" />
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inset-0 rounded-full bg-[var(--color-accent-secondary)] animate-ping opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent-secondary)]" />
               </span>
-              <span className="text-xs font-medium text-gray-300 tracking-wide uppercase">
-                Available for Opportunities
+              <span className="text-[11px] font-medium text-gray-400 tracking-[0.2em] uppercase">
+                Available for work
               </span>
             </motion.div>
 
-            {/* Main Headline */}
-            <motion.h1
+            {/* Name */}
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.1] font-space"
+              className="text-3xl md:text-4xl font-light text-gray-400 mb-4 tracking-tight font-body"
             >
-              Building Digital
+              Hi, my name is
+            </motion.h2>
+
+            {/* Main headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl font-extrabold tracking-tight leading-[0.95] mb-6 font-display"
+            >
+              <span className="text-white">Ghabriel</span>
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--brand-primary)] via-orange-400 to-[var(--brand-primary)] bg-[length:200%_auto] animate-gradient">
+              <span className="gradient-text-accent">
                 <TypeWriter
-                  words={["Excellence.", "Innovation.", "Solutions.", "Impact."]}
-                  typingSpeed={80}
-                  deletingSpeed={50}
-                  pauseDuration={2000}
+                  words={["Theo Petra Sagala"]}
+                  typingSpeed={70}
+                  deletingSpeed={40}
+                  pauseDuration={2500}
                 />
               </span>
             </motion.h1>
 
-            {/* Sub-headline */}
+            {/* Role description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-              className="text-base md:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 mb-10 font-inter leading-relaxed"
+              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+              className="text-base md:text-lg text-gray-400 max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed"
             >
-              Hi, I&apos;m{" "}
-              <strong className="text-white font-semibold">
-                Ghabriel Theo Petra Sagala
-              </strong>
-              . A Software Engineer passionate about crafting efficient systems,
-              intuitive interfaces, and robust architectures.
+              I&apos;m a Software Engineer focused on building high-quality web products,
+              IoT systems, and full-stack experiences that feel right.
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTA row */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-              className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center lg:justify-start"
+              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <a
                 href="#projects"
-                className="group flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-[var(--brand-primary)] to-orange-500 text-white rounded-xl font-semibold hover:shadow-[0_0_30px_rgba(239,68,68,0.3)] hover:-translate-y-1 transition-all duration-300"
+                className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-white text-black rounded-xl font-semibold hover:bg-white/90 transition-all shadow-lg shadow-white/10 hover:shadow-xl hover:-translate-y-0.5"
               >
-                View My Work
+                View my work
                 <ArrowRight
                   size={18}
                   className="group-hover:translate-x-1 transition-transform"
                 />
               </a>
               <a
-                href="/CV.pdf"
+                href="https://github.com/ghabrielsagala-bot"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex justify-center items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white rounded-xl font-semibold hover:bg-white/10 hover:-translate-y-1 transition-all duration-300"
+                className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 glass-card border border-white/10 text-white rounded-xl font-semibold hover:bg-white/5 hover:border-white/20 hover:-translate-y-0.5 transition-all"
               >
-                Download CV
-                <Download
+                <Github
                   size={18}
                   className="group-hover:-translate-y-1 transition-transform"
                 />
+                GitHub
+              </a>
+              <a
+                href="/CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 glass-card border border-white/10 text-gray-300 rounded-xl font-medium hover:bg-white/5 hover:text-white transition-all"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="group-hover:-translate-y-1 transition-transform"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Resume
               </a>
             </motion.div>
 
-            {/* Social Links */}
+            {/* Social links */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="flex gap-4 mt-8 justify-center lg:justify-start"
+              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+              className="flex items-center gap-3 mt-10 justify-center lg:justify-start"
             >
+              <span className="text-xs text-gray-500 tracking-wide uppercase mr-1">Connect:</span>
               <a
-                href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b"
+                href="https://github.com/ghabrielsagala-bot"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-xl border border-white/10 bg-white/5 text-gray-400 hover:text-[var(--brand-primary)] hover:border-[var(--brand-primary)]/30 hover:bg-[var(--brand-primary)]/5 transition-all duration-300"
+                className="group p-2.5 rounded-xl border border-white/10 text-gray-500 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all"
+                aria-label="GitHub"
               >
-                <Linkedin size={20} />
+                <Github size={18} />
               </a>
               <a
                 href="mailto:ghabrielsagala@gmail.com"
-                className="p-3 rounded-xl border border-white/10 bg-white/5 text-gray-400 hover:text-[var(--brand-secondary)] hover:border-[var(--brand-secondary)]/30 hover:bg-[var(--brand-secondary)]/5 transition-all duration-300"
+                className="group p-2.5 rounded-xl border border-white/10 text-gray-500 hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 transition-all"
+                aria-label="Email"
               >
                 <svg
-                  width="20"
-                  height="20"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -136,63 +207,60 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Profile Card */}
+          {/* Right: Floating info card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, x: 40 }}
+            initial={{ opacity: 0, scale: 0.95, x: 60 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="relative flex justify-center lg:justify-end order-1 lg:order-2"
           >
-            {/* Glow behind card */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[var(--brand-primary)]/15 rounded-full blur-[80px] pointer-events-none" />
+            {/* Soft glow behind card */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[28rem] h-[28rem] bg-[var(--color-accent)]/10 rounded-full blur-[100px] pointer-events-none" />
 
-            <div className="relative glass-card rounded-3xl p-6 border border-white/10 w-full max-w-sm">
-              {/* Profile Photo */}
-              <div className="relative w-full aspect-square rounded-2xl overflow-hidden mb-6 ring-2 ring-white/10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+            <div className="relative glass-card rounded-3xl p-8 border border-white/8 w-full max-w-sm shadow-2xl">
+              {/* Profile image */}
+              <div className="relative w-full aspect-square rounded-2xl overflow-hidden mb-6 ring-1 ring-white/10">
+                <Image
                   src="/profile.jpg"
                   alt="Ghabriel Theo Petra Sagala"
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="200px"
+                  className="object-cover"
+                  priority
                 />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                {/* Status badge */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                {/* Status chip */}
                 <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/10">
-                  <span className="w-2 h-2 rounded-full bg-[var(--brand-secondary)] animate-pulse" />
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--brand-secondary)]">
-                    Open to Work
+                  <span className="w-2 h-2 rounded-full bg-[var(--color-accent-secondary)] animate-pulse" />
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--color-accent-secondary)]">
+                    Open to work
                   </span>
                 </div>
               </div>
 
               {/* Info */}
               <div className="text-center">
-                <h3 className="text-xl font-bold text-white font-space mb-1">
+                <h3 className="text-xl font-bold text-white mb-1 font-display">
                   Ghabriel Theo Petra Sagala
                 </h3>
-                <p className="text-sm text-[var(--brand-primary)] font-medium mb-3">
+                <p className="text-sm text-[var(--color-accent)] font-medium mb-4">
                   Software Engineer & IT Enthusiast
                 </p>
-                <div className="flex justify-center gap-4 text-xs text-gray-400">
-                  <span className="flex items-center gap-1">
-                    <span className="text-[var(--brand-secondary)]">🎓</span>{" "}
+                <div className="flex justify-center gap-5 text-xs text-gray-500">
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-[var(--color-accent-secondary)]">●</span>
                     Universitas Brawijaya
                   </span>
-                  <span className="flex items-center gap-1">
-                    <span className="text-[var(--brand-secondary)]">📍</span>{" "}
-                    Malang
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-[var(--color-accent-secondary)]">●</span>
+                    Malang, Indonesia
                   </span>
                 </div>
               </div>
-
-              {/* Decorative corner accents */}
-              <div className="absolute -top-px -right-px w-16 h-16 bg-gradient-to-br from-[var(--brand-primary)]/30 to-transparent rounded-tr-3xl pointer-events-none" />
-              <div className="absolute -bottom-px -left-px w-16 h-16 bg-gradient-to-tl from-[var(--brand-secondary)]/30 to-transparent rounded-bl-3xl pointer-events-none" />
             </div>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

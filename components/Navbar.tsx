@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Mail, Download } from "lucide-react";
+import { FaGithub as Github } from "react-icons/fa";
 import { FaLinkedin as Linkedin } from "react-icons/fa";
 
 const navLinks = [
@@ -102,19 +103,24 @@ export default function Navbar() {
 
           <div className="flex items-center gap-1">
             <a
-              href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b"
+              href="https://github.com/ghabrielsagala-bot"
               target="_blank"
-              rel="noreferrer"
-              className="p-2.5 rounded-lg text-gray-400 hover:text-[var(--brand-primary)] hover:bg-white/5 transition-all"
-              aria-label="LinkedIn"
+              rel="noopener noreferrer"
+              className="group relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all"
+              aria-label="GitHub"
             >
-              <Linkedin size={18} />
+              <Github size={18} className="group-hover:-translate-y-1 transition-transform" />
+              <span className="text-sm font-medium relative z-10">GitHub</span>
+              <motion.span
+                animate={{ scaleX: 0 }}
+                className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"
+              />
             </a>
             <a
               href="/CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[var(--brand-primary)]/10 border border-[var(--brand-primary)]/20 text-[var(--brand-primary)] text-sm font-medium hover:bg-[var(--brand-primary)]/20 transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-sm font-medium hover:bg-white/10 hover:text-white transition-all"
             >
               <Download size={14} />
               CV

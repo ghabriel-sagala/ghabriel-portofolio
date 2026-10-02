@@ -2,9 +2,16 @@
 
 import { motion } from "framer-motion";
 import { Mail, ExternalLink, ArrowUpRight } from "lucide-react";
-import { FaLinkedin as Linkedin } from "react-icons/fa";
+import { FaLinkedin as Linkedin, FaGithub as Github } from "react-icons/fa";
 
 const socialLinks = [
+  {
+    icon: Github,
+    href: "https://github.com/ghabrielsagala-bot",
+    label: "GitHub",
+    color: "hover:text-white",
+    highlight: true,
+  },
   {
     icon: Linkedin,
     href: "https://www.linkedin.com/in/ghabriel-sagala-93bba027b",
@@ -15,7 +22,7 @@ const socialLinks = [
     icon: Mail,
     href: "mailto:ghabrielsagala@gmail.com",
     label: "Email",
-    color: "hover:text-[var(--brand-primary)]",
+    color: "hover:text-[var(--color-accent)]",
   },
 ];
 
@@ -69,7 +76,7 @@ export default function Footer() {
               solusi digital modern dengan standar kualitas tinggi.
             </p>
             <div className="flex gap-3">
-              {socialLinks.map(({ icon: Icon, href, label, color }) => (
+              {socialLinks.map(({ icon: Icon, href, label, color, highlight }) => (
                 <a
                   key={label}
                   href={href}
@@ -78,9 +85,18 @@ export default function Footer() {
                   rel={
                     href.startsWith("http") ? "noreferrer" : undefined
                   }
-                  className={`p-2.5 rounded-lg border border-white/10 text-gray-400 transition-all duration-300 hover:border-[var(--brand-primary)]/30 hover:bg-white/5 ${color}`}
+                  className={`relative group p-2.5 rounded-xl border transition-all duration-300 ${
+                    highlight
+                      ? "border-white/10 bg-white/5 text-gray-400 hover:bg-white hover:text-black hover:border-white shadow-lg shadow-black/20"
+                      : "border-white/10 text-gray-400 hover:border-[var(--color-accent)]/30 hover:bg-white/5 " + color
+                  }`}
                 >
                   <Icon size={18} />
+                  {highlight && (
+                    <motion.span
+                      className="absolute inset-0 rounded-xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-secondary)] opacity-0 group-hover:opacity-10 transition-opacity duration-300"
+                    />
+                  )}
                 </a>
               ))}
             </div>
