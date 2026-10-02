@@ -66,22 +66,22 @@ export default function Skills() {
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-[var(--color-accent-secondary)]/6 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
           <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
             03 — Skills
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mt-3 mb-5 tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-display mt-3 mb-4 tracking-tight">
             Technical Skills
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-base leading-relaxed">
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
             My technical capabilities, developed through hands-on experience
             and continuous learning.
           </p>
@@ -93,7 +93,7 @@ export default function Skills() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-20"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12 md:mb-20"
         >
           {skillCategories.map((category) => (
             <motion.div
@@ -103,10 +103,10 @@ export default function Skills() {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-accent-secondary)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl -z-10" />
 
-              <div className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-7 transition-all duration-300 h-full group-hover:border-white/10">
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="text-2xl">{category.icon}</span>
-                  <h3 className="text-lg font-bold text-white font-display">
+              <div className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 md:p-7 transition-all duration-300 h-full group-hover:border-white/10">
+                <div className="flex items-center gap-3 mb-4 md:mb-5">
+                  <span className="text-xl md:text-2xl">{category.icon}</span>
+                  <h3 className="text-base md:text-lg font-bold text-white font-display">
                     {category.title}
                   </h3>
                 </div>
@@ -116,7 +116,7 @@ export default function Skills() {
                     <motion.span
                       key={skill}
                       whileHover={{ scale: 1.04 }}
-                      className="px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 cursor-default border border-white/[0.04] bg-white/[0.02] text-gray-400 group-hover:border-white/10 group-hover:bg-white/[0.04] group-hover:text-white"
+                      className="px-2.5 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 cursor-default border border-white/[0.04] bg-white/[0.02] text-gray-400 group-hover:border-white/10 group-hover:bg-white/[0.04] group-hover:text-white"
                     >
                       {skill}
                     </motion.span>
@@ -128,8 +128,8 @@ export default function Skills() {
         </motion.div>
 
         {/* Proficiency */}
-        <div className="max-w-3xl mx-auto">
-          <h3 className="text-2xl font-bold text-white font-display text-center mb-10">
+        <div className="max-w-xl mx-auto">
+          <h3 className="text-xl md:text-2xl font-bold text-white font-display text-center mb-6 md:mb-10">
             Proficiency Level
           </h3>
           <motion.div
@@ -137,15 +137,15 @@ export default function Skills() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5"
+            className="grid grid-cols-1 gap-y-4 md:grid-cols-2 gap-x-6 md:gap-y-5"
           >
             {skills.map((skill) => (
               <motion.div key={skill.name} variants={item}>
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm text-gray-300 font-medium">
+                  <span className="text-xs md:text-sm text-gray-300 font-medium truncate">
                     {skill.name}
                   </span>
-                  <span className="text-sm font-bold text-[var(--color-accent)] font-mono">
+                  <span className="text-xs md:text-sm font-bold text-[var(--color-accent)] font-mono">
                     {skill.level}%
                   </span>
                 </div>

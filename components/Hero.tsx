@@ -53,11 +53,11 @@ export default function Hero() {
 
       <motion.div
         style={{ opacity, y: yTrans }}
-        className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 w-full"
+        className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 lg:px-12 w-full"
       >
-        <div className="grid lg:grid-cols-[1.15fr_1fr] gap-16 lg:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-10 md:gap-16 lg:gap-24 items-center">
           {/* Left: Typography Hero */}
-          <div className="flex flex-col text-center lg:text-left order-2 lg:order-1">
+          <div className="flex flex-col text-center order-2 lg:order-1">
             {/* Eyebrow status */}
             <motion.div
               initial={{ opacity: 0, y: -16 }}
@@ -89,7 +89,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-8xl font-extrabold tracking-tight leading-[0.95] mb-6 font-display"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 font-display"
             >
               <span className="text-white">Ghabriel</span>
               <br />
@@ -119,11 +119,11 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col gap-3 mt-4 justify-center lg:justify-start"
             >
               <a
                 href="#projects"
-                className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-white text-black rounded-xl font-semibold hover:bg-white/90 transition-all shadow-lg shadow-white/10 hover:shadow-xl hover:-translate-y-0.5"
+                className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-black rounded-xl font-semibold hover:bg-white/90 transition-all shadow-lg shadow-white/10 hover:shadow-xl hover:-translate-y-0.5 text-sm"
               >
                 View my work
                 <ArrowRight
@@ -135,10 +135,10 @@ export default function Hero() {
                 href="https://github.com/ghabrielsagala-bot"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 glass-card border border-white/10 text-white rounded-xl font-semibold hover:bg-white/5 hover:border-white/20 hover:-translate-y-0.5 transition-all"
+                className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 glass-card border border-white/10 text-white rounded-xl font-semibold hover:bg-white/5 hover:border-white/20 hover:-translate-y-0.5 transition-all text-sm"
               >
                 <Github
-                  size={18}
+                  size={16}
                   className="group-hover:-translate-y-1 transition-transform"
                 />
                 GitHub
@@ -147,7 +147,7 @@ export default function Hero() {
                 href="/CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 glass-card border border-white/10 text-gray-300 rounded-xl font-medium hover:bg-white/5 hover:text-white transition-all"
+                className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 glass-card border border-white/10 text-gray-300 rounded-xl font-medium hover:bg-white/5 hover:text-white transition-all text-sm"
               >
                 <svg
                   width="18"
@@ -173,26 +173,26 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-              className="flex items-center gap-3 mt-10 justify-center lg:justify-start"
+              className="flex items-center justify-center gap-3 mt-6"
             >
-              <span className="text-xs text-gray-500 tracking-wide uppercase mr-1">Connect:</span>
+              <span className="text-[10px] text-gray-500 tracking-wide uppercase mr-1">Connect:</span>
               <a
                 href="https://github.com/ghabrielsagala-bot"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group p-2.5 rounded-xl border border-white/10 text-gray-500 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all"
+                className="group p-2 rounded-lg border border-white/10 text-gray-500 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all"
                 aria-label="GitHub"
               >
-                <Github size={18} />
+                <Github size={16} />
               </a>
               <a
                 href="mailto:ghabrielsagala@gmail.com"
-                className="group p-2.5 rounded-xl border border-white/10 text-gray-500 hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 transition-all"
+                className="group p-2 rounded-lg border border-white/10 text-gray-500 hover:text-[var(--color-accent)] hover:border-[var(--color-accent)]/30 transition-all"
                 aria-label="Email"
               >
                 <svg
-                  width="18"
-                  height="18"
+                  width="15"
+                  height="15"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -209,13 +209,13 @@ export default function Hero() {
 
           {/* Right: Floating info card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, x: 60 }}
+            initial={{ opacity: 0, scale: 0.95, x: 40 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="relative flex justify-center lg:justify-end order-1 lg:order-2"
+            className="relative flex justify-center order-1 lg:order-2"
           >
-            {/* Soft glow behind card */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[28rem] h-[28rem] bg-[var(--color-accent)]/10 rounded-full blur-[100px] pointer-events-none" />
+            {/* Soft glow behind card - smaller on mobile */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[18rem] h-[18rem] md:w-[28rem] md:h-[28rem] bg-[var(--color-accent)]/10 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="relative glass-card rounded-3xl p-8 border border-white/8 w-full max-w-sm shadow-2xl">
               {/* Profile image */}

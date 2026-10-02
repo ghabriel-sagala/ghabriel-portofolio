@@ -33,22 +33,22 @@ const services = [
 
 export default function About() {
   return (
-    <div className="w-full space-y-20 py-24">
+    <div className="w-full space-y-12 md:space-y-20 py-16 md:py-24">
       {/* Section header */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
+        viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.6 }}
-        className="max-w-3xl"
+        className="max-w-3xl mx-auto px-4"
       >
         <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
           02 — About
         </span>
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mt-3 tracking-tight">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-display mt-3 mb-2 tracking-tight">
           About Me
         </h2>
-        <p className="text-gray-400 mt-5 text-base leading-relaxed max-w-xl">
+        <p className="text-gray-400 mt-4 text-sm md:text-base leading-relaxed max-w-xl text-center md:text-left">
           Software engineer with a modern, quality-first approach —
           backed by hands-on IoT experience and strong technical fundamentals.
         </p>
@@ -62,32 +62,32 @@ export default function About() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7 }}
-          className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-8 overflow-hidden"
+          className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 md:p-8 overflow-hidden"
         >
-          {/* Gradient blend */}
-          <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--color-accent)]/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          {/* Gradient blend - smaller on mobile */}
+          <div className="absolute top-0 right-0 w-32 h-32 md:w-40 md:h-40 bg-[var(--color-accent)]/10 blur-[60px] md:blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-          <div className="relative flex items-start gap-5">
-            <div className="relative w-20 h-20 rounded-2xl overflow-hidden ring-1 ring-white/10 flex-shrink-0">
+          <div className="relative flex items-start gap-4 md:gap-5">
+            <div className="relative w-14 h-14 md:w-20 md:h-20 rounded-2xl overflow-hidden ring-1 ring-white/10 flex-shrink-0">
                 <Image
                 src="/profile.jpg"
                 alt="Ghabriel Theo Petra Sagala"
                 fill
-                sizes="80px"
+                sizes="(max-width: 640px) 56px, 80px"
                 className="object-cover"
               />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-1">
+              <p className="text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-1">
                 About Me
               </p>
-              <h3 className="text-xl font-bold text-white font-display">
+              <h3 className="text-base md:text-xl font-bold text-white font-display leading-tight">
                 Ghabriel Theo Petra Sagala
               </h3>
-              <p className="text-sm text-[var(--color-accent)] font-medium mb-3">
+              <p className="text-[11px] md:text-sm text-[var(--color-accent)] font-medium mb-2 md:mb-3">
                 Software Engineer & IT Enthusiast
               </p>
-              <p className="text-gray-400 text-sm leading-relaxed">
+              <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
                 I build efficient, interactive software — from intuitive UIs to
                 hardware automation and resilient system architectures.
               </p>
@@ -95,7 +95,7 @@ export default function About() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-white/6">
+          <div className="grid grid-cols-3 gap-3 md:gap-4 mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/6">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -105,10 +105,10 @@ export default function About() {
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 className="text-center"
               >
-                <p className="text-2xl font-bold text-white font-display">
+                <p className="text-xl md:text-2xl font-bold text-white font-display">
                   <AnimatedCounter target={stat.target} suffix={stat.suffix} />
                 </p>
-                <p className="text-[10px] text-gray-500 uppercase tracking-wider mt-1">
+                <p className="text-[9px] md:text-[10px] text-gray-500 uppercase tracking-wider mt-1">
                   {stat.label}
                 </p>
               </motion.div>
@@ -155,10 +155,10 @@ export default function About() {
         transition={{ duration: 0.6, delay: 0.1 }}
         className="rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-8"
       >
-        <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-6 text-center">
+        <p className="text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-4 md:mb-6 text-center">
           Toolkit · Tools I Use
         </p>
-        <div className="flex flex-wrap justify-center gap-2.5">
+        <div className="flex flex-wrap justify-center gap-2">
           {toolkit.map((tool, i) => (
             <motion.div
               key={tool.name}
@@ -167,10 +167,10 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: i * 0.04 }}
               whileHover={{ scale: 1.05, y: -2 }}
-              className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/6 hover:border-white/10 hover:bg-white/[0.05] transition-all cursor-default"
+              className="group flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white/[0.03] border border-white/6 hover:border-white/10 hover:bg-white/[0.05] transition-all cursor-default"
             >
-              <span className="text-base">{tool.icon}</span>
-              <span className="text-sm font-medium text-gray-300 font-display">
+              <span className="text-sm md:text-base">{tool.icon}</span>
+              <span className="text-xs md:text-sm font-medium text-gray-300 font-display leading-tight">
                 {tool.name}
               </span>
             </motion.div>

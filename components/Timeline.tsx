@@ -49,10 +49,10 @@ const Timeline: React.FC<TimelineProps> = ({ items, title }) => {
 
         {/* Timeline line */}
         <div className="relative">
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--color-accent)]/40 via-white/6 to-[var(--color-accent-secondary)]/40 md:-translate-x-1/2" />
+          <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--color-accent)]/40 via-white/6 to-[var(--color-accent-secondary)]/40 md:left-1/2 md:-translate-x-1/2" />
 
           {/* Items */}
-          <div className="space-y-6 md:space-y-10">
+          <div className="space-y-5 md:space-y-10">
             {items.map((item, index) => (
               <motion.div
                 key={item.id}
@@ -67,9 +67,9 @@ const Timeline: React.FC<TimelineProps> = ({ items, title }) => {
                 {/* Dot */}
                 <motion.div
                   whileHover={{ scale: 1.2 }}
-                  className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[var(--color-accent)] to-orange-500 flex items-center justify-center border-2 border-[var(--color-bg-primary)] shadow-lg shadow-[var(--color-accent)]/20 relative z-20 mt-1"
+                  className="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-[var(--color-accent)] to-orange-500 flex items-center justify-center border-2 border-[var(--color-bg-primary)] shadow-lg shadow-[var(--color-accent)]/20 relative z-20 mt-1"
                 >
-                  <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white" />
                 </motion.div>
 
                 {/* Content */}
@@ -79,19 +79,19 @@ const Timeline: React.FC<TimelineProps> = ({ items, title }) => {
                     onClick={() =>
                       setExpandedId(expandedId === item.id ? null : item.id)
                     }
-                    className="glass-card rounded-2xl p-5 md:p-6 border border-white/6 hover:border-white/10 transition-all duration-300 cursor-pointer group"
+                    className="glass-card rounded-2xl p-4 md:p-6 border border-white/6 hover:border-white/10 transition-all duration-300 cursor-pointer group"
                   >
                     {/* Header */}
                     <div className={`flex flex-col gap-1.5 mb-3 ${index % 2 === 0 ? "md:items-end" : ""}`}>
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-base md:text-lg font-bold text-white group-hover:text-[var(--color-accent)] transition-colors font-display">
+                        <h3 className="text-sm md:text-base font-bold text-white group-hover:text-[var(--color-accent)] transition-colors font-display leading-tight">
                           {item.title}
                         </h3>
-                        <span className="px-2 py-0.5 text-[9px] font-mono uppercase tracking-wider text-[var(--color-accent-secondary)] bg-[var(--color-accent-secondary)]/10 rounded-full border border-[var(--color-accent-secondary)]/20">
+                        <span className="px-1.5 py-0.5 md:px-2 md:py-0.5 text-[8px] md:text-[9px] font-mono uppercase tracking-wider text-[var(--color-accent-secondary)] bg-[var(--color-accent-secondary)]/10 rounded-full border border-[var(--color-accent-secondary)]/20 flex-shrink-0">
                           {item.period}
                         </span>
                       </div>
-                      <p className="text-xs text-gray-400">{item.subtitle}</p>
+                      <p className="text-[10px] md:text-xs text-gray-400 leading-tight">{item.subtitle}</p>
                     </div>
 
                     {/* Expandable content */}
@@ -104,7 +104,7 @@ const Timeline: React.FC<TimelineProps> = ({ items, title }) => {
                           transition={{ duration: 0.25, ease: "easeInOut" }}
                           className="overflow-hidden"
                         >
-                          <p className={`text-sm text-gray-400 leading-relaxed font-body pt-2 ${index % 2 === 0 ? "md:text-right" : ""}`}>
+                          <p className={`text-xs md:text-sm text-gray-400 leading-relaxed font-body pt-2 ${index % 2 === 0 ? "md:text-right" : ""}`}>
                             {item.fullDesc}
                           </p>
                         </motion.div>
@@ -123,7 +123,7 @@ const Timeline: React.FC<TimelineProps> = ({ items, title }) => {
                           }}
                           transition={{ duration: 0.25 }}
                         >
-                          <ChevronDown size={12} className="text-[var(--color-accent-secondary)]" />
+                          <ChevronDown size={11} className="text-[var(--color-accent-secondary)]" />
                         </motion.div>
                       </div>
                     )}

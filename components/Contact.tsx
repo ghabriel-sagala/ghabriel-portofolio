@@ -74,49 +74,49 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative py-24">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section className="relative py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl mb-16"
+          className="max-w-3xl mb-10 md:mb-16"
         >
           <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
             05 — Contact
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mt-3 mb-5 tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-display mt-3 mb-4 tracking-tight">
             Get In Touch
           </h2>
-          <p className="text-gray-400 text-base leading-relaxed">
+          <p className="text-gray-400 text-sm md:text-base leading-relaxed">
             Open for collaboration, opportunities, and conversations.
             Let&apos;s create something great together.
           </p>
-          <div className="flex items-center gap-2 mt-5 text-sm text-gray-500">
-            <MapPin size={14} className="text-[var(--color-accent-secondary)]" />
+          <div className="flex items-center gap-2 mt-4 text-xs md:text-sm text-gray-500">
+            <MapPin size={13} className="text-[var(--color-accent-secondary)]" />
             <span>Malang, Indonesia</span>
           </div>
         </motion.div>
 
         {/* Form + Sidebar */}
-        <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+        <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7 }}
-            className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-8 md:p-10 hover:border-white/10 transition-all duration-300"
+            className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 md:p-8 md:p-10 hover:border-white/10 transition-all duration-300"
           >
-            <div className="absolute -top-24 -right-24 w-64 h-64 bg-[var(--color-accent)]/10 blur-3xl rounded-full pointer-events-none" />
+            <div className="absolute -top-16 -right-16 w-40 h-40 md:w-64 md:h-64 bg-[var(--color-accent)]/10 blur-3xl rounded-full pointer-events-none" />
 
             <div className="relative z-10">
-              <h3 className="text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-1">
+              <h3 className="text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-1">
                 Send a Message
               </h3>
-              <p className="text-lg font-bold text-white mb-8 font-display">
+              <p className="text-base md:text-lg font-bold text-white mb-6 md:mb-8 font-display">
                 Tell me about your project
               </p>
 
@@ -149,9 +149,9 @@ export default function Contact() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[10px] text-gray-500 uppercase tracking-wider font-semibold mb-1.5">
+                      <label className="block text-[9px] md:text-[10px] text-gray-500 uppercase tracking-wider font-semibold mb-1">
                         Name
                       </label>
                       <input
@@ -161,11 +161,11 @@ export default function Contact() {
                         value={formState.name}
                         onChange={handleChange}
                         placeholder="Your name"
-                        className="w-full px-4 py-3 bg-white/[0.02] border border-white/6 rounded-xl text-white placeholder-gray-600 text-sm focus:outline-none focus:border-[var(--color-accent)]/50 focus:bg-white/[0.04] transition-all"
+                        className="w-full px-3 py-2.5 md:px-4 md:py-3 bg-white/[0.02] border border-white/6 rounded-xl text-white placeholder-gray-600 text-xs md:text-sm focus:outline-none focus:border-[var(--color-accent)]/50 focus:bg-white/[0.04] transition-all"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] text-gray-500 uppercase tracking-wider font-semibold mb-1.5">
+                      <label className="block text-[9px] md:text-[10px] text-gray-500 uppercase tracking-wider font-semibold mb-1">
                         Email
                       </label>
                       <input
@@ -175,28 +175,28 @@ export default function Contact() {
                         value={formState.email}
                         onChange={handleChange}
                         placeholder="you@example.com"
-                        className="w-full px-4 py-3 bg-white/[0.02] border border-white/6 rounded-xl text-white placeholder-gray-600 text-sm focus:outline-none focus:border-[var(--color-accent)]/50 focus:bg-white/[0.04] transition-all"
+                        className="w-full px-3 py-2.5 md:px-4 md:py-3 bg-white/[0.02] border border-white/6 rounded-xl text-white placeholder-gray-600 text-xs md:text-sm focus:outline-none focus:border-[var(--color-accent)]/50 focus:bg-white/[0.04] transition-all"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-[10px] text-gray-500 uppercase tracking-wider font-semibold mb-1.5">
+                    <label className="block text-[9px] md:text-[10px] text-gray-500 uppercase tracking-wider font-semibold mb-1">
                       Message
                     </label>
                     <textarea
                       name="message"
                       required
-                      rows={5}
+                      rows={4}
                       value={formState.message}
                       onChange={handleChange}
                       placeholder="Tell me about your project, ask a question, or just say hello..."
-                      className="w-full px-4 py-3 bg-white/[0.02] border border-white/6 rounded-xl text-white placeholder-gray-600 text-sm focus:outline-none focus:border-[var(--color-accent)]/50 focus:bg-white/[0.04] transition-all resize-none"
+                      className="w-full px-3 py-2.5 md:px-4 md:py-3 bg-white/[0.02] border border-white/6 rounded-xl text-white placeholder-gray-600 text-xs md:text-sm focus:outline-none focus:border-[var(--color-accent)]/50 focus:bg-white/[0.04] transition-all resize-none"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full px-5 py-3 bg-gradient-to-r from-[var(--color-accent)] to-orange-500 text-white font-semibold text-sm rounded-xl hover:shadow-lg hover:shadow-[var(--color-accent)]/20 disabled:opacity-50 transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full px-4 py-3 md:px-5 md:py-3 bg-gradient-to-r from-[var(--color-accent)] to-orange-500 text-white font-semibold text-xs md:text-sm rounded-xl hover:shadow-lg hover:shadow-[var(--color-accent)]/20 disabled:opacity-50 transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <Send size={16} />
                     {isLoading ? "Sending..." : "Send Message"}
