@@ -19,6 +19,7 @@ import { useState, useEffect, useCallback } from "react";
 interface Project {
   id: string | number;
   title: string;
+  role?: string;
   tech: string[];
   category: string;
   shortDesc: string;
@@ -147,14 +148,14 @@ export default function ProjectShowcase({
                 >
                   {/* Fixed height card: h-[380px] on all screen sizes */}
                   <div className="flex flex-col h-[380px]">
-                    {/* Image area — fixed 60% height of card = 228px */}
-                    <div className="relative w-full h-[228px] overflow-hidden">
+                    {/* Image area — responsive 16:10 frame; top-aligned so tall screenshots stay readable */}
+                    <div className="relative w-full aspect-[16/10] shrink-0 overflow-hidden bg-black/40">
                       <Image
                         src={project.image}
                         alt={project.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
                       />
                       {/* Gradient overlay at bottom of image */}
@@ -273,15 +274,28 @@ export default function ProjectShowcase({
                 </button>
               )}
 
-              <div className="relative h-56 md:h-72">
-                <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  fill
-                  sizes="90vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-secondary)] via-transparent to-transparent" />
+              <div className="relative bg-black/60">
+                {/* Clicking the image opens the full resolution file in a new tab */}
+                <a
+                  href={selectedProject.image}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${selectedProject.title} image in a new tab`}
+                  className="group/image relative block w-full h-56 md:h-80 overflow-hidden cursor-zoom-in"
+                >
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    fill
+                    sizes="90vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover/image:scale-[1.03]"
+                  />
+                  <span className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white text-[11px] font-medium">
+                    <ExternalLink size={12} />
+                    Open full size
+                  </span>
+                </a>
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-secondary)] via-transparent to-transparent pointer-events-none" />
                 <button
                   onClick={() => setSelectedProject(null)}
                   className="absolute top-3 right-3 w-9 h-9 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-colors backdrop-blur-md border border-white/10 z-20"
@@ -309,9 +323,16 @@ export default function ProjectShowcase({
                   })()}
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-bold text-white font-display mb-3">
+                <h3 className="text-2xl md:text-3xl font-bold text-white font-display mb-2">
                   {selectedProject.title}
                 </h3>
+
+                {selectedProject.role && (
+                  <p className="text-sm font-medium text-white/70 mb-3">
+                    <span className="text-gray-500">Role:</span>{" "}
+                    {selectedProject.role}
+                  </p>
+                )}
 
                 <p className="text-gray-400 leading-relaxed mb-6">
                   {selectedProject.shortDesc}

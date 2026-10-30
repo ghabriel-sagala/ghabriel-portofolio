@@ -132,7 +132,7 @@ export default function Hero() {
                 />
               </a>
               <a
-                href="https://github.com/ghabrielsagala-bot"
+                href="https://github.com/ghabriel-sagala"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 glass-card border border-white/10 text-white rounded-xl font-semibold hover:bg-white/5 hover:border-white/20 hover:-translate-y-0.5 transition-all text-sm"
@@ -177,7 +177,7 @@ export default function Hero() {
             >
               <span className="text-[10px] text-gray-500 tracking-wide uppercase mr-1">Connect:</span>
               <a
-                href="https://github.com/ghabrielsagala-bot"
+                href="https://github.com/ghabriel-sagala"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-2 rounded-lg border border-white/10 text-gray-500 hover:text-white hover:border-white/20 hover:bg-white/5 transition-all"

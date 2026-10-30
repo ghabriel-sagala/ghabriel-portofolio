@@ -76,7 +76,7 @@ function timeAgo(dateString: string): string {
   return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 }
 
-export default function GitHubStats({ username = "ghabrielsagala-bot" }: GitHubStatsProps) {
+export default function GitHubStats({ username = "ghabriel-sagala" }: GitHubStatsProps) {
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [topRepos, setTopRepos] = useState<GitHubRepo[]>([]);

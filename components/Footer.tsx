@@ -7,7 +7,7 @@ import { FaLinkedin as Linkedin, FaGithub as Github } from "react-icons/fa";
 const socialLinks = [
   {
     icon: Github,
-    href: "https://github.com/ghabrielsagala-bot",
+    href: "https://github.com/ghabriel-sagala",
     label: "GitHub",
     color: "hover:text-white",
     highlight: true,

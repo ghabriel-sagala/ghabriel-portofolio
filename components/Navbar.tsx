@@ -103,7 +103,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-1">
             <a
-              href="https://github.com/ghabrielsagala-bot"
+              href="https://github.com/ghabriel-sagala"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all"

@@ -73,6 +73,16 @@ const organisasiData = [
 
 const proyekData = [
   {
+    id: "proj8",
+    title: "Malang Mbois",
+    role: "Backend Developer",
+    tech: ["Laravel", "Leaflet.js"],
+    category: "Web Development",
+    shortDesc:
+      "Website ini merupakan proyek skala besar yang saya kembangkan selama masa magang di Dinas Komunikasi dan Informatika (Diskominfo) Kota Malang.",
+    image: "/Malang-Mbois.png",
+  },
+  {
     id: "proj7",
     title: "Website Kopi Ruang - Company Profile",
     tech: ["HTML", "CSS"],

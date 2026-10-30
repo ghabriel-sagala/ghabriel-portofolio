@@ -54,7 +54,7 @@ export default function GitHubProfileCard() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const username = "ghabrielsagala-bot";
+  const username = "ghabriel-sagala";
 
   useEffect(() => {
     const fetchData = async () => {
