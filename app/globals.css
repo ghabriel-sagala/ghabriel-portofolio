@@ -1,16 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-primary: #0a0a0f;
-  --color-bg-secondary: #12121a;
-  --color-bg-tertiary: #1a1a24;
+  --color-primary: #08B6D3;
+  --color-secondary: #D946EF;
+  --color-tertiary: #10B981;
+  --color-neutral: #0B0A10;
+  --color-bg-primary: var(--color-neutral);
+  --color-bg-secondary: #121018;
+  --color-bg-tertiary: #191720;
   --color-text-primary: #ffffff;
   --color-text-secondary: #a1a1aa;
   --color-text-muted: #71717a;
-  --color-accent: #ef4444;
-  --color-accent-secondary: #22d3ee;
-  --color-glass: rgba(255, 255, 255, 0.03);
-  --color-glass-border: rgba(255, 255, 255, 0.06);
+  --color-accent: var(--color-primary);
+  --color-accent-secondary: var(--color-secondary);
+  --color-glass: rgba(255, 255, 255, 0.035);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
   --font-display: var(--font-space), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
 }
@@ -18,6 +22,8 @@
 @layer base {
   :root {
     color-scheme: dark;
+    --brand-primary: var(--color-primary);
+    --brand-secondary: var(--color-secondary);
   }
 
   *,
@@ -73,7 +79,7 @@
   }
 
   ::selection {
-    background: rgba(239, 68, 68, 0.3);
+    background: rgba(8, 182, 211, 0.3);
     color: white;
   }
 
@@ -109,7 +115,7 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(239, 68, 68, 0.5);
+    background: rgba(8, 182, 211, 0.5);
   }
 }
 
@@ -139,7 +145,7 @@
 }\n
 /* Gradient text utility */
 .gradient-text-accent {
-  background: linear-gradient(135deg, var(--color-accent) 0%, #f97316 50%, var(--color-accent) 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-tertiary) 50%, var(--color-secondary) 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -164,7 +170,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent, rgba(239, 68, 68, 0.2), transparent);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent, rgba(8, 182, 211, 0.2), transparent);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

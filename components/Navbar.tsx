@@ -2,51 +2,41 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Mail, Download } from "lucide-react";
-import { FaGithub as Github } from "react-icons/fa";
-import { FaLinkedin as Linkedin } from "react-icons/fa";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "#hero" },
   { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
+  { name: "Projects", href: "#projects", count: 8 },
   { name: "Certificates", href: "#sertifikat" },
+  { name: "Leadership", href: "#pengalaman" },
   { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
 
   const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 50);
-    const sections = navLinks.map((l) => l.href.slice(1));
-    for (let i = sections.length - 1; i >= 0; i--) {
-      const el = document.getElementById(sections[i]);
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 150) {
-          setActiveSection(sections[i]);
-          break;
-        }
+    const sections = navLinks.map((link) => link.href.slice(1));
+    for (let index = sections.length - 1; index >= 0; index--) {
+      const section = document.getElementById(sections[index]);
+      if (section && section.getBoundingClientRect().top <= 150) {
+        setActiveSection(sections[index]);
+        return;
       }
     }
+    setActiveSection("hero");
   }, []);
 
   useEffect(() => {
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -55,185 +45,143 @@ export default function Navbar() {
   const closeMobile = () => setIsOpen(false);
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#030305]/80 backdrop-blur-xl border-b border-white/8 py-3 shadow-lg shadow-black/20"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-between items-center">
-        {/* Logo */}
-        <a href="#hero" className="flex items-center gap-2 group z-50">
-          <span className="font-extrabold text-2xl font-mono bg-gradient-to-r from-[var(--brand-primary)] to-orange-500 bg-clip-text text-transparent group-hover:opacity-80 transition-opacity">
-            GB
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+      <nav
+        aria-label="Navigasi utama"
+        className="mx-auto flex max-w-[90rem] items-center justify-between gap-3 rounded-2xl border border-white/10 bg-neutral/75 px-3 py-2.5 shadow-lg shadow-black/20 backdrop-blur-2xl sm:gap-4 sm:px-5"
+      >
+        <a
+          href="#hero"
+          className="group flex min-w-0 items-center gap-2.5"
+          aria-label="Ghabriel Theo P. S. — beranda"
+        >
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-primary/[0.08] font-display text-sm font-semibold text-primary transition-colors duration-300 group-hover:border-primary/60 group-hover:bg-primary/[0.14]">
+            G
           </span>
-          <span className="text-lg font-light text-gray-300 hidden sm:block">
-            / Ghabriel
+          <span className="min-w-0">
+            <span className="block truncate text-xs font-semibold leading-tight text-white sm:text-sm">
+              Ghabriel Theo P. S.
+            </span>
+            <span className="mt-1 hidden items-center gap-1 text-[8px] font-medium uppercase tracking-[0.12em] text-primary sm:flex">
+              <span aria-hidden="true">•</span>
+              Software Engineer Intern
+            </span>
           </span>
         </a>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-1">
-          <ul className="flex gap-1">
-            {navLinks.map((link) => (
+        <ul className="hidden items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.035] p-1 backdrop-blur-xl lg:flex">
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.href.slice(1);
+            return (
               <li key={link.name}>
                 <a
                   href={link.href}
-                  className={`relative text-sm font-medium px-3 py-2 rounded-lg transition-all duration-200 ${
-                    activeSection === link.href.slice(1)
-                      ? "text-white"
-                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                  aria-current={isActive ? "location" : undefined}
+                  className={`inline-flex items-center gap-1 rounded-full px-3 py-2 text-[11px] font-medium transition-colors duration-300 ${
+                    isActive
+                      ? "bg-white/[0.09] text-white"
+                      : "text-slate-400 hover:bg-white/[0.06] hover:text-white"
                   }`}
                 >
-                  {activeSection === link.href.slice(1) && (
-                    <motion.div
-                      layoutId="nav-active"
-                      className="absolute inset-0 bg-white/8 rounded-lg"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
+                  {link.name}
+                  {link.count && (
+                    <span
+                      className={`text-[9px] ${
+                        isActive ? "text-primary" : "text-slate-500"
+                      }`}
+                    >
+                      ({link.count})
+                    </span>
                   )}
-                  <span className="relative z-10">{link.name}</span>
                 </a>
               </li>
-            ))}
-          </ul>
+            );
+          })}
+        </ul>
 
-          <div className="h-4 w-px bg-white/15 mx-3" />
-
-          <div className="flex items-center gap-1">
-            <a
-              href="https://github.com/ghabriel-sagala"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative flex items-center gap-1.5 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-all"
-              aria-label="GitHub"
-            >
-              <Github size={18} className="group-hover:-translate-y-1 transition-transform" />
-              <span className="text-sm font-medium relative z-10">GitHub</span>
-              <motion.span
-                animate={{ scaleX: 0 }}
-                className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"
-              />
-            </a>
-            <a
-              href="/CV.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-sm font-medium hover:bg-white/10 hover:text-white transition-all"
-            >
-              <Download size={14} />
-              CV
-            </a>
-          </div>
+        <div className="ml-auto hidden shrink-0 items-center gap-3 sm:flex lg:ml-0">
+          <span className="inline-flex items-center gap-1.5 text-[10px] text-slate-400">
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 rounded-full bg-tertiary shadow-[0_0_8px_rgba(16,185,129,0.65)]"
+            />
+            Malang, ID
+          </span>
+          <a
+            href="mailto:ghabrielsagala@gmail.com"
+            className="rounded-full bg-white px-4 py-2 text-[11px] font-semibold text-black transition duration-300 ease-in-out hover:scale-[1.02] hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          >
+            Hire Me
+          </a>
         </div>
 
-        {/* Mobile Toggle */}
         <button
-          className="md:hidden text-gray-300 z-50 hover:text-white p-2"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
+          type="button"
+          className="ml-auto rounded-full border border-white/10 bg-white/[0.04] p-2 text-slate-300 transition-colors hover:bg-white/10 hover:text-white lg:hidden"
+          onClick={() => setIsOpen((open) => !open)}
+          aria-label={isOpen ? "Tutup menu" : "Buka menu"}
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {isOpen ? (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <X size={24} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="menu"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Menu size={24} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {isOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
-      </div>
+      </nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-[#030305]/98 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 md:hidden z-40"
+            id="mobile-navigation"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
+            className="mx-auto mt-2 max-w-[90rem] rounded-2xl border border-white/10 bg-neutral/95 p-3 shadow-2xl shadow-black/40 backdrop-blur-2xl lg:hidden"
           >
-            {/* Close button */}
-            <button
-              onClick={closeMobile}
-              className="absolute top-5 right-6 p-2 text-gray-300 hover:text-white z-50"
-              aria-label="Close menu"
-            >
-              <X size={28} />
-            </button>
-
-            <ul className="flex flex-col items-center gap-2">
-              {navLinks.map((link, i) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  <a
-                    href={link.href}
-                    onClick={closeMobile}
-                    className={`text-2xl font-space font-bold transition-colors block py-2 ${
-                      activeSection === link.href.slice(1)
-                        ? "text-[var(--brand-primary)]"
-                        : "text-gray-300 hover:text-white"
-                    }`}
-                  >
-                    {link.name}
-                  </a>
-                </motion.li>
-              ))}
+            <ul className="grid gap-1">
+              {navLinks.map((link, index) => {
+                const isActive = activeSection === link.href.slice(1);
+                return (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      onClick={closeMobile}
+                      aria-current={isActive ? "location" : undefined}
+                      className={`flex items-center justify-between rounded-xl px-4 py-3 text-sm transition-colors ${
+                        isActive
+                          ? "bg-primary/10 text-primary"
+                          : "text-slate-300 hover:bg-white/[0.06] hover:text-white"
+                      }`}
+                    >
+                      {link.name}
+                      {link.count && (
+                        <span className="text-xs text-slate-500">
+                          {link.count}
+                        </span>
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex gap-4 mt-4"
-            >
-              <a
-                href="https://www.linkedin.com/in/ghabriel-sagala-93bba027b"
-                target="_blank"
-                rel="noreferrer"
-                className="p-3 rounded-full bg-white/5 text-gray-400 hover:text-[var(--brand-primary)] hover:bg-white/10 transition-all"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="/CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-white/5 text-gray-400 hover:text-[var(--brand-secondary)] hover:bg-white/10 transition-all"
-              >
-                <Download size={20} />
-              </a>
+            <div className="mt-3 flex items-center justify-between border-t border-white/10 px-4 pt-3">
+              <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 rounded-full bg-tertiary"
+                />
+                Malang, ID
+              </span>
               <a
                 href="mailto:ghabrielsagala@gmail.com"
-                className="p-3 rounded-full bg-white/5 text-gray-400 hover:text-[var(--brand-primary)] hover:bg-white/10 transition-all"
+                onClick={closeMobile}
+                className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-primary"
               >
-                <Mail size={20} />
+                Hire Me
               </a>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   );
 }

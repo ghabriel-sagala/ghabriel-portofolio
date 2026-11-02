@@ -219,9 +219,7 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <div id="hero">
-        <Hero />
-      </div>
+      <Hero />
 
       {/* ABOUT */}
       <section

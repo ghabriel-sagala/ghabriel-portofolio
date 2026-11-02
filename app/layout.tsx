@@ -7,7 +7,6 @@ import BackgroundEffects from "@/components/BackgroundEffects";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollToTop from "@/components/ScrollToTop";
 import Preloader from "@/components/Preloader";
-import SectionDots from "@/components/SectionDots";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -89,7 +88,7 @@ export default function RootLayout({
         <Preloader />
         <BackgroundEffects />
         <Navbar />
-        <main className="flex-1 w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10 pb-20">
+        <main className="relative z-10 mx-auto w-full max-w-[90rem] flex-1 px-4 pb-20 sm:px-6 lg:px-10">
           {children}
         </main>
         <Footer />
