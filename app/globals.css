@@ -4,19 +4,21 @@
   --color-primary: #08B6D3;
   --color-secondary: #D946EF;
   --color-tertiary: #10B981;
-  --color-neutral: #0B0A10;
+  --color-neutral: #000A10;
   --color-bg-primary: var(--color-neutral);
-  --color-bg-secondary: #121018;
-  --color-bg-tertiary: #191720;
+  --color-bg-secondary: #07141A;
+  --color-bg-tertiary: #0D1C23;
   --color-text-primary: #ffffff;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
+  --color-text-secondary: #B5C2C7;
+  --color-text-muted: #91A0A6;
   --color-accent: var(--color-primary);
   --color-accent-secondary: var(--color-secondary);
   --color-glass: rgba(255, 255, 255, 0.035);
   --color-glass-border: rgba(255, 255, 255, 0.08);
   --font-display: var(--font-space), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
+  --color-gray-500: #91A0A6;
 }
 
 @layer base {
@@ -45,37 +47,36 @@
     background-color: var(--color-bg-primary);
     color: var(--color-text-primary);
     font-family: var(--font-body);
-    overflow-x: hidden;
     line-height: 1.6;
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Mobile optimizations */
-  @media (max-width: 640px) {
-    html {
-      scroll-padding-top: 80px;
-    }
-    
-    h1 {
-      font-size: 2.25rem;
-      line-height: 1.2;
-    }
-    
-    h2 {
-      font-size: 1.875rem;
-      line-height: 1.25;
-    }
-    
-    h3 {
-      font-size: 1.5rem;
-      line-height: 1.3;
-    }
-    
-    /* Prevent horizontal overflow */
-    img, video, svg {
-      max-width: 100%;
-      height: auto;
-    }
+  a[href],
+  button,
+  summary,
+  select,
+  label[for],
+  label:has(> input[type="checkbox"], > input[type="radio"]),
+  [role="button"],
+  [role="link"],
+  [role="tab"],
+  [role="menuitem"],
+  [role="option"],
+  [role="switch"],
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="file"],
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"],
+  input[type="range"],
+  input[type="color"] {
+    cursor: pointer;
+  }
+
+  :disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
   }
 
   ::selection {
@@ -119,19 +120,22 @@
   }
 }
 
-/* Glassmorphism utilities */
+/* Blur is reserved for the featured project and organization cards. */
 .glass {
   background: var(--color-glass);
   border: 1px solid var(--color-glass-border);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
 }
 
 .glass-card {
-  background: rgba(18, 18, 26, 0.7);
+  background: rgba(13, 28, 35, 0.88);
   border: 1px solid var(--color-glass-border);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+.glass-highlight {
+  background: rgba(13, 28, 35, 0.7);
+  border: 1px solid rgba(8, 182, 211, 0.22);
+  backdrop-filter: blur(14px) saturate(125%);
+  -webkit-backdrop-filter: blur(14px) saturate(125%);
 }
 
 /* Noise texture overlay */
@@ -145,45 +149,11 @@
 }\n
 /* Gradient text utility */
 .gradient-text-accent {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-tertiary) 50%, var(--color-secondary) 100%);
-  background-size: 200% 200%;
+  background: linear-gradient(110deg, var(--color-primary), var(--color-tertiary));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradient-shift 4s ease infinite;
 }
-
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* Shimmer effect for cards */
-.shimmer-border {
-  position: relative;
-  overflow: hidden;
-}
-
-.shimmer-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent, rgba(8, 182, 211, 0.2), transparent);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: shimmer-rotate 4s linear infinite;
-}
-
-@keyframes shimmer-rotate {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Magnetic button effect is handled in components */
 
 /* Smooth hover transitions */
 .group-hover-lift {
@@ -206,68 +176,17 @@
   animation: fade-in-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Stagger children utility classes for framer-motion */
-.stagger-children > * {
-  opacity: 0;
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-/* Custom cursor glow (applied to body via JS) */
-.cursor-glow {
-  cursor: none;
-}
-
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: white;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background 0.2s;
-}
-
-.cursor-ring {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
-}
-
-.cursor-ring.hovering {
-  width: 60px;
-  height: 60px;
-  border-color: var(--color-accent);
-  transform: translate(-50%, -50%) scale(1.1);
-}
-
-/* Gradient border utility */
-.gradient-border {
-  position: relative;
-  background: var(--color-bg-primary);
-  border-radius: inherit;
-}
-
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.gradient-border:hover::before {
-  opacity: 1;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

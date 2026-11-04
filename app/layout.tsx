@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
+import { LayoutGroup } from "framer-motion";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -18,6 +19,12 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space",
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -83,17 +90,19 @@ export default function RootLayout({
         <link rel="canonical" href="https://ghabriel-portofolio.vercel.app" />
       </head>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased relative min-h-screen flex flex-col bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable} antialiased relative min-h-screen flex flex-col bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]`}
       >
-        <Preloader />
-        <BackgroundEffects />
-        <Navbar />
-        <main className="relative z-10 mx-auto w-full max-w-[90rem] flex-1 px-4 pb-20 sm:px-6 lg:px-10">
-          {children}
-        </main>
-        <Footer />
-        <ScrollToTop />
-        <ScrollProgress />
+        <LayoutGroup id="portfolio-intro">
+          <Preloader />
+          <BackgroundEffects />
+          <Navbar />
+          <main className="relative z-10 mx-auto w-full max-w-[90rem] flex-1 overflow-x-clip px-4 pb-20 sm:px-6 lg:px-10">
+            {children}
+          </main>
+          <Footer />
+          <ScrollToTop />
+          <ScrollProgress />
+        </LayoutGroup>
       </body>
     </html>
   );

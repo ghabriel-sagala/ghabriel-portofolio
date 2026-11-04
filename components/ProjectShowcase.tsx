@@ -1,20 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   ArrowUpRight,
   X,
   ExternalLink,
   ChevronLeft,
   ChevronRight,
-  Map,
-  Ship,
-  Briefcase,
-  Sparkles,
-  Wifi,
 } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 interface Project {
   id: string | number;
@@ -26,16 +22,6 @@ interface Project {
   image: string;
 }
 
-// Category icon mapper
-const categoryIcons: Record<string, React.ElementType> = {
-  "Web Development": Map,
-  "Information System": Ship,
-  "Web Application": Briefcase,
-  "Artificial Intelligence": Sparkles,
-  "Internet of Things": Wifi,
-  "Financial System": Briefcase,
-};
-
 export default function ProjectShowcase({
   projects,
 }: {
@@ -43,6 +29,11 @@ export default function ProjectShowcase({
 }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeFilter, setActiveFilter] = useState("All");
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const portalRoot =
+    typeof document === "undefined" ? null : document.body;
+  const reduceMotion = useReducedMotion();
 
   // Unique categories
   const categories = [
@@ -68,59 +59,89 @@ export default function ProjectShowcase({
   }, [currentIndex, filtered]);
 
   useEffect(() => {
-    if (!selectedProject) return;
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedProject(null);
-      if (e.key === "ArrowRight") goToNext();
-      if (e.key === "ArrowLeft") goToPrev();
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [selectedProject, goToNext, goToPrev]);
+    if (!selectedProject || !portalRoot) return;
+    const modal = modalRef.current;
+    if (!modal) return;
 
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
+    const previousFocus =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setSelectedProject(null);
+      } else if (e.key === "ArrowRight") {
+        goToNext();
+      } else if (e.key === "ArrowLeft") {
+        goToPrev();
+      } else if (e.key === "Tab") {
+        const focusable = Array.from(
+          modal.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])',
+          ),
+        );
+        if (focusable.length === 0) {
+          e.preventDefault();
+          return;
+        }
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
-  }, [selectedProject]);
+
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = previousOverflow;
+      previousFocus?.focus();
+    };
+  }, [selectedProject, goToNext, goToPrev, portalRoot]);
 
   return (
-    <section className="relative py-24">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section className="relative py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          transition={{ duration: reduceMotion ? 0 : 0.45 }}
+          className="mb-9 max-w-3xl"
         >
-          <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
-            01 — Work
+          <span className="font-mono text-xs text-secondary">
+            SELECTED WORK
           </span>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white font-display mt-4 mb-6 tracking-tight">
-            Featured Projects
+          <h2 className="mt-3 font-display text-4xl font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Projects
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-base leading-relaxed">
-            A curated selection of projects that showcase my technical depth —
-            from web platforms and productivity tools to IoT systems.
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-text-secondary sm:text-base">
+            Web platforms, internal tools, and connected-device projects.
           </p>
 
-          {/* Filter pills */}
-          <div className="flex flex-wrap justify-center gap-2 mt-8">
+          <div className="mt-7 flex flex-wrap gap-2">
             {categories.map((cat) => (
               <button
                 key={cat}
+                type="button"
+                aria-pressed={activeFilter === cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`relative px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
+                className={`min-h-11 rounded-md border px-4 py-2 text-sm font-medium transition-colors ${
                   activeFilter === cat
-                    ? "bg-white text-black border-white shadow-sm"
-                    : "bg-white/[0.03] text-gray-400 border-white/10 hover:text-white hover:border-white/20"
+                    ? "border-primary bg-primary text-neutral"
+                    : "border-white/40 bg-white/[0.025] text-text-secondary hover:border-primary hover:text-white active:bg-white/10"
                 }`}
               >
                 {cat}
@@ -129,124 +150,118 @@ export default function ProjectShowcase({
           </div>
         </motion.div>
 
-        {/* STRICT GRID: 1 col mobile, 2 col tablet, 3 col desktop */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((project, index) => {
-              const Icon = categoryIcons[project.category] || Briefcase;
-
-              return (
-                <motion.div
+        {filtered.length === 0 ? (
+          <p className="border-t border-white/15 py-6 text-sm text-text-secondary">
+            No projects match this category.
+          </p>
+        ) : (
+          <motion.div
+            layout
+            className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
+          >
+            <AnimatePresence mode="popLayout">
+              {filtered.map((project, index) => (
+                <motion.article
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, delay: index * 0.04 }}
-                  onClick={() => setSelectedProject(project)}
-                  className="group relative rounded-2xl overflow-hidden bg-[var(--color-bg-tertiary)] border border-white/6 hover:border-white/10 transition-all duration-300 cursor-pointer h-full"
+                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduceMotion ? undefined : { opacity: 0, y: 8 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.32 }}
+                  className={`group min-w-0 overflow-hidden rounded-xl border transition-colors hover:border-primary ${
+                    index === 0
+                      ? "glass-highlight"
+                      : "border-white/12 bg-bg-secondary"
+                  }`}
                 >
-                  {/* Fixed height card: h-[380px] on all screen sizes */}
-                  <div className="flex flex-col h-[380px]">
-                    {/* Image area — responsive 16:10 frame; top-aligned so tall screenshots stay readable */}
-                    <div className="relative w-full aspect-[16/10] shrink-0 overflow-hidden bg-black/40">
+                  <div
+                    className={`relative w-full overflow-hidden bg-black/30 ${
+                      index % 3 === 0 ? "aspect-[4/3]" : "aspect-[16/10]"
+                    }`}
+                  >
                       <Image
                         src={project.image}
-                        alt={project.title}
+                        alt=""
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
                       />
-                      {/* Gradient overlay at bottom of image */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-tertiary)] via-transparent to-transparent pointer-events-none" />
-
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
-                        <div className="px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium flex items-center gap-2 shadow-lg">
-                          <ExternalLink size={14} />
-                          View details
-                        </div>
-                      </div>
-
-                      {/* Category badge on image */}
-                      <div className="absolute top-3 left-3">
-                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-sm border border-white/10">
-                          <Icon size={11} className="text-white/80" />
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-white/80">
-                            {project.category}
-                          </span>
-                        </div>
-                      </div>
                     </div>
 
-                    {/* Content area — fills remaining space */}
-                    <div className="flex-1 p-5 flex flex-col">
-                      <div className="flex items-start justify-between gap-3 mb-2">
-                        <div className="min-w-0 flex-1">
-                          <h3 className="text-base font-bold text-white font-display leading-snug group-hover:text-[var(--color-accent)] transition-colors line-clamp-1">
-                            {project.title}
-                          </h3>
-                        </div>
-                        <div className="flex-shrink-0 w-7 h-7 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-[var(--color-accent)] group-hover:border-[var(--color-accent)] group-hover:text-white transition-all flex">
-                          <ArrowUpRight size={14} />
-                        </div>
+                  <div className="flex min-h-52 flex-col p-5 sm:p-6">
+                    <div className="mb-3 flex items-start justify-between gap-4">
+                      <div className="min-w-0">
+                        <p className="font-mono text-[10px] text-secondary">
+                          {project.category}
+                        </p>
+                        <h3 className="mt-2 font-display text-lg font-medium leading-snug text-white transition-colors group-hover:text-primary sm:text-xl">
+                          {project.title}
+                        </h3>
                       </div>
-
-                      <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-2 flex-1">
-                        {project.shortDesc}
-                      </p>
-
-                      {/* Tech tags — fixed height wrapper */}
-                      <div className="flex flex-wrap gap-1.5 mt-auto">
-                        {project.tech.map((t) => (
-                          <span
-                            key={t}
-                            className="px-2 py-0.5 rounded-md bg-white/5 border border-white/5 text-[10px] font-medium text-gray-400 transition-colors group-hover:border-white/10 whitespace-nowrap"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
+                      <ArrowUpRight
+                        size={18}
+                        aria-hidden="true"
+                        className="mt-1 shrink-0 text-text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      />
                     </div>
+
+                    <p className="mb-5 text-sm leading-6 text-text-secondary">
+                      {project.shortDesc}
+                    </p>
+
+                    <div className="flex flex-wrap gap-x-3 gap-y-2 border-t border-white/10 pt-4">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="font-mono text-[10px] text-text-muted"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProject(project)}
+                      className="mt-5 inline-flex min-h-11 items-center gap-2 self-start rounded-md text-xs font-medium text-primary transition-colors hover:text-white active:text-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                    >
+                      View project details
+                      <ArrowUpRight size={15} aria-hidden="true" />
+                    </button>
                   </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Hint text */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-8 text-center"
-        >
-          <p className="text-[11px] font-mono text-gray-500 uppercase tracking-widest">
-            Click any project card to explore details
-          </p>
-        </motion.div>
+                </motion.article>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
       </div>
 
       {/* Project Modal */}
-      <AnimatePresence>
-        {selectedProject && (
+      {selectedProject &&
+        portalRoot &&
+        createPortal(
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-black/85 p-4"
           >
             <motion.div
-              initial={{ scale: 0.92, y: 30 }}
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-modal-title"
+              tabIndex={-1}
+              initial={reduceMotion ? false : { scale: 0.92, y: 30 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.92, y: 30 }}
-              transition={{ type: "spring", stiffness: 200, damping: 25 }}
+              exit={reduceMotion ? undefined : { scale: 0.92, y: 30 }}
+              transition={{
+                duration: reduceMotion ? 0 : 0.28,
+                ease: "easeOut",
+              }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[var(--color-bg-secondary)] rounded-2xl overflow-hidden max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-white/8 relative"
+              className="relative max-h-[90dvh] w-full max-w-4xl cursor-auto overflow-y-auto rounded-2xl border border-white/10 bg-bg-secondary shadow-2xl"
             >
               {/* Nav arrows */}
               {currentIndex > 0 && (
@@ -255,7 +270,8 @@ export default function ProjectShowcase({
                     e.stopPropagation();
                     goToPrev();
                   }}
-                  className="absolute left-3 top-3 z-20 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-colors backdrop-blur-md border border-white/10"
+                  className="absolute left-3 top-3 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/45 bg-neutral/95 text-white/85 transition-colors hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  type="button"
                   aria-label="Previous project"
                 >
                   <ChevronLeft size={18} />
@@ -267,7 +283,8 @@ export default function ProjectShowcase({
                     e.stopPropagation();
                     goToNext();
                   }}
-                  className="absolute right-14 top-3 z-20 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-colors backdrop-blur-md border border-white/10"
+                  className="absolute right-14 top-3 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/45 bg-neutral/95 text-white/85 transition-colors hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  type="button"
                   aria-label="Next project"
                 >
                   <ChevronRight size={18} />
@@ -281,24 +298,26 @@ export default function ProjectShowcase({
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Open ${selectedProject.title} image in a new tab`}
-                  className="group/image relative block w-full h-56 md:h-80 overflow-hidden cursor-zoom-in"
+                  className="group/image relative block h-56 w-full overflow-hidden bg-neutral md:h-80"
                 >
                   <Image
                     src={selectedProject.image}
                     alt={selectedProject.title}
                     fill
                     sizes="90vw"
-                    className="object-cover object-top transition-transform duration-500 group-hover/image:scale-[1.03]"
+                    className="object-contain"
                   />
-                  <span className="absolute bottom-3 right-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white text-[11px] font-medium">
+                  <span className="absolute bottom-3 right-3 z-10 inline-flex min-h-11 items-center gap-1.5 rounded-md border border-white/40 bg-neutral/90 px-3 text-[11px] font-medium text-white">
                     <ExternalLink size={12} />
                     Open full size
                   </span>
                 </a>
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-secondary)] via-transparent to-transparent pointer-events-none" />
                 <button
+                  ref={closeButtonRef}
+                  type="button"
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-3 right-3 w-9 h-9 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-colors backdrop-blur-md border border-white/10 z-20"
+                  className="absolute top-3 right-3 z-20 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/45 bg-neutral/90 text-white transition-colors hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                   aria-label="Close modal"
                 >
                   <X size={16} />
@@ -306,24 +325,14 @@ export default function ProjectShowcase({
               </div>
 
               <div className="p-6 md:p-8">
-                <div className="flex items-center gap-2 mb-2">
-                  {(() => {
-                    const Icon = categoryIcons[selectedProject.category] || Briefcase;
-                    return (
-                      <>
-                        <Icon
-                          size={14}
-                          className="text-[var(--color-accent-secondary)]"
-                        />
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--color-accent-secondary)] bg-[var(--color-accent-secondary)]/10 border border-[var(--color-accent-secondary)]/20 px-2 py-0.5 rounded">
-                          {selectedProject.category}
-                        </span>
-                      </>
-                    );
-                  })()}
-                </div>
+                <p className="mb-2 font-mono text-[10px] text-secondary">
+                  {selectedProject.category}
+                </p>
 
-                <h3 className="text-2xl md:text-3xl font-bold text-white font-display mb-2">
+                <h3
+                  id="project-modal-title"
+                  className="mb-2 font-display text-2xl font-bold text-white md:text-3xl"
+                >
                   {selectedProject.title}
                 </h3>
 
@@ -355,16 +364,16 @@ export default function ProjectShowcase({
                   </span>
                   <button
                     onClick={() => setSelectedProject(null)}
-                    className="px-5 py-2.5 bg-white text-black rounded-xl text-sm font-medium hover:bg-white/90 transition-all"
+                    className="min-h-11 rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-white/90 active:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                   >
                     Close
                   </button>
                 </div>
               </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>,
+            portalRoot,
+          )}
     </section>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 interface TimelineItem {
@@ -18,127 +18,124 @@ interface TimelineProps {
   title: string;
 }
 
-const Timeline: React.FC<TimelineProps> = ({ items, title }) => {
+export default function Timeline({ items, title }: TimelineProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const reduceMotion = useReducedMotion();
+  const isOrganization = title === "Organization & Leadership";
 
   return (
-    <section className="relative py-24">
-      {/* Ambient glow */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-[var(--color-accent)]/6 rounded-full blur-[120px]" />
-      </div>
-
-      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+    <section className="relative py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-10">
+        <motion.header
+          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: reduceMotion ? 0 : 0.45 }}
+          className="mb-9 max-w-2xl"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mb-4 tracking-tight">
+          <p className="mb-3 font-mono text-xs text-secondary">
+            {isOrganization ? "ORGANIZATIONS" : "EXPERIENCE"}
+          </p>
+          <h2 className="font-display text-3xl font-medium tracking-tight text-white sm:text-4xl">
             {title}
           </h2>
-          <p className="text-gray-400 text-base max-w-xl mx-auto">
-            {title === "Experience"
-              ? "My professional journey and career experience"
-              : "Active involvement and leadership in organizations"}
+          <p className="mt-3 max-w-xl text-sm leading-6 text-text-secondary sm:text-base">
+            {isOrganization
+              ? "Roles and responsibilities across student organizations and community events."
+              : "Professional work across public digital services and connected systems."}
           </p>
-        </motion.div>
+        </motion.header>
 
-        {/* Timeline line */}
-        <div className="relative">
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--color-accent)]/40 via-white/6 to-[var(--color-accent-secondary)]/40 md:left-1/2 md:-translate-x-1/2" />
+        {items.length === 0 ? (
+          <p className="border-t border-white/15 py-6 text-sm text-text-secondary">
+            No entries have been added to this section yet.
+          </p>
+        ) : (
+          <div className="relative space-y-3 border-l border-white/15 pl-5 sm:space-y-4 sm:pl-8">
+            {items.map((item, index) => {
+              const isExpanded = expandedId === item.id;
+              const detailsId = `timeline-details-${item.id}`;
 
-          {/* Items */}
-          <div className="space-y-5 md:space-y-10">
-            {items.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.06 }}
-                className={`relative flex flex-col md:flex-row gap-4 md:gap-12 items-start md:items-start ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                {/* Dot */}
-                <motion.div
-                  whileHover={{ scale: 1.2 }}
-                  className="flex-shrink-0 w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-[var(--color-accent)] to-orange-500 flex items-center justify-center border-2 border-[var(--color-bg-primary)] shadow-lg shadow-[var(--color-accent)]/20 relative z-20 mt-1"
+              return (
+                <motion.article
+                  key={item.id}
+                  initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.4,
+                    delay: reduceMotion ? 0 : Math.min(index * 0.04, 0.16),
+                  }}
+                  className={`relative rounded-xl p-5 transition-colors sm:p-6 ${
+                    isOrganization && index === 0
+                      ? "glass-highlight"
+                      : "glass-card"
+                  }`}
                 >
-                  <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-white" />
-                </motion.div>
+                  <span
+                    aria-hidden="true"
+                    className={`absolute -left-[1.65rem] top-7 h-2.5 w-2.5 rounded-full border-2 border-neutral sm:-left-[2.15rem] ${
+                      isOrganization && index === 0
+                        ? "bg-secondary"
+                        : "bg-primary"
+                    }`}
+                  />
 
-                {/* Content */}
-                <div className={`flex-1 w-full ${index % 2 === 0 ? "md:text-right" : ""}`}>
-                  <motion.div
-                    whileHover={{ y: -2 }}
-                    onClick={() =>
-                      setExpandedId(expandedId === item.id ? null : item.id)
-                    }
-                    className="glass-card rounded-2xl p-4 md:p-6 border border-white/6 hover:border-white/10 transition-all duration-300 cursor-pointer group"
-                  >
-                    {/* Header */}
-                    <div className={`flex flex-col gap-1.5 mb-3 ${index % 2 === 0 ? "md:items-end" : ""}`}>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-sm md:text-base font-bold text-white group-hover:text-[var(--color-accent)] transition-colors font-display leading-tight">
-                          {item.title}
-                        </h3>
-                        <span className="px-1.5 py-0.5 md:px-2 md:py-0.5 text-[8px] md:text-[9px] font-mono uppercase tracking-wider text-[var(--color-accent-secondary)] bg-[var(--color-accent-secondary)]/10 rounded-full border border-[var(--color-accent-secondary)]/20 flex-shrink-0">
-                          {item.period}
-                        </span>
-                      </div>
-                      <p className="text-[10px] md:text-xs text-gray-400 leading-tight">{item.subtitle}</p>
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="min-w-0">
+                      <h3 className="font-display text-lg font-medium leading-snug text-white sm:text-xl">
+                        {item.title}
+                      </h3>
+                      <p className="mt-1 text-sm leading-6 text-text-secondary">
+                        {item.subtitle}
+                      </p>
                     </div>
+                    <p className="shrink-0 font-mono text-[11px] leading-5 text-tertiary">
+                      {item.period}
+                    </p>
+                  </div>
 
-                    {/* Expandable content */}
-                    <AnimatePresence initial={false}>
-                      {expandedId === item.id && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: "easeInOut" }}
-                          className="overflow-hidden"
-                        >
-                          <p className={`text-xs md:text-sm text-gray-400 leading-relaxed font-body pt-2 ${index % 2 === 0 ? "md:text-right" : ""}`}>
-                            {item.fullDesc}
-                          </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    {/* Expand hint */}
-                    {item.fullDesc.length > 80 && (
-                      <div className={`flex items-center gap-1.5 mt-2 ${index % 2 === 0 ? "md:justify-end" : ""}`}>
-                        <span className="text-[10px] text-[var(--color-accent-secondary)] font-medium">
-                          {expandedId === item.id ? "Hide" : "Show details"}
-                        </span>
-                        <motion.div
-                          animate={{
-                            rotate: expandedId === item.id ? 180 : 0,
-                          }}
-                          transition={{ duration: 0.25 }}
-                        >
-                          <ChevronDown size={11} className="text-[var(--color-accent-secondary)]" />
-                        </motion.div>
-                      </div>
-                    )}
+                  <motion.div
+                    id={detailsId}
+                    initial={false}
+                    animate={
+                      isExpanded
+                        ? { height: "auto", opacity: 1, marginTop: 16 }
+                        : { height: 0, opacity: 0, marginTop: 0 }
+                    }
+                    transition={{ duration: reduceMotion ? 0 : 0.22 }}
+                    aria-hidden={!isExpanded}
+                    className="overflow-hidden"
+                  >
+                    <p className="border-t border-white/10 pt-4 text-sm leading-7 text-text-secondary">
+                      {item.fullDesc}
+                    </p>
                   </motion.div>
-                </div>
 
-                {/* Spacer for alternating layout */}
-                <div className="flex-1 hidden md:block" />
-              </motion.div>
-            ))}
+                  <button
+                    type="button"
+                    aria-expanded={isExpanded}
+                    aria-controls={detailsId}
+                    onClick={() =>
+                      setExpandedId(isExpanded ? null : item.id)
+                    }
+                    className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-md text-xs font-medium text-primary transition-colors hover:text-white active:text-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                  >
+                    {isExpanded ? "Hide details" : "Read details"}
+                    <ChevronDown
+                      size={15}
+                      aria-hidden="true"
+                      className={`transition-transform ${
+                        isExpanded ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                </motion.article>
+              );
+            })}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
-};
-
-export default Timeline;
+}
