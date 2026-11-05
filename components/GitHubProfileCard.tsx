@@ -146,11 +146,11 @@ export default function GitHubProfileCard() {
             className="relative group"
           >
             {/* Card glow effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-accent)]/20 via-orange-500/10 to-[var(--color-accent-secondary)]/20 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-[var(--color-accent)]/20 via-transparent to-[var(--color-accent-secondary)]/20 opacity-70 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
 
-            <div className="relative rounded-2xl bg-gradient-to-br from-[var(--color-bg-tertiary)] via-[var(--color-bg-secondary)] to-[#0d1117] border border-white/6 p-6 hover:border-white/10 transition-all duration-300">
+            <div className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/25 p-6 transition-all duration-300 hover:border-white/45">
               {/* Header bar with gradient accent */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600/40 via-[#39d353]/40 to-green-500/40 rounded-t-2xl" />
+              <div className="absolute left-0 right-0 top-0 h-px bg-[#E8DCC4]/60" />
 
               {/* Profile header */}
               <div className="flex items-start gap-5 mb-6">
@@ -164,10 +164,6 @@ export default function GitHubProfileCard() {
                       width={80}
                       height={80}
                     />
-                  </div>
-                  {/* Online indicator */}
-                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#39d353] rounded-full border-2 border-[#0d1117] flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                   </div>
                 </div>
 
@@ -196,7 +192,7 @@ export default function GitHubProfileCard() {
                   href={user.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-shrink-0 p-2.5 rounded-xl bg-gradient-to-br from-red-900/30 to-orange-900/20 border border-red-500/20 text-red-400 hover:from-red-900/40 hover:to-orange-900/30 hover:border-red-500/40 transition-all duration-300 group/link"
+                  className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-white/35 bg-white/5 text-[#E8DCC4] transition-colors duration-300 hover:border-white hover:bg-white/10 group/link"
                   aria-label="View GitHub profile"
                 >
                   <ExternalLink
@@ -206,7 +202,7 @@ export default function GitHubProfileCard() {
                 </a>
               </div>
 
-              {/* Stats grid — 2x2 */}
+              {/* Stats grid, 2x2 */}
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <div className="group/stat rounded-xl bg-white/[0.02] border border-white/5 p-4 hover:border-white/10 transition-all">
                   <div className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-wider mb-2">
@@ -244,7 +240,7 @@ export default function GitHubProfileCard() {
                 href={user.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-red-600 to-orange-500 text-white text-sm font-semibold rounded-xl shadow-lg shadow-red-600/20 hover:shadow-xl hover:shadow-red-600/30 hover:from-red-600/90 hover:to-orange-500/90 transition-all duration-300"
+                className="flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#E8DCC4] px-4 py-3 text-sm font-semibold text-[#1F3D2B] transition-colors duration-300 hover:bg-white"
               >
                 <GitHubIcon size={16} />
                 View GitHub Profile
@@ -273,7 +269,7 @@ export default function GitHubProfileCard() {
                     href={`https://github.com/${username}?tab=repositories`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-[var(--color-accent-secondary)] hover:text-white transition-colors font-medium flex items-center gap-1"
+                    className="flex min-h-11 items-center gap-1 text-xs font-medium text-[var(--color-accent-secondary)] transition-colors hover:text-white"
                   >
                     View all
                     <ExternalLink size={10} />

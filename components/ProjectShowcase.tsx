@@ -170,12 +170,12 @@ export default function ProjectShowcase({
                   transition={{ duration: reduceMotion ? 0 : 0.32 }}
                   className={`group min-w-0 overflow-hidden rounded-xl border transition-colors hover:border-primary ${
                     index === 0
-                      ? "glass-highlight"
+                      ? "border-white/30 bg-bg-secondary"
                       : "border-white/12 bg-bg-secondary"
                   }`}
                 >
                   <div
-                    className={`relative w-full overflow-hidden bg-black/30 ${
+                    className={`relative w-full overflow-hidden bg-[#1F3D2B]/30 ${
                       index % 3 === 0 ? "aspect-[4/3]" : "aspect-[16/10]"
                     }`}
                   >
@@ -223,7 +223,7 @@ export default function ProjectShowcase({
                     <button
                       type="button"
                       onClick={() => setSelectedProject(project)}
-                      className="mt-5 inline-flex min-h-11 items-center gap-2 self-start rounded-md text-xs font-medium text-primary transition-colors hover:text-white active:text-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                      className="mt-5 inline-flex min-h-11 items-center gap-2 self-start rounded-md text-xs font-medium text-primary transition-colors hover:text-white active:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
                     >
                       View project details
                       <ArrowUpRight size={15} aria-hidden="true" />
@@ -245,7 +245,7 @@ export default function ProjectShowcase({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-black/85 p-4"
+            className="fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-[#1F3D2B]/85 p-4"
           >
             <motion.div
               ref={modalRef}
@@ -261,7 +261,7 @@ export default function ProjectShowcase({
                 ease: "easeOut",
               }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-h-[90dvh] w-full max-w-4xl cursor-auto overflow-y-auto rounded-2xl border border-white/10 bg-bg-secondary shadow-2xl"
+              className="relative max-h-[90dvh] w-full max-w-4xl cursor-auto overflow-y-auto rounded-2xl border border-white/10 bg-bg-secondary shadow-[0_24px_70px_rgba(31,61,43,0.32)]"
             >
               {/* Nav arrows */}
               {currentIndex > 0 && (
@@ -291,7 +291,7 @@ export default function ProjectShowcase({
                 </button>
               )}
 
-              <div className="relative bg-black/60">
+              <div className="relative bg-[#1F3D2B]/60">
                 {/* Clicking the image opens the full resolution file in a new tab */}
                 <a
                   href={selectedProject.image}
@@ -364,7 +364,7 @@ export default function ProjectShowcase({
                   </span>
                   <button
                     onClick={() => setSelectedProject(null)}
-                    className="min-h-11 rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-black transition-colors hover:bg-white/90 active:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    className="min-h-11 rounded-lg bg-[#E8DCC4] px-5 py-2.5 text-sm font-medium text-[#1F3D2B] transition-colors hover:bg-white active:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                   >
                     Close
                   </button>

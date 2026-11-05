@@ -108,7 +108,7 @@ export default function CertificateModal({
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
-      className="fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-black/90 p-3 sm:p-6"
+      className="fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-[#1F3D2B]/90 p-3 sm:p-6"
     >
       <motion.div
         ref={dialogRef}
@@ -120,7 +120,7 @@ export default function CertificateModal({
         animate={{ opacity: 1, scale: 1 }}
         exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94 }}
         transition={{ duration: reduceMotion ? 0 : 0.24, ease: "easeOut" }}
-        className="relative flex max-h-full w-full max-w-6xl cursor-auto flex-col overflow-hidden rounded-xl border border-white/15 bg-bg-secondary shadow-2xl"
+        className="relative flex max-h-full w-full max-w-6xl cursor-auto flex-col overflow-hidden rounded-xl border border-white/15 bg-bg-secondary shadow-[0_24px_70px_rgba(31,61,43,0.32)]"
       >
         <div className="relative flex h-[min(66dvh,60rem)] min-h-0 items-center justify-center bg-neutral sm:h-[min(76dvh,60rem)]">
           <Image

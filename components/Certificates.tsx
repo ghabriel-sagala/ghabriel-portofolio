@@ -85,7 +85,7 @@ export default function Certificates({ certificates }: CertificatesProps) {
                       loading="lazy"
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
                     />
-                    <span className="absolute inset-x-0 bottom-0 flex min-h-11 items-center justify-between bg-gradient-to-t from-black/90 to-transparent px-4 pt-5 font-mono text-[10px] text-white">
+                    <span className="absolute inset-x-0 bottom-0 flex min-h-11 items-center justify-between bg-gradient-to-t from-[#1F3D2B]/90 to-transparent px-4 pt-5 font-mono text-[10px] text-white">
                       View full-size image
                       <ArrowUpRight size={16} aria-hidden="true" />
                     </span>

@@ -3,44 +3,39 @@
 import { motion } from "framer-motion";
 
 const skills = [
-  { name: "Next.js", level: 92, color: "from-gray-900 to-white" },
-  { name: "React.js", level: 90, color: "from-blue-400 to-cyan-400" },
-  { name: "TypeScript", level: 85, color: "from-blue-600 to-blue-400" },
-  { name: "Tailwind CSS", level: 94, color: "from-cyan-400 to-blue-500" },
-  { name: "Laravel / PHP", level: 88, color: "from-red-500 to-orange-400" },
-  { name: "Node.js", level: 80, color: "from-green-500 to-green-600" },
-  { name: "UI/UX Design", level: 82, color: "from-purple-500 to-pink-500" },
-  { name: "MySQL / Database", level: 86, color: "from-orange-400 to-red-500" },
-  { name: "JavaScript", level: 92, color: "from-yellow-400 to-yellow-500" },
-  { name: "Machine Learning", level: 75, color: "from-purple-500 to-indigo-500" },
-  { name: "IoT & Arduino", level: 78, color: "from-green-500 to-emerald-500" },
+  { name: "Next.js", level: 92 },
+  { name: "React.js", level: 90 },
+  { name: "TypeScript", level: 85 },
+  { name: "Tailwind CSS", level: 94 },
+  { name: "Laravel / PHP", level: 88 },
+  { name: "Node.js", level: 80 },
+  { name: "UI/UX Design", level: 82 },
+  { name: "MySQL / Database", level: 86 },
+  { name: "JavaScript", level: 92 },
+  { name: "Machine Learning", level: 75 },
+  { name: "IoT & Arduino", level: 78 },
 ];
 
 const skillCategories = [
   {
     title: "Frontend",
     skills: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "UI/UX Design"],
-    icon: "🎨",
   },
   {
     title: "Backend",
     skills: ["Laravel / PHP", "MySQL / Database", "Node.js", "REST API"],
-    icon: "⚙️",
   },
   {
     title: "AI & ML",
     skills: ["Machine Learning", "Python", "Google Gemini", "Data Analysis"],
-    icon: "🤖",
   },
   {
     title: "Tools & DevOps",
     skills: ["Git & GitHub", "VS Code", "Docker", "Linux", "npm/yarn"],
-    icon: "🛠️",
   },
   {
     title: "IoT & Hardware",
     skills: ["Arduino", "Sensor Integration", "Real-time Monitoring", "Embedded Systems"],
-    icon: "📡",
   },
 ];
 
@@ -60,12 +55,6 @@ const item = {
 export default function Skills() {
   return (
     <section className="relative py-24">
-      {/* Ambient background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-[var(--color-accent)]/8 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[var(--color-accent-secondary)]/6 rounded-full blur-[100px]" />
-      </div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 lg:px-12">
         {/* Section header */}
         <motion.div
@@ -76,7 +65,7 @@ export default function Skills() {
           className="text-center mb-12 md:mb-16"
         >
           <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
-            03 — Skills
+            03 / Skills
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-display mt-3 mb-4 tracking-tight">
             Technical Skills
@@ -101,11 +90,8 @@ export default function Skills() {
               variants={item}
               className="group relative"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/10 to-[var(--color-accent-secondary)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl blur-xl -z-10" />
-
               <div className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 md:p-7 transition-all duration-300 h-full group-hover:border-white/10">
                 <div className="flex items-center gap-3 mb-4 md:mb-5">
-                  <span className="text-xl md:text-2xl">{category.icon}</span>
                   <h3 className="text-base md:text-lg font-bold text-white font-display">
                     {category.title}
                   </h3>
@@ -154,7 +140,7 @@ export default function Skills() {
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
                     transition={{ duration: 1, delay: 0.2 }}
-                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full`}
+                    className="h-full rounded-full bg-[#E8DCC4]"
                   />
                 </div>
               </motion.div>

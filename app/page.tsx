@@ -31,7 +31,7 @@ const organisasiData = [
   },
   {
     id: "org2",
-    title: "Kepala Divisi Acara — PKKMB",
+    title: "Kepala Divisi Acara, PKKMB",
     subtitle: "Fakultas Vokasi Universitas Brawijaya",
     period: "Agu 2025 - Nov 2025",
     fullDesc:
@@ -39,7 +39,7 @@ const organisasiData = [
   },
   {
     id: "org3",
-    title: "Wakil Kepala Divisi Acara — Abdi Desa",
+    title: "Wakil Kepala Divisi Acara, Abdi Desa",
     subtitle: "Fakultas Vokasi Universitas Brawijaya",
     period: "2025",
     fullDesc:
@@ -47,7 +47,7 @@ const organisasiData = [
   },
   {
     id: "org4",
-    title: "Master of Ceremony — Finale Abdi Desa",
+    title: "Master of Ceremony, Finale Abdi Desa",
     subtitle: "Desa Amandanom",
     period: "2025",
     fullDesc:
@@ -55,7 +55,7 @@ const organisasiData = [
   },
   {
     id: "org5",
-    title: "Master of Ceremony — Perayaan Paskah",
+    title: "Master of Ceremony, Perayaan Paskah",
     subtitle: "PMK Vokasi x Level Up Blitar x GBI",
     period: "2026",
     fullDesc:

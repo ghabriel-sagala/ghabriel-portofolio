@@ -12,14 +12,12 @@ const socials = [
     value: "ghabrielsagala@gmail.com",
     href: "mailto:ghabrielsagala@gmail.com",
     icon: Mail,
-    color: "from-[var(--brand-primary)] to-orange-400",
   },
   {
     label: "LinkedIn",
     value: "Ghabriel Sagala",
     href: "https://www.linkedin.com/in/ghabriel-sagala-93bba027b",
     icon: Linkedin,
-    color: "from-blue-500 to-cyan-400",
   },
 ];
 
@@ -85,7 +83,7 @@ export default function Contact() {
           className="max-w-3xl mb-10 md:mb-16"
         >
           <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
-            05 — Contact
+            05 / Contact
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-display mt-3 mb-4 tracking-tight">
             Get In Touch
@@ -110,8 +108,6 @@ export default function Contact() {
             transition={{ duration: 0.7 }}
             className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 md:p-8 md:p-10 hover:border-white/10 transition-all duration-300"
           >
-            <div className="absolute -top-16 -right-16 w-40 h-40 md:w-64 md:h-64 bg-[var(--color-accent)]/10 blur-3xl rounded-full pointer-events-none" />
-
             <div className="relative z-10">
               <h3 className="text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent-secondary)] mb-1">
                 Send a Message
@@ -126,8 +122,8 @@ export default function Contact() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center justify-center py-20 text-center gap-5"
                 >
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-500/20 to-[var(--color-accent-secondary)]/20 flex items-center justify-center">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#E8DCC4]/10">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E8DCC4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
                   </div>
@@ -196,7 +192,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full px-4 py-3 md:px-5 md:py-3 bg-gradient-to-r from-[var(--color-accent)] to-orange-500 text-white font-semibold text-xs md:text-sm rounded-xl hover:shadow-lg hover:shadow-[var(--color-accent)]/20 disabled:opacity-50 transition-all duration-300 flex items-center justify-center gap-2"
+                    className="flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#E8DCC4] px-4 py-3 text-xs font-semibold text-[#1F3D2B] transition-colors duration-300 hover:bg-white disabled:opacity-50 md:px-5 md:text-sm"
                   >
                     <Send size={16} />
                     {isLoading ? "Sending..." : "Send Message"}
@@ -234,9 +230,9 @@ export default function Contact() {
                     className="group flex items-center gap-4 p-4 rounded-xl bg-[var(--color-bg-tertiary)] border border-white/6 hover:border-white/10 transition-all duration-300"
                   >
                     <div
-                      className={`p-2.5 rounded-lg bg-gradient-to-br ${social.color} flex items-center justify-center flex-shrink-0`}
+                      className="flex shrink-0 items-center justify-center rounded-lg bg-[#E8DCC4] p-2.5"
                     >
-                      <IconComponent size={18} className="text-white" />
+                      <IconComponent size={18} className="text-[#1F3D2B]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">
@@ -285,7 +281,7 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="rounded-xl bg-gradient-to-br from-[var(--color-accent)]/8 to-orange-500/4 border border-[var(--color-accent)]/15 p-5"
+              className="rounded-xl border border-[#E8DCC4]/15 bg-[#E8DCC4]/5 p-5"
             >
               <div className="mb-4">
                 <p className="text-[10px] font-mono uppercase tracking-widest text-[var(--color-accent)] mb-1">
@@ -301,7 +297,7 @@ export default function Contact() {
               <div className="flex gap-2">
                 <a
                   href="mailto:ghabrielsagala@gmail.com"
-                  className="flex-1 px-4 py-2.5 bg-[var(--color-accent)] text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-[var(--color-accent)]/20 transition-all text-center"
+                  className="flex min-h-11 flex-1 items-center justify-center rounded-lg bg-[#E8DCC4] px-4 py-2.5 text-center text-sm font-semibold text-[#1F3D2B] transition-colors hover:bg-white"
                 >
                   Email Me
                 </a>

@@ -1,29 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #08B6D3;
-  --color-secondary: #D946EF;
-  --color-tertiary: #10B981;
-  --color-neutral: #000A10;
-  --color-bg-primary: var(--color-neutral);
-  --color-bg-secondary: #07141A;
-  --color-bg-tertiary: #0D1C23;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #B5C2C7;
-  --color-text-muted: #91A0A6;
+  --color-primary: #E8DCC4;
+  --color-secondary: #E8DCC4;
+  --color-tertiary: #E8DCC4;
+  --color-neutral: #1F3D2B;
+  --color-bg-primary: #1F3D2B;
+  --color-bg-secondary: #1F3D2B;
+  --color-bg-tertiary: #1F3D2B;
+  --color-text-primary: #E8DCC4;
+  --color-text-secondary: #E8DCC4;
+  --color-text-muted: #E8DCC4;
   --color-accent: var(--color-primary);
   --color-accent-secondary: var(--color-secondary);
-  --color-glass: rgba(255, 255, 255, 0.035);
-  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-white: #E8DCC4;
+  --color-gray-300: #E8DCC4;
+  --color-gray-400: #E8DCC4;
+  --color-gray-500: #E8DCC4;
+  --color-gray-600: #E8DCC4;
   --font-display: var(--font-space), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
-  --color-gray-500: #91A0A6;
 }
 
 @layer base {
   :root {
-    color-scheme: dark;
+    background: #1F3D2B;
     --brand-primary: var(--color-primary);
     --brand-secondary: var(--color-secondary);
   }
@@ -37,6 +39,8 @@
   }
 
   html {
+    min-height: 100%;
+    background: #1F3D2B;
     scroll-behavior: smooth;
     scroll-padding-top: 100px;
     -webkit-font-smoothing: antialiased;
@@ -44,8 +48,9 @@
   }
 
   body {
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-primary);
+    min-height: 100%;
+    background-color: #1F3D2B;
+    color: #E8DCC4;
     font-family: var(--font-body);
     line-height: 1.6;
     -webkit-tap-highlight-color: transparent;
@@ -80,8 +85,8 @@
   }
 
   ::selection {
-    background: rgba(8, 182, 211, 0.3);
-    color: white;
+    background: #E8DCC4;
+    color: #1F3D2B;
   }
 
   :focus-visible {
@@ -111,31 +116,13 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(232, 220, 196, 0.35);
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(8, 182, 211, 0.5);
+    background: rgba(232, 220, 196, 0.7);
   }
-}
-
-/* Blur is reserved for the featured project and organization cards. */
-.glass {
-  background: var(--color-glass);
-  border: 1px solid var(--color-glass-border);
-}
-
-.glass-card {
-  background: rgba(13, 28, 35, 0.88);
-  border: 1px solid var(--color-glass-border);
-}
-
-.glass-highlight {
-  background: rgba(13, 28, 35, 0.7);
-  border: 1px solid rgba(8, 182, 211, 0.22);
-  backdrop-filter: blur(14px) saturate(125%);
-  -webkit-backdrop-filter: blur(14px) saturate(125%);
 }
 
 /* Noise texture overlay */
@@ -158,6 +145,36 @@
 /* Smooth hover transitions */
 .group-hover-lift {
   transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
+}
+
+.hero-particle-push {
+  translate: var(--push-x, 0px) var(--push-y, 0px);
+  transition: translate 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: transform, translate;
+}
+
+.hero-particle-glyph {
+  animation: hero-particle-turn var(--spin-duration, 24s) linear infinite;
+}
+
+.hero-particle-float {
+  animation: hero-particle-drift 4.6s ease-in-out infinite alternate;
+}
+
+.hero-motion-paused {
+  animation-play-state: paused;
+}
+
+@keyframes hero-particle-turn {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes hero-particle-drift {
+  to {
+    transform: translateY(-10px);
+  }
 }
 
 /* Fade-in-up animation (for JS-triggered reveals) */
@@ -188,5 +205,12 @@
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .hero-particle-float,
+  .hero-particle-glyph {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto;
   }
 }

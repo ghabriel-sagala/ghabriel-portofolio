@@ -66,10 +66,10 @@ export default function Timeline({ items, title }: TimelineProps) {
                     duration: reduceMotion ? 0 : 0.4,
                     delay: reduceMotion ? 0 : Math.min(index * 0.04, 0.16),
                   }}
-                  className={`relative rounded-xl p-5 transition-colors sm:p-6 ${
+                  className={`relative rounded-xl border p-5 transition-colors sm:p-6 ${
                     isOrganization && index === 0
-                      ? "glass-highlight"
-                      : "glass-card"
+                      ? "border-white/30 bg-white/5"
+                      : "border-white/12 bg-bg-secondary"
                   }`}
                 >
                   <span
@@ -119,7 +119,7 @@ export default function Timeline({ items, title }: TimelineProps) {
                     onClick={() =>
                       setExpandedId(isExpanded ? null : item.id)
                     }
-                    className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-md text-xs font-medium text-primary transition-colors hover:text-white active:text-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                    className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-md text-xs font-medium text-primary transition-colors hover:text-white active:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
                   >
                     {isExpanded ? "Hide details" : "Read details"}
                     <ChevronDown

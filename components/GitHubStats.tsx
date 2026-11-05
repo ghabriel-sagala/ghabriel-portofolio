@@ -171,7 +171,7 @@ export default function GitHubStats({ username = "ghabriel-sagala" }: GitHubStat
           className="text-center mb-12"
         >
           <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
-            06 — GitHub
+            06 / GitHub
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-display mt-3 mb-4 tracking-tight">
             GitHub Activity
@@ -250,7 +250,6 @@ export default function GitHubStats({ username = "ghabriel-sagala" }: GitHubStat
             {/* Stats grid */}
             <div className="grid grid-cols-2 gap-4">
               <motion.div variants={item} className="relative overflow-hidden rounded-xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 hover:border-white/10 transition-all duration-300 group">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-[var(--color-accent)]/8 blur-[40px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                 <div className="relative">
                   <div className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-wider mb-3">
                     <Star size={12} className="text-[var(--color-accent)]" />
@@ -263,7 +262,6 @@ export default function GitHubStats({ username = "ghabriel-sagala" }: GitHubStat
               </motion.div>
 
               <motion.div variants={item} className="relative overflow-hidden rounded-xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 hover:border-white/10 transition-all duration-300 group">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-[var(--color-accent-secondary)]/8 blur-[40px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                 <div className="relative">
                   <div className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-wider mb-3">
                     <Users size={12} className="text-[var(--color-accent-secondary)]" />
@@ -276,7 +274,6 @@ export default function GitHubStats({ username = "ghabriel-sagala" }: GitHubStat
               </motion.div>
 
               <motion.div variants={item} className="relative overflow-hidden rounded-xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 hover:border-white/10 transition-all duration-300 group">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-[var(--color-accent)]/8 blur-[40px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                 <div className="relative">
                   <div className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-wider mb-3">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 16H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2m-6 12h8a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2z"/></svg>
@@ -289,7 +286,6 @@ export default function GitHubStats({ username = "ghabriel-sagala" }: GitHubStat
               </motion.div>
 
               <motion.div variants={item} className="relative overflow-hidden rounded-xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 hover:border-white/10 transition-all duration-300 group">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-[var(--color-accent-secondary)]/8 blur-[40px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                 <div className="relative">
                   <div className="flex items-center gap-2 text-[10px] text-gray-500 uppercase tracking-wider mb-3">
                     <Mail size={12} className="text-[var(--color-accent-secondary)]" />
@@ -308,7 +304,7 @@ export default function GitHubStats({ username = "ghabriel-sagala" }: GitHubStat
                 href={user.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 px-4 py-2.5 bg-white text-black text-sm font-semibold rounded-xl hover:bg-white/90 transition-all text-center flex items-center justify-center gap-2"
+                className="flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-[#E8DCC4] px-4 py-2.5 text-center text-sm font-semibold text-[#1F3D2B] transition-colors hover:bg-white"
               >
                 <Github size={16} />
                 View GitHub Profile
@@ -386,7 +382,7 @@ export default function GitHubStats({ username = "ghabriel-sagala" }: GitHubStat
                             {formatNumber(repo.stargazers_count)}
                           </span>
                           {/* Forks */}
-                          <span className="flex items-center gap-1 text-xs text-gray-500 group-hover:text-orange-400 transition-colors">
+                          <span className="flex items-center gap-1 text-xs text-gray-500 transition-colors group-hover:text-[#E8DCC4]">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 16H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2m-6 12h8a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2z"/></svg>
                             {formatNumber(repo.forks_count)}
                           </span>

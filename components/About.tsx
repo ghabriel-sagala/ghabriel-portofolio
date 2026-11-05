@@ -5,16 +5,16 @@ import { motion } from "framer-motion";
 import AnimatedCounter from "./AnimatedCounter";
 
 const toolkit = [
-  { name: "Figma", icon: "🎨" },
-  { name: "VS Code", icon: "💻" },
-  { name: "C++", icon: "⚙️" },
-  { name: "JavaScript", icon: "🟨" },
-  { name: "Python", icon: "🐍" },
-  { name: "Java", icon: "☕" },
-  { name: "Excel", icon: "📊" },
-  { name: "Laravel", icon: "🔴" },
-  { name: "Next.js", icon: "▲" },
-  { name: "MySQL", icon: "🗄️" },
+  { name: "Figma" },
+  { name: "VS Code" },
+  { name: "C++" },
+  { name: "JavaScript" },
+  { name: "Python" },
+  { name: "Java" },
+  { name: "Excel" },
+  { name: "Laravel" },
+  { name: "Next.js" },
+  { name: "MySQL" },
 ];
 
 const stats = [
@@ -24,11 +24,11 @@ const stats = [
 ];
 
 const services = [
-  { icon: "⚡", title: "Rapid Prototyping", desc: "Pengujian ide sebelum ke produksi" },
-  { icon: "🔗", title: "API & Hardware", desc: "Integrasi sistem web dan IoT" },
-  { icon: "☁️", title: "Cloud-Ready", desc: "Solusi siap deploy modern" },
-  { icon: "🎯", title: "System Arch", desc: "Perancangan arsitektur terstruktur" },
-  { icon: "🎨", title: "Design System", desc: "Komponen konsisten & polished" },
+  { title: "Rapid Prototyping", desc: "Pengujian ide sebelum ke produksi" },
+  { title: "API & Hardware", desc: "Integrasi sistem web dan IoT" },
+  { title: "Cloud-Ready", desc: "Solusi siap deploy modern" },
+  { title: "System Arch", desc: "Perancangan arsitektur terstruktur" },
+  { title: "Design System", desc: "Komponen konsisten & polished" },
 ];
 
 export default function About() {
@@ -43,14 +43,14 @@ export default function About() {
         className="max-w-3xl mx-auto px-4"
       >
         <span className="text-xs font-mono uppercase tracking-[0.3em] text-[var(--color-accent-secondary)]">
-          02 — About
+          02 / About
         </span>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-display mt-3 mb-2 tracking-tight">
           About Me
         </h2>
         <p className="text-gray-400 mt-4 text-sm md:text-base leading-relaxed max-w-xl text-center md:text-left">
-          Software engineer with a modern, quality-first approach —
-          backed by hands-on IoT experience and strong technical fundamentals.
+          Software engineer with a modern, quality-first approach, backed by
+          hands-on IoT experience and strong technical fundamentals.
         </p>
       </motion.div>
 
@@ -64,9 +64,6 @@ export default function About() {
           transition={{ duration: 0.7 }}
           className="relative rounded-2xl bg-[var(--color-bg-tertiary)] border border-white/6 p-5 md:p-8 overflow-hidden"
         >
-          {/* Gradient blend - smaller on mobile */}
-          <div className="absolute top-0 right-0 w-32 h-32 md:w-40 md:h-40 bg-[var(--color-accent)]/10 blur-[60px] md:blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-
           <div className="relative flex items-start gap-4 md:gap-5">
             <div className="relative w-14 h-14 md:w-20 md:h-20 rounded-2xl overflow-hidden ring-1 ring-white/10 flex-shrink-0">
                 <Image
@@ -88,7 +85,7 @@ export default function About() {
                 Software Engineer & IT Enthusiast
               </p>
               <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
-                I build efficient, interactive software — from intuitive UIs to
+                I build efficient, interactive software, from intuitive UIs to
                 hardware automation and resilient system architectures.
               </p>
             </div>
@@ -138,7 +135,6 @@ export default function About() {
                 whileHover={{ y: -3 }}
                 className="group p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-white/10 hover:bg-white/[0.04] transition-all cursor-default"
               >
-                <span className="text-2xl block mb-2">{s.icon}</span>
                 <p className="text-sm font-semibold text-white font-display">{s.title}</p>
                 <p className="text-xs text-gray-500 mt-1 leading-relaxed">{s.desc}</p>
               </motion.div>
@@ -169,7 +165,6 @@ export default function About() {
               whileHover={{ scale: 1.05, y: -2 }}
               className="group flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white/[0.03] border border-white/6 hover:border-white/10 hover:bg-white/[0.05] transition-all cursor-default"
             >
-              <span className="text-sm md:text-base">{tool.icon}</span>
               <span className="text-xs md:text-sm font-medium text-gray-300 font-display leading-tight">
                 {tool.name}
               </span>

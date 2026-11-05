@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     template: "%s | Ghabriel",
   },
   description:
-    "Portfolio of Ghabriel Theo Petra Sagala — Fullstack Developer & Tech Enthusiast specializing in modern web interfaces, IoT systems, and cloud architecture.",
+    "Portfolio of Ghabriel Theo Petra Sagala, Fullstack Developer & Tech Enthusiast specializing in modern web interfaces, IoT systems, and cloud architecture.",
   keywords: [
     "Frontend Developer",
     "UI Developer",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: "Ghabriel Portfolio",
     title: "Ghabriel | Software Engineer",
     description:
-      "Portfolio of Ghabriel Theo Petra Sagala — Fullstack Developer & Tech Enthusiast.",
+      "Portfolio of Ghabriel Theo Petra Sagala, Fullstack Developer & Tech Enthusiast.",
     images: [
       {
         url: "/og-image.png",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ghabriel | Software Engineer",
     description:
-      "Portfolio of Ghabriel Theo Petra Sagala — Fullstack Developer & Tech Enthusiast.",
+      "Portfolio of Ghabriel Theo Petra Sagala, Fullstack Developer & Tech Enthusiast.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -85,18 +85,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth bg-[#1F3D2B]">
       <head>
         <link rel="canonical" href="https://ghabriel-portofolio.vercel.app" />
       </head>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable} antialiased relative min-h-screen flex flex-col bg-[var(--color-bg-primary)] text-[var(--color-text-primary)]`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable} antialiased relative min-h-screen flex flex-col bg-[#1F3D2B] text-[#E8DCC4]`}
       >
         <LayoutGroup id="portfolio-intro">
           <Preloader />
           <BackgroundEffects />
           <Navbar />
-          <main className="relative z-10 mx-auto w-full max-w-[90rem] flex-1 overflow-x-clip px-4 pb-20 sm:px-6 lg:px-10">
+          <main className="relative z-10 mx-auto min-h-screen w-full max-w-[90rem] flex-1 overflow-x-clip bg-[#1F3D2B] px-4 pb-20 text-[#E8DCC4] sm:px-6 lg:px-10">
             {children}
           </main>
           <Footer />

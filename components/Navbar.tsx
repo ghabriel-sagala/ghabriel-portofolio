@@ -16,11 +16,10 @@ const navLinks = [
   { name: "About", href: "#about" },
   { name: "Projects", href: "#projects" },
   { name: "Certificates", href: "#sertifikat" },
-  { name: "Leadership", href: "#pengalaman" },
-  { name: "Contact", href: "#contact" },
 ];
 
 function MagneticHireLink({ onClick }: { onClick?: () => void }) {
+  const [desktopMotion, setDesktopMotion] = useState(false);
   const reduceMotion = useReducedMotion();
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -29,8 +28,19 @@ function MagneticHireLink({ onClick }: { onClick?: () => void }) {
   const rotateX = useTransform(y, [-7, 7], [1.4, -1.4]);
   const rotateY = useTransform(x, [-7, 7], [-1.4, 1.4]);
 
+  useEffect(() => {
+    const media = window.matchMedia(
+      "(min-width: 1024px) and (hover: hover) and (pointer: fine)",
+    );
+    const updatePointerMode = () => setDesktopMotion(media.matches);
+
+    updatePointerMode();
+    media.addEventListener("change", updatePointerMode);
+    return () => media.removeEventListener("change", updatePointerMode);
+  }, []);
+
   const handlePointerMove = (event: PointerEvent<HTMLAnchorElement>) => {
-    if (reduceMotion || event.pointerType !== "mouse") return;
+    if (!desktopMotion || reduceMotion || event.pointerType !== "mouse") return;
 
     const bounds = event.currentTarget.getBoundingClientRect();
     pointerX.set(
@@ -57,11 +67,11 @@ function MagneticHireLink({ onClick }: { onClick?: () => void }) {
           ? undefined
           : { x, y, rotateX, rotateY, transformPerspective: 600 }
       }
-      className="group relative inline-flex min-h-11 items-center justify-center overflow-hidden rounded-md border border-primary/65 bg-neutral px-5 py-2.5 font-display text-sm font-semibold text-white transition-[border-color,box-shadow,color,background-color] duration-200 hover:border-secondary hover:bg-white/[0.04] hover:text-primary hover:shadow-[0_0_18px_rgba(8,182,211,0.25)] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      className="group relative inline-flex min-h-11 items-center justify-center overflow-hidden rounded-sm border border-[#E8DCC4]/65 bg-[#E8DCC4] px-5 py-2.5 font-display text-sm font-semibold text-[#1F3D2B] transition-colors duration-200 hover:border-white hover:bg-white active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E8DCC4]"
     >
       <span
         aria-hidden="true"
-        className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-secondary to-transparent opacity-70 transition-opacity group-hover:opacity-100"
+        className="absolute inset-y-0 left-0 w-px bg-[#1F3D2B]/20 transition-opacity group-hover:opacity-0"
       />
       Hire Me
     </motion.a>
@@ -116,55 +126,44 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    const closeMenuOnNavigation = () => setIsOpen(false);
+    window.addEventListener("hashchange", closeMenuOnNavigation);
+    return () => window.removeEventListener("hashchange", closeMenuOnNavigation);
+  }, []);
+
   const closeMenu = () => setIsOpen(false);
 
   return (
     <header className="sticky top-0 z-50 w-full">
       <nav
-        aria-label="Navigasi utama"
-        className="relative w-full border-b border-white/10 bg-[rgba(0,10,16,0.82)] backdrop-blur-[24px] backdrop-saturate-150"
+        aria-label="Primary navigation"
+        className="relative w-full border-b border-[#E8DCC4]/25 bg-[rgba(31,61,43,0.88)] backdrop-blur-[18px] backdrop-saturate-125"
       >
         <div className="mx-auto flex min-h-16 w-full max-w-[96rem] items-center justify-between gap-3 px-3 py-2.5 sm:min-h-[4.5rem] sm:gap-5 sm:px-6 lg:px-10">
           <a
             href="#hero"
-            className="group flex min-w-0 items-center gap-2.5 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:gap-3"
-            aria-label="Ghabriel Theo P. S., beranda"
+            className="group flex min-h-11 min-w-0 items-center gap-2.5 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E8DCC4] sm:gap-3"
+            aria-label="Ghabriel Theo P. S. home"
           >
             <span
               aria-hidden="true"
-              className="flex h-9 w-9 shrink-0 items-center justify-center border border-primary/55 font-display text-sm font-bold text-primary transition-colors group-hover:border-secondary group-hover:text-white sm:h-10 sm:w-10"
+              className="flex h-9 w-9 shrink-0 items-center justify-center border border-[#E8DCC4]/55 font-display text-sm font-bold text-[#E8DCC4] transition-colors group-hover:border-white group-hover:text-white sm:h-10 sm:w-10"
             >
               G.
             </span>
             <span className="min-w-0">
-              <span className="block truncate font-display text-xs font-bold leading-tight text-white sm:text-base">
+              <span className="block truncate font-display text-xs font-bold leading-tight text-[#E8DCC4] sm:text-base">
                 Ghabriel Theo P. S.
               </span>
-              <span className="mt-1 flex flex-wrap items-center gap-x-1.5 font-mono text-[8px] uppercase leading-tight tracking-[0.06em] text-text-secondary sm:text-[9px]">
-                <motion.span
-                  aria-hidden="true"
-                  initial={reduceMotion ? false : { opacity: 1 }}
-                  animate={
-                    reduceMotion ? undefined : { opacity: [1, 0.18, 1, 0.18, 1] }
-                  }
-                  transition={
-                    reduceMotion
-                      ? undefined
-                      : { duration: 1.15, ease: "easeInOut", delay: 0.2 }
-                  }
-                  className="h-1.5 w-1.5 shrink-0 rounded-full bg-tertiary"
-                />
-                <span>Software Engineer</span>
-                <span aria-hidden="true" className="text-primary">
-                  /
-                </span>
-                <span>Malang, ID</span>
+              <span className="mt-1 block font-mono text-[8px] leading-tight text-[#E8DCC4]/80 sm:text-[9px]">
+                Software Engineer
               </span>
             </span>
           </a>
 
           <ul
-            className="hidden items-center gap-1 xl:flex"
+            className="hidden items-center gap-1 lg:flex"
             onPointerLeave={() => setHoveredLink(null)}
             onBlurCapture={(event) => {
               if (
@@ -186,10 +185,10 @@ export default function Navbar() {
                     aria-current={isActive ? "location" : undefined}
                     onPointerEnter={() => setHoveredLink(link.href.slice(1))}
                     onFocus={() => setHoveredLink(link.href.slice(1))}
-                    className={`relative inline-flex min-h-11 items-center px-3 font-mono text-[11px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+                    className={`relative inline-flex min-h-11 items-center px-3 font-mono text-[11px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E8DCC4] ${
                       isActive || hoveredLink === link.href.slice(1)
-                        ? "text-white"
-                        : "text-text-secondary hover:text-white"
+                        ? "text-[#E8DCC4]"
+                        : "text-[#E8DCC4]/80 hover:text-white"
                     }`}
                   >
                     {link.name}
@@ -207,7 +206,7 @@ export default function Navbar() {
                                 mass: 0.65,
                               }
                         }
-                        className="absolute inset-x-3 bottom-1 h-px bg-primary"
+                        className="absolute inset-x-3 bottom-1 h-px bg-[#E8DCC4]"
                       />
                     )}
                   </a>
@@ -216,17 +215,17 @@ export default function Navbar() {
             })}
           </ul>
 
-          <div className="hidden shrink-0 xl:block">
+          <div className="hidden shrink-0 lg:block">
             <MagneticHireLink />
           </div>
 
           <button
             type="button"
             onClick={() => setIsOpen((open) => !open)}
-            aria-label={isOpen ? "Tutup menu" : "Buka menu"}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
             aria-controls={isOpen ? "mobile-navigation" : undefined}
-            className="ml-auto inline-flex h-11 w-11 shrink-0 items-center justify-center border border-white/20 text-white transition-colors hover:border-primary hover:text-primary active:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary xl:hidden"
+            className="ml-auto inline-flex h-11 w-11 shrink-0 items-center justify-center border border-[#E8DCC4]/45 text-[#E8DCC4] transition-colors hover:border-white hover:text-white active:bg-[#E8DCC4]/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E8DCC4] lg:hidden"
           >
             {isOpen ? (
               <X size={19} aria-hidden="true" />
@@ -238,7 +237,7 @@ export default function Navbar() {
 
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-secondary/70"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#E8DCC4]/70 to-transparent"
         />
       </nav>
 
@@ -266,7 +265,7 @@ export default function Navbar() {
                     clipPath: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
                   }
             }
-            className="overflow-hidden border-b border-white/15 bg-bg-primary xl:hidden"
+            className="overflow-hidden border-b border-[#E8DCC4]/20 bg-[#1F3D2B] lg:hidden"
           >
             <ul className="grid gap-1 px-3 py-3 sm:px-6 lg:px-10">
               {navLinks.map((link) => {
@@ -278,15 +277,15 @@ export default function Navbar() {
                       href={link.href}
                       onClick={closeMenu}
                       aria-current={isActive ? "location" : undefined}
-                      className={`flex min-h-11 items-center justify-between border-l-2 px-4 font-mono text-xs transition-colors hover:text-white active:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary ${
+                      className={`flex min-h-11 items-center justify-between border-l-2 px-4 font-mono text-xs transition-colors hover:text-white active:bg-[#E8DCC4]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#E8DCC4] ${
                         isActive
-                          ? "border-primary text-white"
-                          : "border-transparent text-text-secondary"
+                          ? "border-[#E8DCC4] text-[#E8DCC4]"
+                          : "border-transparent text-[#E8DCC4]/80"
                       }`}
                     >
                       {link.name}
                       {isActive && (
-                        <span className="text-[9px] uppercase tracking-[0.12em] text-primary">
+                        <span className="text-[9px] uppercase tracking-[0.12em] text-[#E8DCC4]">
                           Current
                         </span>
                       )}
@@ -296,9 +295,9 @@ export default function Navbar() {
               })}
             </ul>
 
-            <div className="flex items-center justify-between gap-4 border-t border-white/10 px-4 py-4 sm:px-6 lg:px-10">
-              <span className="font-mono text-[10px] text-text-secondary">
-                <span className="text-tertiary">●</span> Malang, ID
+            <div className="flex items-center justify-between gap-4 border-t border-[#E8DCC4]/15 px-4 py-4 sm:px-6 lg:px-10">
+              <span className="font-mono text-[10px] text-[#E8DCC4]/80">
+                Malang, Indonesia
               </span>
               <MagneticHireLink onClick={closeMenu} />
             </div>

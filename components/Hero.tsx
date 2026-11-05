@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import {
-  AnimatePresence,
   motion,
   useMotionValue,
   useReducedMotion,
@@ -10,71 +9,131 @@ import {
   useTransform,
   type Variants,
 } from "framer-motion";
-import { useEffect, useState, type PointerEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent,
+  type ReactNode,
+} from "react";
 
 const introEvent = "portfolio:intro-ready";
 
-const contentVariants: Variants = {
-  hidden: { opacity: 0, filter: "blur(10px)", y: 12 },
-  visible: {
-    opacity: 1,
-    filter: "blur(0px)",
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+const technologies = [
+  {
+    name: "React / Next.js",
+    position: "left-[2%] top-[16%] -rotate-6",
+    surface: "rounded-full bg-[#E8DCC4]/12 px-4 py-2",
+    duration: 7.2,
   },
-};
-
-const instantVariants: Variants = {
-  hidden: { opacity: 1, filter: "blur(0px)", y: 0 },
-  visible: {
-    opacity: 1,
-    filter: "blur(0px)",
-    y: 0,
-    transition: { duration: 0 },
+  {
+    name: "Laravel",
+    position: "right-[-2%] top-[48%] rotate-3",
+    surface: "rounded-sm bg-[#E8DCC4]/10 px-4 py-2.5",
+    duration: 8.4,
   },
-};
-
-const skills = [
-  { name: "React", className: "left-0 top-[17%]" },
-  { name: "Laravel", className: "right-0 top-[49%]" },
-  { name: "IoT", className: "bottom-[10%] left-[5%]" },
+  {
+    name: "IoT",
+    position: "bottom-[14%] left-[12%] rotate-2",
+    surface: "rounded-full bg-[#E8DCC4]/12 px-4 py-2",
+    duration: 6.6,
+  },
 ];
+
+const revealVariants: Variants = {
+  hidden: { opacity: 0, y: 18, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const instantRevealVariants: Variants = {
+  hidden: { opacity: 1, y: 0, filter: "blur(0px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0 } },
+};
+
+type OrientationEventConstructor = typeof DeviceOrientationEvent & {
+  requestPermission?: () => Promise<"granted" | "denied">;
+};
+
+function clamp(value: number) {
+  return Math.max(-1, Math.min(1, value));
+}
+
+function MagneticLink({
+  href,
+  children,
+  desktopMotion,
+}: {
+  href: string;
+  children: ReactNode;
+  desktopMotion: boolean;
+}) {
+  const reduceMotion = useReducedMotion();
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const x = useSpring(pointerX, { stiffness: 340, damping: 24, mass: 0.35 });
+  const y = useSpring(pointerY, { stiffness: 340, damping: 24, mass: 0.35 });
+
+  function handlePointerMove(event: PointerEvent<HTMLAnchorElement>) {
+    if (!desktopMotion || reduceMotion || event.pointerType !== "mouse") return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    pointerX.set(
+      Math.max(-7, Math.min(7, (event.clientX - bounds.left - bounds.width / 2) * 0.12)),
+    );
+    pointerY.set(
+      Math.max(-6, Math.min(6, (event.clientY - bounds.top - bounds.height / 2) * 0.16)),
+    );
+  }
+
+  function resetPointer() {
+    pointerX.set(0);
+    pointerY.set(0);
+  }
+
+  return (
+    <motion.a
+      href={href}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
+      style={reduceMotion ? undefined : { x, y }}
+      className="inline-flex min-h-11 items-center justify-center rounded-sm bg-[#E8DCC4] px-5 py-2.5 font-display text-sm font-semibold text-[#1F3D2B] transition-colors hover:bg-[#E8DCC4]/90 active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E8DCC4]"
+    >
+      {children}
+    </motion.a>
+  );
+}
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
   const [introReady, setIntroReady] = useState(false);
-  const [lensVisible, setLensVisible] = useState(false);
-  const [ctaActive, setCtaActive] = useState(false);
+  const [desktopMotion, setDesktopMotion] = useState(false);
+  const [motionPlaying, setMotionPlaying] = useState(true);
+  const [deviceTiltEnabled, setDeviceTiltEnabled] = useState(false);
+  const [deviceTiltStatus, setDeviceTiltStatus] = useState("");
+  const stageRef = useRef<HTMLDivElement>(null);
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
-  const smoothPointerX = useSpring(pointerX, {
-    stiffness: 120,
-    damping: 22,
-    mass: 0.4,
+  const mappedRotateX = useTransform(pointerY, [-1, 1], [15, -15]);
+  const mappedRotateY = useTransform(pointerX, [-1, 1], [-15, 15]);
+  const rotateX = useSpring(mappedRotateX, {
+    stiffness: 90,
+    damping: 20,
+    mass: 0.65,
   });
-  const smoothPointerY = useSpring(pointerY, {
-    stiffness: 120,
-    damping: 22,
-    mass: 0.4,
+  const rotateY = useSpring(mappedRotateY, {
+    stiffness: 90,
+    damping: 20,
+    mass: 0.65,
   });
-  const portraitX = useTransform(smoothPointerX, [-1, 1], [-7, 7]);
-  const portraitY = useTransform(smoothPointerY, [-1, 1], [-7, 7]);
-  const skillParallaxX = useTransform(smoothPointerX, [-1, 1], [4, -4]);
-  const skillParallaxY = useTransform(smoothPointerY, [-1, 1], [4, -4]);
-
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const smoothCursorX = useSpring(cursorX, {
-    stiffness: 280,
-    damping: 28,
-    mass: 0.2,
-  });
-  const smoothCursorY = useSpring(cursorY, {
-    stiffness: 280,
-    damping: 28,
-    mass: 0.2,
-  });
+  const reveal = reduceMotion ? instantRevealVariants : revealVariants;
+  const ambientMotion = motionPlaying && !reduceMotion;
 
   useEffect(() => {
     const handleIntroReady = () => setIntroReady(true);
@@ -82,227 +141,269 @@ export default function Hero() {
     return () => window.removeEventListener(introEvent, handleIntroReady);
   }, []);
 
-  function handlePointerMove(event: PointerEvent<HTMLElement>) {
-    if (event.pointerType !== "mouse" || reduceMotion) return;
+  useEffect(() => {
+    const media = window.matchMedia(
+      "(min-width: 1024px) and (hover: hover) and (pointer: fine)",
+    );
+    const updatePointerMode = () => setDesktopMotion(media.matches);
 
-    const bounds = event.currentTarget.getBoundingClientRect();
-    pointerX.set(((event.clientX - bounds.left) / bounds.width - 0.5) * 2);
-    pointerY.set(((event.clientY - bounds.top) / bounds.height - 0.5) * 2);
+    updatePointerMode();
+    media.addEventListener("change", updatePointerMode);
+    return () => media.removeEventListener("change", updatePointerMode);
+  }, []);
 
-    const target = event.target;
-    if (target instanceof Element && target.closest("[data-lens-target]")) {
-      cursorX.set(event.clientX - bounds.left);
-      cursorY.set(event.clientY - bounds.top);
+  useEffect(() => {
+    if (motionPlaying && !reduceMotion) return;
+    pointerX.set(0);
+    pointerY.set(0);
+  }, [motionPlaying, pointerX, pointerY, reduceMotion]);
+
+  useEffect(() => {
+    if (
+      !deviceTiltEnabled ||
+      desktopMotion ||
+      !motionPlaying ||
+      reduceMotion
+    ) {
+      return;
+    }
+
+    function handleOrientation(event: DeviceOrientationEvent) {
+      if (event.beta === null || event.gamma === null) return;
+      pointerY.set(clamp(event.beta / 45));
+      pointerX.set(clamp(event.gamma / 30));
+    }
+
+    window.addEventListener("deviceorientation", handleOrientation);
+    return () => window.removeEventListener("deviceorientation", handleOrientation);
+  }, [desktopMotion, deviceTiltEnabled, motionPlaying, pointerX, pointerY, reduceMotion]);
+
+  function handleMouseMove(event: ReactMouseEvent<HTMLElement>) {
+    if (!desktopMotion || !motionPlaying || reduceMotion) return;
+
+    const stage = stageRef.current;
+    if (!stage) return;
+    const bounds = stage.getBoundingClientRect();
+
+    pointerX.set(clamp(((event.clientX - bounds.left) / bounds.width - 0.5) * 2));
+    pointerY.set(clamp(((event.clientY - bounds.top) / bounds.height - 0.5) * 2));
+  }
+
+  function handleMouseLeave() {
+    if (!desktopMotion) return;
+    pointerX.set(0);
+    pointerY.set(0);
+  }
+
+  async function toggleDeviceTilt() {
+    if (deviceTiltEnabled) {
+      setDeviceTiltEnabled(false);
+      setDeviceTiltStatus("Phone tilt is off.");
+      pointerX.set(0);
+      pointerY.set(0);
+      return;
+    }
+
+    if (!("DeviceOrientationEvent" in window)) {
+      setDeviceTiltStatus("Device tilt is not available in this browser.");
+      return;
+    }
+
+    const orientationEvent = window.DeviceOrientationEvent as OrientationEventConstructor;
+
+    try {
+      if (orientationEvent.requestPermission) {
+        const permission = await orientationEvent.requestPermission();
+        if (permission !== "granted") {
+          setDeviceTiltStatus("Motion access was not granted. You can try again in browser settings.");
+          return;
+        }
+      }
+
+      setDeviceTiltEnabled(true);
+      setDeviceTiltStatus("Phone tilt is on.");
+    } catch (error) {
+      console.error("Could not request device orientation permission.", error);
+      setDeviceTiltStatus("Phone tilt could not be enabled. Check your browser settings.");
     }
   }
 
-  function handlePointerLeave() {
-    pointerX.set(0);
-    pointerY.set(0);
-    setLensVisible(false);
+  function toggleMotion() {
+    setMotionPlaying((playing) => !playing);
+    if (motionPlaying) {
+      pointerX.set(0);
+      pointerY.set(0);
+    }
   }
 
   return (
-      <section
-        id="hero"
-        aria-labelledby="hero-heading"
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
-        className="relative isolate scroll-mt-24 py-16 sm:py-20 lg:flex lg:min-h-[min(760px,88svh)] lg:items-center lg:py-24"
+    <section
+      id="hero"
+      aria-labelledby="hero-heading"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative isolate -mx-4 overflow-hidden bg-[#1F3D2B] px-4 py-12 text-[#E8DCC4] sm:-mx-6 sm:px-6 sm:py-16 lg:-mx-10 lg:px-10 lg:py-0"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
       >
+        <span className="absolute left-[-8%] top-[22%] whitespace-nowrap font-display text-[clamp(8rem,21vw,23rem)] font-semibold leading-none tracking-[-0.1em] text-transparent [-webkit-text-stroke:1px_rgba(232,220,196,0.12)]">
+          ENGINEER
+        </span>
+      </div>
+
+      <div className="relative mx-auto w-full max-w-[90rem] lg:min-h-[max(46rem,calc(100svh-4.5rem))]">
         <motion.div
-          initial={reduceMotion ? false : "hidden"}
+          initial="hidden"
           animate={introReady ? "visible" : "hidden"}
           variants={{
             hidden: {},
-            visible: {
-              transition: { staggerChildren: reduceMotion ? 0 : 0.1 },
-            },
+            visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.12 } },
           }}
-          className="relative z-10 grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(17rem,0.85fr)] lg:gap-8"
+          className="relative z-20 max-w-2xl lg:absolute lg:left-0 lg:top-1/2 lg:w-[48%] lg:-translate-y-1/2"
         >
-          <div className="relative">
-            <div className="mb-5 min-h-8">
-              <AnimatePresence initial={false}>
-                {introReady && (
-                  <motion.p
-                    layoutId="portfolio-intro-name"
-                    transition={{
-                      layout: { duration: reduceMotion ? 0 : 0.72 },
-                    }}
-                    className="w-fit font-display text-lg font-semibold tracking-[-0.04em] text-white sm:text-xl"
-                  >
-                    Ghabriel Theo P. S.
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <motion.h1
-              id="hero-heading"
-              variants={reduceMotion ? instantVariants : contentVariants}
-              className="relative max-w-[10ch] font-display text-[clamp(3.1rem,9.2vw,7rem)] font-medium leading-[0.86] tracking-[-0.075em] text-white lg:pr-4"
-            >
-              <span className="block">Interfaces</span>
-              <span className="block">
-                for <span className="text-primary">real</span>
-              </span>
-              <span className="block">systems.</span>
-            </motion.h1>
-
-            <motion.p
-              variants={reduceMotion ? instantVariants : contentVariants}
-              className="mt-7 max-w-lg text-base leading-7 text-text-secondary sm:text-lg sm:leading-8"
-            >
-              I work across frontend and backend development, connecting clear
-              interfaces to the systems and devices behind them.
-            </motion.p>
-
-            <motion.p
-              variants={reduceMotion ? instantVariants : contentVariants}
-              aria-hidden="true"
-              style={{ fontFamily: '"Segoe Print", "Bradley Hand", cursive' }}
-              className="mt-2 w-fit -rotate-2 text-base text-tertiary sm:text-lg"
-            >
-              from interface to device
-            </motion.p>
-
-            <motion.div
-              variants={reduceMotion ? instantVariants : contentVariants}
-              className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-3"
-            >
-              <motion.a
-                href="#projects"
-                aria-label="Browse selected projects"
-                data-lens-target
-                onPointerEnter={(event) => {
-                  if (event.pointerType === "mouse") {
-                    setLensVisible(!reduceMotion);
-                    setCtaActive(!reduceMotion);
-                  }
-                }}
-                onPointerLeave={() => {
-                  setLensVisible(false);
-                  setCtaActive(false);
-                }}
-                onFocus={() => setCtaActive(true)}
-                onBlur={() => setCtaActive(false)}
-                style={{ cursor: lensVisible ? "none" : "pointer" }}
-                className="group relative grid size-32 shrink-0 place-items-center rounded-full text-primary outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary active:scale-[0.97] sm:size-36"
-              >
-                <motion.svg
-                  viewBox="0 0 140 140"
-                  aria-hidden="true"
-                  className="absolute inset-0 size-full"
-                  animate={{ rotate: ctaActive && !reduceMotion ? 360 : 0 }}
-                  transition={{ duration: 0.85, ease: [0.2, 0.7, 0.2, 1] }}
-                >
-                  <defs>
-                    <path
-                      id="hero-cta-orbit"
-                      d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"
-                    />
-                  </defs>
-                  <text
-                    fill="currentColor"
-                    className="font-mono text-[8.5px] tracking-[0.14em]"
-                  >
-                    <textPath href="#hero-cta-orbit">
-                      VIEW SELECTED PROJECTS / VIEW SELECTED PROJECTS /
-                    </textPath>
-                  </text>
-                </motion.svg>
-                <span className="relative z-10 max-w-16 text-center font-display text-sm font-medium leading-tight text-white transition-colors group-hover:text-primary group-active:text-secondary">
-                  Selected work
-                </span>
-              </motion.a>
-
-              <a
-                href="/CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center text-sm font-medium text-text-secondary underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-primary active:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-              >
-                View CV
-              </a>
-            </motion.div>
-          </div>
-
-          <motion.aside
-            aria-label="Selected technologies and portrait"
-            className="relative mx-auto w-full max-w-[25rem] lg:ml-0 lg:mr-0 lg:mt-12"
+          <motion.p
+            variants={reveal}
+            className="mb-5 text-sm text-[#E8DCC4]/85 sm:text-base"
           >
-            <motion.figure
-              style={
-                reduceMotion
-                  ? undefined
-                  : { x: portraitX, y: portraitY }
-              }
-              className="relative mx-auto aspect-[4/5] w-[84%] overflow-hidden"
+            Ghabriel Theo P. S.
+          </motion.p>
+          <motion.h1
+            id="hero-heading"
+            variants={reveal}
+            className="max-w-[10ch] font-display text-[clamp(3.35rem,8vw,7.75rem)] font-medium leading-[0.88] tracking-[-0.075em] text-[#E8DCC4]"
+          >
+            Interfaces for real systems.
+          </motion.h1>
+          <motion.p
+            variants={reveal}
+            className="mt-6 max-w-[31rem] text-base leading-7 text-[#E8DCC4]/85 sm:mt-7 sm:text-lg sm:leading-8"
+          >
+            I build web experiences for real-world work, connecting clear
+            interfaces to the systems and devices behind them.
+          </motion.p>
+          <motion.div
+            variants={reveal}
+            className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 sm:mt-8"
+          >
+            <MagneticLink href="#projects" desktopMotion={desktopMotion}>
+              View selected work
+            </MagneticLink>
+            <a
+              href="/CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center rounded-sm text-sm font-medium text-[#E8DCC4] underline decoration-[#E8DCC4]/55 underline-offset-4 transition-colors hover:decoration-[#E8DCC4] active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E8DCC4]"
             >
-              <div
-                className="relative size-full overflow-hidden"
-                style={{
-                  borderRadius:
-                    "42% 58% 47% 53% / 34% 39% 61% 66%",
-                }}
+              View CV
+            </a>
+            {!reduceMotion && (
+              <button
+                type="button"
+                aria-pressed={!motionPlaying}
+                onClick={toggleMotion}
+                className="inline-flex min-h-11 items-center rounded-sm px-1 text-sm text-[#E8DCC4]/80 underline decoration-[#E8DCC4]/40 underline-offset-4 transition-colors hover:text-[#E8DCC4] active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E8DCC4]"
               >
-                <Image
-                  src="/profile.jpg"
-                  alt="Ghabriel Theo Petra Sagala"
-                  fill
-                  loading="eager"
-                  fetchPriority="high"
-                  sizes="(max-width: 1023px) min(84vw, 21rem), 340px"
-                  className="object-cover object-[50%_24%] saturate-[0.82]"
-                  style={{
-                    maskImage:
-                      "radial-gradient(ellipse 82% 82% at 50% 46%, #000 62%, transparent 100%)",
-                    WebkitMaskImage:
-                      "radial-gradient(ellipse 82% 82% at 50% 46%, #000 62%, transparent 100%)",
-                  }}
-                />
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral/75 via-transparent to-transparent"
-                />
-              </div>
-              <figcaption className="absolute bottom-[13%] left-[13%] font-mono text-[10px] text-white sm:text-[11px]">
-                Malang, Indonesia
-              </figcaption>
-            </motion.figure>
-
-            {skills.map((skill) => (
-              <motion.span
-                key={skill.name}
-                style={
-                  reduceMotion
-                    ? undefined
-                    : { x: skillParallaxX, y: skillParallaxY }
-                }
-                className={`absolute z-10 bg-neutral px-1.5 py-1 font-mono text-xs font-bold text-primary sm:text-sm ${skill.className}`}
-              >
-                {skill.name}
-              </motion.span>
-            ))}
-          </motion.aside>
+                {motionPlaying ? "Pause motion" : "Resume motion"}
+              </button>
+            )}
+          </motion.div>
         </motion.div>
 
-        <AnimatePresence>
-          {lensVisible && (
+        <div
+          ref={stageRef}
+          style={{ perspective: 1000 }}
+          className="relative mx-auto mt-8 aspect-[4/5] w-[min(82vw,25rem)] sm:mt-10 lg:absolute lg:right-[3%] lg:top-1/2 lg:mt-0 lg:w-[clamp(22rem,34vw,30rem)] lg:-translate-y-1/2"
+        >
+          <motion.figure
+            initial="hidden"
+            animate={introReady ? "visible" : "hidden"}
+            variants={reveal}
+            style={
+              reduceMotion
+                ? undefined
+                : {
+                    rotateX,
+                    rotateY,
+                    transformStyle: "preserve-3d",
+                  }
+            }
+            className="relative size-full [transform-style:preserve-3d]"
+          >
             <motion.div
-              aria-hidden="true"
-              initial={{ opacity: 0, scale: 0.72 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.82 }}
-              transition={{ duration: 0.16 }}
-              style={{ x: smoothCursorX, y: smoothCursorY }}
-              className="pointer-events-none absolute left-0 top-0 z-30 grid size-[4.25rem] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white bg-white font-mono text-[9px] font-bold tracking-widest text-neutral mix-blend-difference"
+              animate={ambientMotion ? { y: [0, -10, 0] } : { y: 0 }}
+              transition={
+                ambientMotion
+                  ? { duration: 7, repeat: Infinity, ease: "easeInOut" }
+                  : { duration: 0.25 }
+              }
+              className="relative size-full overflow-hidden rounded-[48%_52%_43%_57%/38%_42%_58%_62%] drop-shadow-[0_28px_45px_rgba(232,220,196,0.12)]"
             >
-              VIEW
+              <Image
+                src="/profile.jpg"
+                alt="Ghabriel Theo Petra Sagala"
+                fill
+                loading="eager"
+                fetchPriority="high"
+                sizes="(max-width: 1023px) min(82vw, 25rem), (max-width: 1280px) 34vw, 30rem"
+                className="object-cover object-[50%_24%]"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#1F3D2B]/60 to-transparent"
+              />
             </motion.div>
-          )}
-        </AnimatePresence>
-      </section>
+            <figcaption className="absolute bottom-[2%] left-1/2 -translate-x-1/2 font-mono text-xs text-[#E8DCC4]">
+              Malang, Indonesia
+            </figcaption>
+          </motion.figure>
+
+          <ul
+            aria-label="Technology stack"
+            className="pointer-events-none absolute inset-0 z-10 list-none"
+          >
+            {technologies.map((technology) => (
+              <motion.li
+                key={technology.name}
+                animate={
+                  ambientMotion
+                    ? { y: [0, -10, 0] }
+                    : { y: 0 }
+                }
+                transition={
+                  ambientMotion
+                    ? {
+                        duration: technology.duration,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }
+                    : { duration: 0.25 }
+                }
+                className={`absolute whitespace-nowrap font-display text-sm font-medium text-[#E8DCC4] sm:text-base ${technology.position} ${technology.surface}`}
+              >
+                {technology.name}
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+
+        {!reduceMotion && (
+          <div className="relative z-20 mt-5 flex flex-col items-center gap-2 lg:hidden">
+            <button
+              type="button"
+              aria-pressed={deviceTiltEnabled}
+              onClick={toggleDeviceTilt}
+              className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#E8DCC4]/12 px-5 text-sm font-medium text-[#E8DCC4] transition-colors hover:bg-[#E8DCC4]/20 active:bg-[#E8DCC4]/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E8DCC4]"
+            >
+              {deviceTiltEnabled ? "Phone tilt on" : "Enable phone tilt"}
+            </button>
+            <p aria-live="polite" className="min-h-5 max-w-sm text-center text-xs text-[#E8DCC4]/80">
+              {deviceTiltStatus}
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
