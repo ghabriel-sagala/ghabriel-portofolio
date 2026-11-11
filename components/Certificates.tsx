@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import { useCallback, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, FileText } from "lucide-react";
 import CertificateModal, { type Certificate } from "./CertificateModal";
+import { useReducedMotionPreference } from "@/hooks/useReducedMotionPreference";
 
 interface CertificatesProps {
   certificates: Certificate[];
@@ -12,7 +13,7 @@ interface CertificatesProps {
 
 export default function Certificates({ certificates }: CertificatesProps) {
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
   const currentIndex = selectedCert
     ? certificates.findIndex((certificate) => certificate.id === selectedCert.id)
     : -1;

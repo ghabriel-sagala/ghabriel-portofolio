@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { useReducedMotionPreference } from "@/hooks/useReducedMotionPreference";
 
 interface TimelineItem {
   id: string;
@@ -20,7 +21,7 @@ interface TimelineProps {
 
 export default function Timeline({ items, title }: TimelineProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
   const isOrganization = title === "Organization & Leadership";
 
   return (

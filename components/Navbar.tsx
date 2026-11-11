@@ -4,10 +4,10 @@ import {
   AnimatePresence,
   motion,
   useMotionValue,
-  useReducedMotion,
   useSpring,
   useTransform,
 } from "framer-motion";
+import { useReducedMotionPreference } from "@/hooks/useReducedMotionPreference";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState, type PointerEvent } from "react";
 
@@ -20,7 +20,7 @@ const navLinks = [
 
 function MagneticHireLink({ onClick }: { onClick?: () => void }) {
   const [desktopMotion, setDesktopMotion] = useState(false);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
   const x = useSpring(pointerX, { stiffness: 340, damping: 24, mass: 0.35 });
@@ -82,7 +82,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
   const activeIndicator = hoveredLink ?? activeSection;
 
   useEffect(() => {

@@ -125,6 +125,34 @@
   }
 }
 
+.portfolio-green-gradient {
+  background: linear-gradient(125deg, #173827 0%, #1f3d2b 52%, #295238 100%);
+}
+
+.intro-typewriter {
+  display: inline-block;
+  width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  border-right: 1.5px solid currentColor;
+  white-space: nowrap;
+  animation:
+    intro-type 1.15s steps(16, end) forwards,
+    intro-caret 0.7s step-end 2;
+}
+
+@keyframes intro-type {
+  to {
+    width: 16ch;
+  }
+}
+
+@keyframes intro-caret {
+  50% {
+    border-color: transparent;
+  }
+}
+
 /* Noise texture overlay */
 .noise-overlay::before {
   content: "";
@@ -212,5 +240,11 @@
     animation: none !important;
     transition: none !important;
     will-change: auto;
+  }
+
+  .intro-typewriter {
+    width: 16ch;
+    animation: none;
+    border-color: transparent;
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowUpRight,
   X,
@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useReducedMotionPreference } from "@/hooks/useReducedMotionPreference";
 
 interface Project {
   id: string | number;
@@ -33,7 +34,7 @@ export default function ProjectShowcase({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const portalRoot =
     typeof document === "undefined" ? null : document.body;
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
 
   // Unique categories
   const categories = [

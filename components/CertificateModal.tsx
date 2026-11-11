@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { createPortal } from "react-dom";
 import { useEffect, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReducedMotionPreference } from "@/hooks/useReducedMotionPreference";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 export interface Certificate {
@@ -35,7 +36,7 @@ export default function CertificateModal({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const portalRoot =
     typeof document === "undefined" ? null : document.body;
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
 
   useEffect(() => {
     if (!portalRoot) return;

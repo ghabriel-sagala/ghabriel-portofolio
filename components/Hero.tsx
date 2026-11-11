@@ -4,11 +4,11 @@ import Image from "next/image";
 import {
   motion,
   useMotionValue,
-  useReducedMotion,
   useSpring,
   useTransform,
   type Variants,
 } from "framer-motion";
+import { useReducedMotionPreference } from "@/hooks/useReducedMotionPreference";
 import {
   useEffect,
   useRef,
@@ -73,7 +73,7 @@ function MagneticLink({
   children: ReactNode;
   desktopMotion: boolean;
 }) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
   const x = useSpring(pointerX, { stiffness: 340, damping: 24, mass: 0.35 });
@@ -110,7 +110,7 @@ function MagneticLink({
 }
 
 export default function Hero() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotionPreference();
   const [introReady, setIntroReady] = useState(false);
   const [desktopMotion, setDesktopMotion] = useState(false);
   const [motionPlaying, setMotionPlaying] = useState(true);
@@ -242,7 +242,7 @@ export default function Hero() {
       aria-labelledby="hero-heading"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative isolate -mx-4 overflow-hidden bg-[#1F3D2B] px-4 py-12 text-[#E8DCC4] sm:-mx-6 sm:px-6 sm:py-16 lg:-mx-10 lg:px-10 lg:py-0"
+      className="portfolio-green-gradient relative isolate -mx-4 overflow-hidden px-4 py-12 text-[#E8DCC4] sm:-mx-6 sm:px-6 sm:py-16 lg:-mx-10 lg:px-10 lg:py-0"
     >
       <div
         aria-hidden="true"
