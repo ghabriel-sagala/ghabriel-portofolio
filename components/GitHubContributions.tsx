@@ -221,11 +221,14 @@ export default function GitHubContributions() {
 
               <div
                 aria-label={`${data.total} kontribusi GitHub dalam 12 bulan terakhir`}
-                className="grid auto-cols-[0.625rem] grid-flow-col grid-rows-7 gap-1"
+                className="flex w-max gap-1"
                 role="img"
               >
                 {weeks.map((week, weekIndex) => (
-                  <div key={weekIndex} className="grid grid-rows-7 gap-1">
+                  <div
+                    key={weekIndex}
+                    className="grid w-2.5 shrink-0 grid-rows-7 gap-1"
+                  >
                     {week.map((day, dayIndex) =>
                       day ? (
                         <span
