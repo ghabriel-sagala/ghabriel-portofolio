@@ -253,7 +253,7 @@ export default function Hero() {
         </span>
       </div>
 
-      <div className="relative mx-auto w-full max-w-[90rem] lg:min-h-[max(46rem,calc(100svh-4.5rem))]">
+      <div className="relative mx-auto w-full max-w-[85rem] lg:min-h-[max(46rem,calc(100svh-4.5rem))]">
         <motion.div
           initial="hidden"
           animate={introReady ? "visible" : "hidden"}
@@ -314,7 +314,7 @@ export default function Hero() {
         <div
           ref={stageRef}
           style={{ perspective: 1000 }}
-          className="relative mx-auto mt-8 aspect-[4/5] w-[min(82vw,25rem)] sm:mt-10 lg:absolute lg:right-[3%] lg:top-1/2 lg:mt-0 lg:w-[clamp(22rem,34vw,30rem)] lg:-translate-y-1/2"
+          className="relative mx-auto mt-8 aspect-[4/5] w-[min(82vw,25rem)] sm:mt-10 lg:absolute lg:right-0 lg:top-1/2 lg:mt-0 lg:w-[clamp(22rem,34vw,30rem)] lg:-translate-y-1/2"
         >
           <motion.figure
             initial="hidden"

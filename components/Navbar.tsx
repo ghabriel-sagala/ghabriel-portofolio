@@ -138,9 +138,9 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full">
       <nav
         aria-label="Primary navigation"
-        className="relative w-full border-b border-[#E8DCC4]/25 bg-[rgba(31,61,43,0.88)] backdrop-blur-[18px] backdrop-saturate-125"
+        className="relative w-full border-b border-[#E8DCC4]/25 bg-[linear-gradient(110deg,rgba(23,56,39,0.94),rgba(31,61,43,0.94),rgba(41,82,56,0.92))] backdrop-blur-[18px] backdrop-saturate-125"
       >
-        <div className="mx-auto flex min-h-16 w-full max-w-[96rem] items-center justify-between gap-3 px-3 py-2.5 sm:min-h-[4.5rem] sm:gap-5 sm:px-6 lg:px-10">
+        <div className="mx-auto flex min-h-16 w-full max-w-[90rem] items-center justify-between gap-3 px-3 py-2.5 sm:min-h-[4.5rem] sm:gap-5 sm:px-6 lg:px-10">
           <a
             href="#hero"
             className="group flex min-h-11 min-w-0 items-center gap-2.5 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E8DCC4] sm:gap-3"
@@ -185,12 +185,29 @@ export default function Navbar() {
                     aria-current={isActive ? "location" : undefined}
                     onPointerEnter={() => setHoveredLink(link.href.slice(1))}
                     onFocus={() => setHoveredLink(link.href.slice(1))}
-                    className={`relative inline-flex min-h-11 items-center px-3 font-mono text-[11px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E8DCC4] ${
+                    className={`relative isolate inline-flex min-h-11 items-center rounded-sm px-3 font-mono text-[11px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E8DCC4] ${
                       isActive || hoveredLink === link.href.slice(1)
                         ? "text-[#E8DCC4]"
                         : "text-[#E8DCC4]/80 hover:text-white"
                     }`}
                   >
+                    {showIndicator && (
+                      <motion.span
+                        layoutId="navbar-active-surface"
+                        aria-hidden="true"
+                        transition={
+                          reduceMotion
+                            ? { duration: 0 }
+                            : {
+                                type: "spring",
+                                stiffness: 460,
+                                damping: 34,
+                                mass: 0.7,
+                              }
+                        }
+                        className="absolute inset-1 -z-10 rounded-sm bg-[#E8DCC4]/[0.08]"
+                      />
+                    )}
                     {link.name}
                     {showIndicator && (
                       <motion.span

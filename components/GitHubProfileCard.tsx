@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Users, GitFork, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
+import GitHubContributions from "@/components/GitHubContributions";
 
 interface GitHubUser {
   login: string;
@@ -332,6 +333,8 @@ export default function GitHubProfileCard() {
             </div>
           </motion.div>
         </motion.div>
+
+        <GitHubContributions />
       </div>
     </section>
   );

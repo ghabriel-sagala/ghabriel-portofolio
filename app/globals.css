@@ -126,7 +126,15 @@
 }
 
 .portfolio-green-gradient {
-  background: linear-gradient(125deg, #173827 0%, #1f3d2b 52%, #295238 100%);
+  background-color: #1F3D2B;
+  background-image: linear-gradient(
+    90deg,
+    #1F3D2B 0%,
+    #193A29 18%,
+    #254A33 52%,
+    #2B563A 78%,
+    #1F3D2B 100%
+  );
 }
 
 .intro-typewriter {
